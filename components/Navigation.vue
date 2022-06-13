@@ -13,7 +13,7 @@
                 </svg>
             </div>
         </div>
-        <NavigationMenuOpen v-if="isNavOpen"/>
+        <NavigationMenuOpen v-if="isNavOpen" v-scroll-lock="isNavOpen"/>
     </div>
 </template>
 
