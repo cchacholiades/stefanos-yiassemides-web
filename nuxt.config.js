@@ -22,7 +22,10 @@ export default {
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
+    '~/plugins/v-scroll-lock.client.js',
     '~/plugins/soundcloud.client.js',
+    '~plugins/vimeo-player.js',
+    '~plugins/youtube-player.client.js',
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -61,17 +64,22 @@ export default {
   // Google fonts module configuration: https://google-fonts.nuxtjs.org/options/
   googleFonts: {
     families: {
-      'Source+Code+Pro': true
+      'Roboto': true,
+      'Source+Code+Pro': true,
+      'Montserrat': true,
     }
   },
 
   fontawesome: {
     icons: {
-      brands: ['faSoundcloud', 'faLinkedin', 'faTwitter', 'faInstagram', 'faImdb' ],
+      brands: ['faSoundcloud', 'faLinkedin', 'faTwitter', 'faInstagram', 'faImdb'],
     },
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
+    vendor: [
+      'vue-vimeo-player'
+    ],
   }
 }

@@ -80,7 +80,9 @@ module.exports = {
         },
         extend: {
             fontFamily: {
-                "sourceCodePro": ['Source Code Pro', 'monospace'],
+                "montserrat": ["Montserrat", "sans-serif"],
+                "roboto": ["Roboto", "-apple-system", "BlinkMacSystemFont", "Tahoma", "sans‑serif"],
+                "sourceCodePro": ["Source Code Pro", "monospace"],
             },
             keyframes: {
                 fadeInOpacity: {
@@ -113,5 +115,6 @@ module.exports = {
     },
     plugins: [
         require('@tailwindcss/aspect-ratio'),
+        require('tailwind-scrollbar-hide')
     ],
 }
