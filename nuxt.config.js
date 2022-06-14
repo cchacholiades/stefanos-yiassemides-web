@@ -24,7 +24,7 @@ export default {
   plugins: [
     '~/plugins/v-scroll-lock.client.js',
     '~/plugins/soundcloud.client.js',
-    '~plugins/vimeo-player.js',
+    '~plugins/vimeo-player.client.js',
     '~plugins/youtube-player.client.js',
   ],
 
@@ -67,12 +67,14 @@ export default {
       'Roboto': true,
       'Source+Code+Pro': true,
       'Montserrat': true,
+      'Lora': true,
     }
   },
 
   fontawesome: {
     icons: {
-      brands: ['faSoundcloud', 'faLinkedin', 'faTwitter', 'faInstagram', 'faImdb'],
+      brands: ['faSoundcloud', 'faLinkedin', 'faTwitter', 'faInstagram', 'faImdb', 'faPlaystation', 'faSteam', 'faWindows', 'faXbox', 'faYoutube'],
+      solid: ['faXmark', 'faBars']
     },
   },
 

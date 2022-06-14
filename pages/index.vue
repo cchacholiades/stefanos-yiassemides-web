@@ -1,6 +1,5 @@
 <template>
     <div class="pb-10">
-
         <div class="relative">
             <div class="absolute top-0 left-0 right-0 flex h-96 md:h-max">
                 <img class="w-full relative top-0 z-10 grayscale object-cover" src="/bg-2.jpeg" alt="">
@@ -13,12 +12,13 @@
                 <Navigation/>
                 <Logo/>
             </div>
-            <Works/>
-            <Music/>
-            <About/>
-            <Clients/>
-            <Testimonials/>
-            <Contact/>
+            <Works ref="works"/>
+            <Music ref="music"/>
+            <About ref="about"/>
+            <Clients ref="clients"/>
+            <Testimonials ref="testimonials"/>
+            <Contact ref="contact"/>
+            <Copyright/>
         </div>
     </div>
 </template>
@@ -36,7 +36,7 @@
                     }
                 ],
                 bodyAttrs: {
-                    class: "antialiased bg-black text-white"
+                    class: "antialiased bg-black text-white scrollbar-hide font-montserrat"
                 }
             }
         },

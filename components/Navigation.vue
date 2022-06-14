@@ -1,19 +1,26 @@
 <template>
     <div class="flex items-center justify-center">
-        <div class="mt-4 z-50 cursor-pointer">
+        <div class="ml-auto mt-4 z-50 cursor-pointer text-white text-4xl md:hidden hover:opacity-80">
             <div v-if="isNavOpen" @click.prevent="toggle">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-                </svg>
+                <font-awesome-icon :icon="['fas', 'xmark']"/>
             </div>
 
             <div v-if="!isNavOpen" @click.prevent="toggle">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
-                </svg>
+                <font-awesome-icon :icon="['fas', 'bars']"/>
             </div>
         </div>
         <NavigationMenuOpen v-if="isNavOpen" v-scroll-lock="isNavOpen"/>
+
+        <div class="hidden md:block mt-10 text-2xl font-semibold w-full border-solid border-yellow border-b-4">
+            <ul class="flex flex-row justify-between w-full">
+                <li class="mb-6"><a href="#" class="hover:text-yellow" @click.prevent="goto('works')">CREDITS</a></li>
+                <li class="mb-6"><a href="#" class="hover:text-yellow" @click.prevent="goto('music')">MUSIC</a></li>
+                <li class="mb-6"><a href="#" class="hover:text-yellow" @click.prevent="goto('clients')">CLIENTS</a></li>
+                <li class="mb-6"><a href="#" class="hover:text-yellow" @click.prevent="goto('about')">ABOUT</a></li>
+                <li class="mb-6"><a href="#" class="hover:text-yellow" @click.prevent="goto('testimonials')">TESTIMONIALS</a></li>
+                <li class="mb-6"><a href="#" class="hover:text-yellow" @click.prevent="goto('contact')">CONTACT</a></li>
+            </ul>
+        </div>
     </div>
 </template>
 
@@ -28,6 +35,13 @@
         methods: {
             toggle() {
                 this.isNavOpen = !this.isNavOpen
+            },
+            goto(refName) {
+                this.$nextTick(() => {
+                    const element = this.$refs[refName];
+                    const top = element.offsetTop;
+                    window.scrollTo(0, top);
+                })
             }
         }
     }

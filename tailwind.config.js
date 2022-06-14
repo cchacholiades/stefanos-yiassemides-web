@@ -15,48 +15,14 @@ module.exports = {
             transparent: "transparent",
             black: {
                 DEFAULT: "#000",
-                darker: "#1d1d1d",
                 lighter: "#333333",
-                lighter1: "#444444",
-                lighter2: "#999999"
             },
             white: {
                 DEFAULT: "#FFFFFF",
-                darker: "#CCCCCC",
-            },
-            red: {
-                DEFAULT: "#EB1234",
-                darker: "#6B2323",
-            },
-            blue: {
-                DEFAULT: "#3F99F9",
-                darker: "#2D4262",
-                violet: "#414161"
             },
             yellow: {
                 DEFAULT: "#ffcb30"
             },
-            orange: {
-                DEFAULT: "#FFAA11",
-                darker: "#906E09",
-                lighter: "#FFF555"
-            },
-            green: {
-                DEFAULT: "#3CFCCC",
-                darker: "#255B5B",
-                darker1: "#273131",
-                yellow: "#415415",
-            },
-            violet: {
-                DEFAULT: "#E777FF",
-                darker: "#5A2E5A",
-                darker1: "#2F272F",
-                pink: "#B010D0"
-            },
-            socials: {
-                facebook: "#3B5998",
-                twitter: "#1DA1F2"
-            }
         },
         fontSize: {
             "2xs": ["0.5625rem", "1.7em"],
@@ -83,6 +49,8 @@ module.exports = {
                 "montserrat": ["Montserrat", "sans-serif"],
                 "roboto": ["Roboto", "-apple-system", "BlinkMacSystemFont", "Tahoma", "sans‑serif"],
                 "sourceCodePro": ["Source Code Pro", "monospace"],
+                "lora": ["Lora", "serif"],
+
             },
             keyframes: {
                 fadeInOpacity: {
