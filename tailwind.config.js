@@ -14,7 +14,7 @@ module.exports = {
         colors: {
             transparent: "transparent",
             black: {
-                DEFAULT: "#000",
+                DEFAULT: "#0D1011",
                 lighter: "#333333",
             },
             white: {
@@ -50,6 +50,7 @@ module.exports = {
                 "roboto": ["Roboto", "-apple-system", "BlinkMacSystemFont", "Tahoma", "sans‑serif"],
                 "sourceCodePro": ["Source Code Pro", "monospace"],
                 "lora": ["Lora", "serif"],
+                "inter": ["Inter", "sans-serif"]
 
             },
             keyframes: {

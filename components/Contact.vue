@@ -1,6 +1,6 @@
 <template>
-    <div>
-        <div class="text-center text-3xl sm:text-4xl font-light pt-20 md:pt-32 pb-6">CONTACT</div>
+    <div class="relative">
+        <div class="text-center text-3xl sm:text-4xl font-bold mt-20 md:mt-32 mb-6">CONTACT</div>
         <p class="text-lg font-semibold text-center">
             <a class="text-yellow hover:underline" href="mailto:info@stefanosyiassemides.com">info@stefanosyiassemides.com</a>
         </p>

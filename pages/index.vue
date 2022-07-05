@@ -1,21 +1,20 @@
 <template>
     <div class="pb-10">
-        <div class="relative">
-            <div class="absolute top-0 left-0 right-0 flex h-96 md:h-max">
-                <img class="w-full relative top-0 z-10 grayscale object-cover" src="/bg-2.jpeg" alt="">
-                <div class="absolute bottom-0 z-20 bg-gradient-to-t from-black to-transparent h-32 w-full"></div>
+        <div class="relative h-96 md:h-max">
+            <div class="block flex justify-center items-center ">
+                <img class="w-full h-96 md:h-max relative z-10 grayscale object-cover" src="/bg-2.jpeg" alt="">
+                <Logo class="absolute z-30 top-0"/>
             </div>
+            <div class="absolute bottom-0 z-20 bg-gradient-to-t from-black to-transparent h-32 w-full"></div>
         </div>
 
+        <Navigation @goto="captureGoTo" class="fixed top-0 left-0 right-0 max-w-screen-lg z-40 bg-gradient-to-b from-black to-transparent m-auto"/>
+
         <div class="relative max-w-screen-lg pl-4 pr-4 m-auto z-20">
-            <div class="flex flex-col">
-                <Navigation/>
-                <Logo/>
-            </div>
             <Works ref="works"/>
             <Music ref="music"/>
-            <About ref="about"/>
             <Clients ref="clients"/>
+            <About ref="about"/>
             <Testimonials ref="testimonials"/>
             <Contact ref="contact"/>
             <Copyright/>
@@ -42,7 +41,14 @@
         },
 
         methods: {
-
+            captureGoTo(refName) {
+                this.goto(refName)
+            },
+            goto(refName) {
+                const element = this.$refs[refName].$el
+                const top = element.offsetTop;
+                window.scrollTo(0, top)
+            }
         }
     }
 </script>

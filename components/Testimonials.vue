@@ -1,6 +1,6 @@
 <template>
     <div class="mt-4">
-        <div class="text-center text-3xl sm:text-4xl font-bold pt-20 md:pt-32 pb-6 font-light">TESTIMONIALS</div>
+        <div class="text-center text-3xl sm:text-4xl font-bold mt-20 md:mt-32 mb-6">TESTIMONIALS</div>
         <p class="mb-8 break-words text-lg md:text-xl">
             &ldquo;Stefanos is a fantastic composer to work with on projects. He is an extremely reliable, versatile and creative artist who responds very well to our musical briefs and feedback. He is a very versatile composer who can work effectively across our varied musical requirements from epic orchestral scores to melodic pop/rock songs&rdquo;
             <span class="block mt-2 font-semibold text-sm">&#8211; Joshua E. - Senior Post Production Producer, Moonbug Entertainment</span>

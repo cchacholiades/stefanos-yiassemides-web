@@ -68,6 +68,7 @@ export default {
       'Source+Code+Pro': true,
       'Montserrat': true,
       'Lora': true,
+      'Inter': true,
     }
   },
 
