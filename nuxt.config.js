@@ -110,6 +110,8 @@ export default {
   build: {
     minifyCSS: true,
     minifyJS: true,
+    extractCSS: true,
+    optimizeCSS: false
   },
 
   devServerHandlers: [],
