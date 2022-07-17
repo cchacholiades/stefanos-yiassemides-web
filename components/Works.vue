@@ -28,7 +28,7 @@
                     <font-awesome-icon :icon="['fas', 'xmark']"/>
                 </div>
             </div>
-            <div class="max-w-md md:max-w-xl max-h-[35vw] px-4 relative overflow-y-scroll scrollbar-hide">
+            <div class="max-w-md md:max-w-xl px-4 relative overflow-y-scroll scrollbar-hide">
                 <div>
                     <h4 class="text-3xl sm:text-4xl border-solid border-yellow border-b-4 pb-2">{{ selected.name }}</h4>
                     <!-- eslint-disable vue/no-v-html -->
