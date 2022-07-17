@@ -31,7 +31,7 @@
                     {
                         hid: "description",
                         name: "description",
-                        content: "Discover, save, book, and review London theatre's hidden gems"
+                        content: ""
                     }
                 ],
                 bodyAttrs: {
