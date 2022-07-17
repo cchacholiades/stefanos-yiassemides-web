@@ -53,10 +53,26 @@ export default {
     '@nuxtjs/axios',
     // https://go.nuxtjs.dev/pwa
     '@nuxtjs/pwa',
+    // https://github.com/https://github.com/nuxt-community/google-gtag
+    '@nuxtjs/google-gtag',
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {},
+
+  // GTAG Manager
+  'google-gtag':{
+    id: 'UA-XXXX-XX', // UA-129075279-1 required
+    config:{
+        // this are the config options for `gtag
+        // check out official docs: https://developers.google.com/analytics/devguides/collection/gtagjs/
+        anonymize_ip: true, // anonymize IP
+        send_page_view: true, // might be necessary to avoid duplicated page track on page reload
+    },
+    debug: true, // enable to track in dev mode
+    disableAutoPageTrack: false, // disable if you don't want to track each page route with router.afterEach(...)
+    // optional you can add more configuration like [AdWords](https://developers.google.com/adwords-remarketing-tag/#configuring_the_global_site_tag_for_multiple_accounts)
+  },
 
   // PWA module configuration: https://go.nuxtjs.dev/pwa
   pwa: {
@@ -85,8 +101,7 @@ export default {
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
-    vendor: [
-      'vue-vimeo-player'
-    ],
-  }
+  },
+
+  devServerHandlers: [],
 }
