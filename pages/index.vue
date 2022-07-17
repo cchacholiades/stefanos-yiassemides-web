@@ -46,8 +46,10 @@
             },
             goto(refName) {
                 const element = this.$refs[refName].$el
-                const top = element.offsetTop;
-                window.scrollTo(0, top)
+                const yOffset = -60;
+                const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
+
+                window.scrollTo({top: y, behavior: 'smooth'});
             }
         }
     }
