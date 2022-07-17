@@ -99,9 +99,24 @@ export default {
     },
   },
 
+  // Defaults options
+  tailwindcss: {
+    cssPath: '~/assets/css/tailwind.css',
+    configPath: 'tailwind.config.js',
+    exposeConfig: false,
+    config: {}
+  },
+
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
-    extractCSS: true,
+    postcss: {
+      postcssOptions: {
+        plugins: {
+          tailwindcss: {},
+          autoprefixer: {},
+        },
+      },
+    }
   },
 
   devServerHandlers: [],
