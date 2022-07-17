@@ -21,6 +21,13 @@ export default {
       { name: 'copyright', content: 'Stefanos Yiassemides' },
       { name: 'reply-to', content: 'info@stefanosyiassemides.com' },
       { name: 'theme-color', content: '#000' },
+
+      { name: 'twitter:card', content: 'summary' },
+      { name: 'twitter:site', content: 'https://stefanosyiassemides.com/' },
+      { name: 'twitter:title', content: 'Music Composer & Sound Designer for Film & Media | Stefanos Yiassemides' },
+      { name: 'twitter:description', content: 'Stefanos Yiassemides is a Music Composer and Sound Designer for Film & Media.' },
+      { name: 'twitter:image', content: '/stefanos-yiassemides-web/about-2.jpeg' },
+
       { property: 'og:type', content: 'website' },
       { property: 'og:url', content: 'https://stefanosyiassemides.com/' },
       { property: 'og:image', content: '/stefanos-yiassemides-web/about-2.jpeg' },
