@@ -8,13 +8,26 @@ export default {
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: 'stefanos-yiassemides-web',
+    title: 'Music Composer & Sound Designer for Film & Media | Stefanos Yiassemides',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: '' },
-      { name: 'format-detection', content: 'telephone=no' },
-      { name:"robots", content: "noindex, nofollow"}
+      { hid: 'description', name: 'description', content: 'Stefanos Yiassemides is a Music Composer and Sound Designer for Film & Media.' },
+
+      // TODO: Remove for production release
+      { name: 'robots', content: 'noindex, nofollow' },
+
+      { name: 'keywords', content: 'music composer, sound designer, film, tv, television, media, games, animation' },
+      { name: 'copyright', content: 'Stefanos Yiassemides' },
+      { name: 'reply-to', content: 'info@stefanosyiassemides.com' },
+      { name: 'theme-color', content: '#000' },
+      { property: 'og:type', content: 'website' },
+      { property: 'og:url', content: 'https://stefanosyiassemides.com/' },
+      { property: 'og:image', content: '/stefanos-yiassemides-web/about-2.jpeg' },
+      { property: 'og:description', content: 'Stefanos Yiassemides is a Music Composer and Sound Designer for Film & Media.' },
+      { property: 'og:title', content: 'Stefanos Yiassemides' },
+      { property: 'og:site_name', content: 'Music Composer & Sound Designer for Film & Media | Stefanos Yiassemides' },
+      { property: 'fb:app_id', content: '1849135811851242' }
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/stefanos-yiassemides-web/favicon.ico' }

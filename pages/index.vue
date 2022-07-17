@@ -27,16 +27,9 @@
         head() {
             return {
                 title: "Music Composer & Sound Designer for Film & Media | Stefanos Yiassemides",
-                meta: [
-                    {
-                        hid: "description",
-                        name: "description",
-                        content: ""
-                    }
-                ],
                 bodyAttrs: {
                     class: "antialiased bg-black text-white scrollbar-hide font-montserrat"
-                }
+                },
             }
         },
 
