@@ -2,7 +2,7 @@
     <div class="pb-10">
         <div class="relative h-96 md:h-max">
             <div class="block flex justify-center items-center ">
-                <img class="w-full h-96 md:h-max relative z-10 grayscale object-cover" src="/bg-2.jpeg" alt="">
+                <img class="w-full h-96 md:h-max relative z-10 grayscale object-cover" src="/stefanos-yiassemides-web/bg-2.jpeg" alt="Cover photo">
                 <Logo class="absolute z-30 top-0"/>
             </div>
             <div class="absolute bottom-0 z-20 bg-gradient-to-t from-black to-transparent h-32 w-full"></div>
