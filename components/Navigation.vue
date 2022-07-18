@@ -1,12 +1,12 @@
 <template>
     <div class="flex items-center justify-center">
-        <div class="ml-auto mt-4 z-50 cursor-pointer text-white text-4xl md:hidden hover:opacity-80 px-4">
+        <div class="ml-auto mt-6 z-50 cursor-pointer text-white text-4xl md:hidden hover:opacity-80 px-4">
             <div v-if="isNavOpen" @click.prevent="toggle">
-                <font-awesome-icon :icon="['fas', 'xmark']"/>
+                <font-awesome-icon :icon="['fas', 'xmark']" fixed-width/>
             </div>
 
             <div v-if="!isNavOpen" @click.prevent="toggle">
-                <font-awesome-icon :icon="['fas', 'bars']"/>
+                <font-awesome-icon :icon="['fas', 'bars']" fixed-width/>
             </div>
         </div>
         <NavigationMenuOpen v-if="isNavOpen" v-scroll-lock="isNavOpen" @menuopengoto="captureGoTo" @closenav="captureCloseNav"/>

@@ -22,10 +22,10 @@
                 </div>
             </div>
         </div>
-        <div v-if="shouldDisplayOverlay" v-scroll-lock="shouldDisplayOverlay" class="flex flex-col fixed top-0 left-0 right-0 bottom-0 flex items-center justify-center bg-black bg-opacity-95 z-50 py-10">
+        <div v-if="shouldDisplayOverlay" v-scroll-lock="shouldDisplayOverlay" class="flex flex-col fixed top-0 left-0 right-0 bottom-0 flex items-center bg-black bg-opacity-95 z-50 py-6">
             <div class="max-w-md md:max-w-xl pb-4 relative px-4 flex w-full hover:opacity-80">
                 <div class="ml-auto cursor-pointer text-4xl" @click="closeOverlay">
-                    <font-awesome-icon :icon="['fas', 'xmark']"/>
+                    <font-awesome-icon :icon="['fas', 'xmark']" fixed-width/>
                 </div>
             </div>
             <div class="max-w-md md:max-w-xl px-4 relative overflow-y-scroll scrollbar-hide">
