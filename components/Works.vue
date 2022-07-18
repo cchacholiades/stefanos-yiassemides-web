@@ -16,7 +16,7 @@
         -->
         <div class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-5 gap-4">
             <div v-for="work in filteredWorks" :key="work.id" class="relative flex flex-col rounded items-baseline cursor-pointer aspect-w-4 aspect-h-5" @click.prevent="showOverlay(work)">
-                <img class="w-full h-full inset-0 object-cover object-top rounded-3xl max-h-[270px]" :src="`/stefanos-yiassemides-web/${work.img}`" :alt="work.name"/>
+                <img class="w-full h-full inset-0 object-cover object-top rounded-3xl max-h-[270px]" :src="`/${work.img}`" :alt="work.name"/>
                 <div class="bg-black bg-opacity-90 opacity-0 hover:opacity-100 duration-300 absolute inset-0 z-10 px-4 flex justify-center items-center text-center text-lg text-white font-semibold">
                     {{ work.name }}
                 </div>
@@ -55,7 +55,7 @@
                         </div>
 
                         <div v-if="selected.platforms.includes('netflix')" class="px-2 text-2xl">
-                            <img src="/stefanos-yiassemides-web/icons/netflix.svg" alt="Netflix icon" class="w-6 pb-0.5">
+                            <img src="/icons/netflix.svg" alt="Netflix icon" class="w-6 pb-0.5">
                         </div>
 
                         <div v-if="selected.platforms.includes('youtube')" class="px-2 text-2xl">

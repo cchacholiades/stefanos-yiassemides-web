@@ -2,9 +2,9 @@ export default {
   // Target: https://go.nuxtjs.dev/config-target
   target: 'static',
 
-  router: {
-    base: '/stefanos-yiassemides-web/'
-  },
+  // router: {
+  //   base: '/stefanos-yiassemides-web/'
+  // },
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
@@ -26,18 +26,18 @@ export default {
       { name: 'twitter:site', content: 'https://stefanosyiassemides.com/' },
       { name: 'twitter:title', content: 'Music Composer & Sound Designer for Film & Media | Stefanos Yiassemides' },
       { name: 'twitter:description', content: 'Stefanos Yiassemides is a Music Composer and Sound Designer for Film & Media.' },
-      { name: 'twitter:image', content: '/stefanos-yiassemides-web/about-2.jpeg' },
+      { name: 'twitter:image', content: '/about-2.jpeg' },
 
       { property: 'og:type', content: 'website' },
       { property: 'og:url', content: 'https://stefanosyiassemides.com/' },
-      { property: 'og:image', content: '/stefanos-yiassemides-web/about-2.jpeg' },
+      { property: 'og:image', content: '/about-2.jpeg' },
       { property: 'og:description', content: 'Stefanos Yiassemides is a Music Composer and Sound Designer for Film & Media.' },
       { property: 'og:title', content: 'Stefanos Yiassemides' },
       { property: 'og:site_name', content: 'Music Composer & Sound Designer for Film & Media | Stefanos Yiassemides' },
       { property: 'fb:app_id', content: '1849135811851242' }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/stefanos-yiassemides-web/favicon.ico' }
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
     ]
   },
 
