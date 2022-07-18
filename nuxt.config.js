@@ -2,10 +2,6 @@ export default {
   // Target: https://go.nuxtjs.dev/config-target
   target: 'static',
 
-  // router: {
-  //   base: '/stefanos-yiassemides-web/'
-  // },
-
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     title: 'Music Composer & Sound Designer for Film & Media | Stefanos Yiassemides',
@@ -13,9 +9,6 @@ export default {
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       { hid: 'description', name: 'description', content: 'Stefanos Yiassemides is a Music Composer and Sound Designer for Film & Media.' },
-
-      // TODO: Remove for production release
-      { name: 'robots', content: 'noindex, nofollow' },
 
       { name: 'keywords', content: 'music composer, sound designer, film, tv, television, media, games, animation' },
       { name: 'copyright', content: 'Stefanos Yiassemides' },
