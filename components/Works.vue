@@ -74,6 +74,8 @@
                         <div v-if="selected.youtube_playlist" class="mt-4"><a class="font-semibold text-yellow hover:underline" :href="selected.youtube_playlist">View Full Playlist</a></div>
                     </div>
 
+                    <div v-if="selected.soundcloud_playlist" class="mt-4"><a class="font-semibold text-yellow hover:underline" :href="selected.soundcloud_playlist">Listen on SoundCloud</a></div>
+
                     <div v-if="selected.youtube_channel" class="mt-4"><a class="font-semibold text-yellow hover:underline" :href="selected.youtube_channel">View {{ selected.name }} Channel on Youtube</a></div>
 
                     <div v-if="selected.vimeo">
@@ -148,7 +150,7 @@ export default {
                     youtube_channel: "https://www.youtube.com/c/LittleBabyBum/featured",
                     youtube_playlist: "https://www.youtube.com/playlist?list=OLAK5uy_lDs7vUSxyA05wtoZx7SbuPely5bUexJ2Y",
                     platforms: ["youtube"],
-                    order: 8
+                    order: 9
                 },
                 {
                     id: 6,
@@ -158,12 +160,13 @@ export default {
                     description: "Currently in development by Iconic Games, The Untold Legacy is an engaging, atmosphere drenched action-adventure RPG, with a bright and colorful art style set in a surreal and often creepy setting.",
                     youtube: ["frKQTxZoSzw", "yBBLivbQQ54"],
                     platforms: ["playstation", "windows", "xbox", "steam"],
+                    soundcloud_playlist: "https://on.soundcloud.com/mXcq2",
                     order: 6
                 },
                 {
                     id: 7,
                     img: "works/7.jpg",
-                    name: "T-Rex Ranch",
+                    name: "T-Rex Ranch (4 Seasons)",
                     genre: ["TV Show"],
                     description: "T-Rex Ranch follows Park Rangers on their action-packed, everyday dinosaur adventures. T-Rex Ranch is a favorite of kids age 4-8, and has over 2.4 million fans on YouTube. Its imaginative storylines and CGI dinosaurs entertain while teaching kids about the natural and prehistoric world.",
                     youtube: ["2KicJko_cVY"],
@@ -175,7 +178,7 @@ export default {
                 {
                     id: 8,
                     img: "works/8.jpeg",
-                    name: "Mega Bloks (Seasons)",
+                    name: "Mega Bloks (3 Seasons)",
                     genre: ["Animation"],
                     description: `Animated series for kids based on the Mega Bloks&reg; line of construction set toys. Produced by <a class="font-semibold text-yellow hover:underline" href="https://www.moonbug.com/" rel="noopener" target="_blank" rel="nofollow">Moonbug Entertainment</a>.`,
                     youtube: ["2KN7v75srZQ"],
@@ -191,7 +194,7 @@ export default {
                     genre: ["Re-score"],
                     description: "Entry for the Westworld Scoring Competition hosted by Spitfire Audio. The task was to re-imagine and score a scene from Westworld Season 3.",
                     youtube: ["T__-goYTu3Q"],
-                    order: 10
+                    order: 11
                 },
                 {
                     id: 10,
@@ -200,7 +203,7 @@ export default {
                     genre: ["Re-score", "Animation"],
                     description: "It's winter in Patagonia, food is getting scarce. Koro the Llama engages with Oti the pesky penguin in an epic fight over that last tasty berry!",
                     youtube: ["mEcKY9gbUx4"],
-                    order: 12
+                    order: 13
                 },
                 {
                     id: 11,
@@ -210,7 +213,7 @@ export default {
                     description: `It Will Find You is a first person narrative driven horror experience, with a focus on environmental interaction and progressive narrative through game-play. It Will Find You aims to provide an immersive experience where a dark, twisting narrative evolves in tandem with your decisions. Developed by <a href="https://twitter.com/heraldofloco" class="text-yellow hover:underline" rel="nofollow">Mega Sloth Studios</a>.`,
                     youtube: ["k0RMwoxzLi0"],
                     platforms: ["steam", "windows"],
-                    order: 11
+                    order: 12
                 },
                 {
                     id: 12,
@@ -220,7 +223,7 @@ export default {
                     description: `Stop-motion animated series for kids produced by <a class="font-semibold text-yellow hover:underline" href="https://www.moonbug.com/" target="_blank" rel="noopener">Moonbug Entertainment</a>. Based on the Fisher-Price&reg; toy line of "Rescue Heroes", this online series tracks the adventures of a team of emergency responders who rescue people from various disasters.`,
                     youtube: ["KJltqNGhWns"],
                     youtube_playlist: "https://www.youtube.com/playlist?list=PLKCNCfD_4af-UtKntqcAQsPZykytye5lU",
-                    order: 9
+                    order: 10
                 },
                 {
                     id: 13,
@@ -230,7 +233,7 @@ export default {
                     description: "In a post-apocalyptic world where all the water and seas have disappeared, a courageous young female pilot fights against vicious sky pirates for control over the last remaining source of water, the clouds.",
                     youtube: null,
                     vimeo: ["229325041"],
-                    order: 13
+                    order: 14
                 },
                 {
                     id: 14,
@@ -240,7 +243,7 @@ export default {
                     description: "Wallace, after finding no cheese in the kitchen, decides that he and Gromit should go to a place known for its cheese. A glance out the window at the night sky gives him the idea to travel to the moon, since, according to Wallace, everybody knows that the moon is made of cheese.",
                     youtube: null,
                     vimeo: ["239726433"],
-                    order: 14
+                    order: 15
                 },
                 {
                     id: 15,
@@ -253,7 +256,17 @@ export default {
                         "239716421",
                         "239732509",
                     ],
-                    order: 15
+                    order: 16
+                },
+                {
+                    id: 16,
+                    img: "works/16.webp",
+                    name: "Let's Go Cozy Coupe",
+                    genre: ["Animation"],
+                    description: "Let's Go Cozy Coupe is an online series that helps kids to learn, get creative and have lots of fun.",
+                    youtube: ["3yzR-M_ZMdc"],
+                    youtube_channel: "https://youtube.com/c/CozyCoupe",
+                    order: 8
                 },
             ],
             selected: null,
