@@ -46,7 +46,7 @@
             const jsonld = {
                 script: [{
                     type: 'application/ld+json',
-                    json: innerHTML: JSON.stringify(structuredData)
+                    innerHTML: JSON.stringify(structuredData)
                 }],
                 __dangerouslyDisableSanitizers: ['script'],
             }
