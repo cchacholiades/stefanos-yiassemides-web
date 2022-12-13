@@ -25,14 +25,35 @@
 <script>
     export default {
         head() {
-            return {
+            const meta = {
                 title: "Music Composer & Sound Designer for Film & Media | Stefanos Yiassemides",
-                bodyAttrs: {
-                    class: "antialiased bg-black text-white scrollbar-hide font-montserrat"
-                },
+            }
+            const structuredData = {
+                "@context": "http://schema.org",
+                "@type": "Person",
+                "name": "Stefanos Yiassemides",
+                "alternateName": "Stefanos Yiassemides",
+                "description": "Music Composer & Sound Designer for Film & Media",
+                "url": "https://stefanosyiassemides.com",
+                "sameAs": [
+                    "https://soundcloud.com/stefanos-yiassemides",
+                    "https://www.linkedin.com/in/stefanos-yiassemides-99870579",
+                    "https://www.instagram.com/stefyiassemidesmusic",
+                    "https://www.imdb.com/name/nm9390509/",
+                    "https://twitter.com/Stef_Yia_Music",
+                ]
+            }
+            const jsonld = {
+                script: [{
+                    type: 'application/ld+json',
+                    json: structuredData
+                }]
+            }
+            return {
+                ...meta,
+                ...jsonld
             }
         },
-
         methods: {
             captureGoTo(refName) {
                 this.goto(refName)

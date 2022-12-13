@@ -29,7 +29,14 @@ export default {
       { property: 'og:site_name', content: 'Music Composer & Sound Designer for Film & Media | Stefanos Yiassemides' },
       { property: 'fb:app_id', content: '1849135811851242' }
     ],
+    htmlAttrs: {
+      class: "antialiased bg-black text-white scrollbar-hide font-montserrat"
+    },
+    bodyAttrs: {
+      class: "antialiased bg-black text-white scrollbar-hide font-montserrat"
+    },
     link: [
+      { rel: 'canonical', href: 'https://stefanosyiassemides.com' },
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
     ]
   },
