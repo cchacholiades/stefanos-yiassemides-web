@@ -37,7 +37,7 @@ module.exports = {
             "4xl": ["2.375rem", "1.4em"],
             "5xl": ["3rem", "1.3em"],
             "6xl": ["3.75rem", "1.2em"],
-            "7xl": ["6.25rem", "1.1em"],
+            "7xl": ["4.25rem", "1.2em"],
         },
         screens: {
             ...defaultTheme.screens,
@@ -58,21 +58,13 @@ module.exports = {
                     "0%": { opacity: "0" },
                     "100%": { opacity: "1" }
                 },
-                shakeY: {
-                    "0%, 100%": { transform: "translateZ(0)" },
-                    "20%, 60%": { transform: "translate3d(0,-2px,0)" },
-                    "40%, 80%": { transform: "translate3d(0,2px,0)" }
-                },
-                bounceSmall: {
-                    "0%, 100%": { transform: "translateY(10%);" },
-                    "50%": { transform: "translateZ(0)" }
-                }
             },
             animation: {
                 fadeInOpacity: "fadeInOpacity 0.3s ease-in 1",
-                shakeY: "shakeY 0.5s infinite",
-                bounceSmall: "bounceSmall 0.8s infinite"
-            }
+            },
+            textShadow: {
+                'text': '0px 5px 15px rgba(0, 0, 0, 0.5)',
+            },
         },
     },
     variants: {
@@ -81,6 +73,7 @@ module.exports = {
     },
     plugins: [
         require('@tailwindcss/aspect-ratio'),
-        require('tailwind-scrollbar-hide')
+        require('tailwind-scrollbar-hide'),
+        require('tailwindcss-textshadow')
     ],
 }
