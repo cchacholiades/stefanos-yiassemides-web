@@ -11,10 +11,10 @@
         <Navigation class="fixed top-0 left-0 right-0 max-w-screen-lg z-40 bg-gradient-to-b from-black to-transparent m-auto" @goto="captureGoTo"/>
 
         <div class="relative max-w-screen-lg pl-4 pr-4 m-auto">
+            <About ref="about"/>
             <Works ref="works"/>
             <Music ref="music"/>
             <Clients ref="clients"/>
-            <About ref="about"/>
             <Testimonials ref="testimonials"/>
             <Contact ref="contact"/>
             <Copyright/>

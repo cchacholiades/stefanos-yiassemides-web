@@ -1,6 +1,6 @@
 <template>
     <div v-if="works">
-        <div class="text-center text-3xl sm:text-4xl font-bold mt-20 md:mt-32 mb-6">CREDITS</div>
+        <div class="border-l-8 pl-4 border-solid border-yellow text-3xl sm:text-4xl font-bold mt-20 md:mt-32 mb-6 md:mb-10">CREDITS</div>
         <!-- Filters -->
         <!--
         <div class="flex flex-row mb-4 items-center">
@@ -15,8 +15,8 @@
         </div>
         -->
         <div class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-5 gap-4">
-            <div v-for="work in filteredWorks" :key="work.id" class="relative flex flex-col rounded items-baseline cursor-pointer aspect-w-4 aspect-h-5" @click.prevent="showOverlay(work)">
-                <img class="w-full h-full inset-0 object-cover object-top rounded-3xl max-h-[270px]" :src="`/${work.img}`" :alt="work.name"/>
+            <div v-for="work in filteredWorks" :key="work.id" class="relative flex flex-col rounded-2xl items-baseline cursor-pointer aspect-w-4 aspect-h-5 border-4 border-transparent border-solid hover:border-yellow transition-all duration-300 overflow-hidden" @click.prevent="showOverlay(work)">
+                <img class="w-full h-full inset-0 object-cover" :src="`/${work.img}`" :alt="work.name" width="780" height="900"/>
                 <div class="bg-black bg-opacity-90 opacity-0 hover:opacity-100 duration-300 absolute inset-0 z-10 px-4 flex justify-center items-center text-center text-lg text-white font-semibold">
                     {{ work.name }}
                 </div>
