@@ -66,6 +66,8 @@ export default {
     '@nuxtjs/google-fonts',
     // https://github.com/nuxt-community/fontawesome-module
     '@nuxtjs/fontawesome',
+    // https://image.nuxtjs.org/getting-started
+    '@nuxt/image',
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules

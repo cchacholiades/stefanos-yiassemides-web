@@ -16,7 +16,7 @@
         -->
         <div class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-5 gap-4">
             <div v-for="work in filteredWorks" :key="work.id" class="relative flex flex-col rounded-2xl items-baseline cursor-pointer aspect-w-4 aspect-h-5 border-4 border-transparent border-solid hover:border-yellow transition-all duration-300 overflow-hidden" @click.prevent="showOverlay(work)">
-                <img class="w-full h-full inset-0 object-cover" :src="`/${work.img}`" :alt="work.name" width="780" height="900"/>
+                <NuxtImg format="webp" :src="`/${work.img}`" class="w-full h-full inset-0 object-cover" loading="lazy" :alt="work.name"  width="780" height="900"/>
                 <div class="bg-black bg-opacity-90 opacity-0 hover:opacity-100 duration-300 absolute inset-0 z-10 px-4 flex justify-center items-center text-center text-lg text-white font-semibold">
                     {{ work.name }}
                 </div>
@@ -90,7 +90,6 @@
         </div>
     </div>
 </template>
-
 
 <script>
 export default {
