@@ -77,7 +77,9 @@ export default {
     // https://github.com/nuxt-community/gtm-module
     '@nuxtjs/gtm',
     // https://github.com/nuxt-community/sitemap-module
-    '@nuxtjs/sitemap'
+    '@nuxtjs/sitemap',
+    // https://github.com/nuxt-community/robots-module
+    '@nuxtjs/robots',
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
@@ -95,6 +97,13 @@ export default {
         lastmod: '2022-12-15T13:00:00.000Z'
       }
     ]
+  },
+
+  // Robots
+  robots: {
+      UserAgent: '*',
+      Allow: '/',
+      Sitemap: "https://stefanosyiassemides.com/sitemap.xml"
   },
 
   gtm: {
