@@ -2,7 +2,7 @@
     <div class="relative">
         <div class="border-l-8 pl-4 border-solid border-yellow text-3xl sm:text-4xl font-bold mt-20 md:mt-32 mb-6 md:mb-10">CONTACT</div>
         <p class="text-lg font-semibold">
-            <a class="text-yellow hover:underline transition-all duration-300" href="mailto:info@stefanosyiassemides.com">info@stefanosyiassemides.com</a>
+            <a class="hover:text-yellow hover:underline transition-all duration-300" href="mailto:info@stefanosyiassemides.com">info@stefanosyiassemides.com</a>
         </p>
         <div class="border-l-8 pl-4 border-solid border-yellow text-3xl sm:text-4xl font-bold mt-20 md:mt-32 mb-6 md:mb-10">SOCIALS</div>
         <div class="text-white mt-4 flex items-center">

@@ -15,7 +15,7 @@ export default {
       { name: 'reply-to', content: 'info@stefanosyiassemides.com' },
       { name: 'theme-color', content: '#000' },
 
-      { name: 'twitter:card', content: 'summary' },
+      { name: 'twitter:card', content: 'summary_large_image' },
       { name: 'twitter:site', content: 'https://stefanosyiassemides.com/' },
       { name: 'twitter:title', content: 'Music Composer & Sound Designer for Film & Media | Stefanos Yiassemides' },
       { name: 'twitter:description', content: 'Stefanos Yiassemides is a Music Composer and Sound Designer for Film & Media.' },
@@ -76,6 +76,8 @@ export default {
     '@nuxtjs/pwa',
     // https://github.com/https://github.com/nuxt-community/google-gtag
     '@nuxtjs/google-gtag',
+    // https://github.com/nuxt-community/sitemap-module
+    '@nuxtjs/sitemap'
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
