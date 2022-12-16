@@ -83,6 +83,20 @@ export default {
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {},
 
+  // Sitemap
+  sitemap: {
+    hostname: 'https://stefanosyiassemides.com',
+    gzip: true,
+    routes: [
+      {
+        url: '/',
+        changefreq: 'yearly',
+        priority: 1,
+        lastmod: '2022-12-15T13:00:00.000Z'
+      }
+    ]
+  },
+
   // GTAG Manager
   'google-gtag':{
     id: 'UA-XXXX-XX', // UA-129075279-1 required
