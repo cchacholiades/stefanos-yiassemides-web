@@ -1,4 +1,4 @@
-# stefanos-yiassemides-web
+# stefanos-yiassemides-music
 
 ## Build Setup
 

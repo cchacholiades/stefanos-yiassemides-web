@@ -22,15 +22,15 @@
                 </div>
             </div>
         </div>
-        <div v-if="shouldDisplayOverlay" v-scroll-lock="shouldDisplayOverlay" class="flex flex-col fixed top-0 left-0 right-0 bottom-0 flex items-center bg-black bg-opacity-95 z-50 py-6">
+        <div v-if="shouldDisplayOverlay" v-scroll-lock="shouldDisplayOverlay" class="flex flex-col fixed top-0 left-0 right-0 bottom-0 flex items-center bg-black z-50 py-6">
             <div class="max-w-md md:max-w-xl pb-4 relative px-4 flex w-full hover:opacity-80">
-                <div class="ml-auto cursor-pointer text-4xl" @click="closeOverlay">
+                <div class="ml-auto cursor-pointer text-3xl" @click="closeOverlay">
                     <font-awesome-icon :icon="['fas', 'xmark']" fixed-width/>
                 </div>
             </div>
             <div class="max-w-md md:max-w-xl px-4 relative overflow-y-scroll scrollbar-hide">
                 <div>
-                    <h4 class="text-3xl sm:text-4xl border-solid border-yellow border-b-4 pb-2">{{ selected.name }}</h4>
+                    <h4 class="text-3xl sm:text-4xl border-solid border-yellow border-b-4 pb-2 font-semibold">{{ selected.name }}</h4>
                     <!-- eslint-disable vue/no-v-html -->
                     <p class="mt-4 break-words" v-html="selected.description"></p>
                     <!--eslint-enable-->
