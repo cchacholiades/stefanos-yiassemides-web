@@ -1,6 +1,6 @@
 <template>
     <div class="flex items-center justify-center">
-        <div class="ml-auto mt-6 z-50 cursor-pointer text-white text-4xl md:hidden hover:opacity-80 px-4">
+        <div class="ml-auto mt-6 z-50 cursor-pointer text-white text-3xl md:hidden hover:opacity-80 px-4">
             <div v-if="isNavOpen" @click.prevent="toggle">
                 <font-awesome-icon :icon="['fas', 'xmark']" fixed-width/>
             </div>
