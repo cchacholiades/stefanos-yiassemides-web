@@ -1,5 +1,5 @@
 <template>
-    <div v-if="works">
+    <div v-if="works" v-scroll-lock="shouldDisplayOverlay">
         <div class="border-l-8 pl-4 border-solid border-yellow text-3xl sm:text-4xl font-bold mt-20 md:mt-32 mb-6 md:mb-10">CREDITS</div>
         <!-- Filters -->
         <!--
@@ -22,7 +22,7 @@
                 </div>
             </div>
         </div>
-        <div v-if="shouldDisplayOverlay" v-scroll-lock="shouldDisplayOverlay" class="flex flex-col fixed top-0 left-0 right-0 bottom-0 flex items-center bg-black z-50 py-6">
+        <div v-if="shouldDisplayOverlay" class="flex flex-col fixed top-0 left-0 right-0 bottom-0 flex items-center bg-black z-50 py-6">
             <div class="max-w-md md:max-w-xl pb-4 relative px-4 flex w-full hover:opacity-80">
                 <div class="ml-auto cursor-pointer text-3xl" @click="closeOverlay">
                     <font-awesome-icon :icon="['fas', 'xmark']" fixed-width/>
