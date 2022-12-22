@@ -9,7 +9,15 @@
                 <font-awesome-icon :icon="['fas', 'bars']" fixed-width/>
             </div>
         </div>
-        <NavigationMenuOpen v-if="isNavOpen" v-scroll-lock="isNavOpen" @menuopengoto="captureGoTo" @closenav="captureCloseNav"/>
+
+        <transition
+            enter-class="opacity-0"
+            leave-to-class="opacity-0"
+            enter-active-class="transition-opacity duration-300"
+            leave-active-class="transition-opacity duration-300"
+        >
+            <NavigationMenuOpen v-if="isNavOpen" v-scroll-lock="isNavOpen" @menuopengoto="captureGoTo" @closenav="captureCloseNav"/>
+        </transition>
 
         <div class="hidden md:block mt-6 text-2xl font-bold w-full px-4">
             <ul class="flex flex-row justify-between w-full">

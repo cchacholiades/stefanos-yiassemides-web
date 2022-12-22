@@ -22,72 +22,79 @@
                 </div>
             </div>
         </div>
-        <div v-if="shouldDisplayOverlay" class="flex flex-col fixed top-0 left-0 right-0 bottom-0 flex items-center bg-black z-50 py-6">
-            <div class="max-w-md md:max-w-xl pb-4 relative px-4 flex w-full hover:opacity-80">
-                <div class="ml-auto cursor-pointer text-3xl" @click="closeOverlay">
-                    <font-awesome-icon :icon="['fas', 'xmark']" fixed-width/>
-                </div>
-            </div>
-            <div class="max-w-md md:max-w-xl px-4 relative overflow-y-scroll scrollbar-hide">
-                <div>
-                    <h4 class="text-3xl sm:text-4xl border-solid border-yellow border-b-4 pb-2 font-semibold">{{ selected.name }}</h4>
-                    <!-- eslint-disable vue/no-v-html -->
-                    <p class="mt-4 break-words" v-html="selected.description"></p>
-                    <!--eslint-enable-->
-
-                    <div v-if="selected.platforms" class="text-white flex flex-row items-center mt-2">
-                        <p class="font-semibold">Available on: </p>
-
-                        <div v-if="selected.platforms.includes('playstation')" class="px-2 text-2xl">
-                            <font-awesome-icon :icon="['fab', 'playstation']"/>
-                        </div>
-
-                        <div v-if="selected.platforms.includes('xbox')" class="px-2 text-2xl">
-                            <font-awesome-icon :icon="['fab', 'xbox']"/>
-                        </div>
-
-                        <div v-if="selected.platforms.includes('windows')" class="px-2 text-2xl">
-                            <font-awesome-icon :icon="['fab', 'windows']"/>
-                        </div>
-
-                        <div v-if="selected.platforms.includes('steam')" class="px-2 text-2xl">
-                            <font-awesome-icon :icon="['fab', 'steam']"/>
-                        </div>
-
-                        <div v-if="selected.platforms.includes('netflix')" class="px-2 text-2xl">
-                            <img src="/icons/netflix.svg" alt="Netflix icon" class="w-6 pb-0.5">
-                        </div>
-
-                        <div v-if="selected.platforms.includes('youtube')" class="px-2 text-2xl">
-                            <font-awesome-icon :icon="['fab', 'youtube']"/>
-                        </div>
+        <transition
+            enter-class="opacity-0"
+            leave-to-class="opacity-0"
+            enter-active-class="transition-opacity duration-300"
+            leave-active-class="transition-opacity duration-300"
+        >
+            <div v-if="shouldDisplayOverlay" class="flex flex-col fixed top-0 left-0 right-0 bottom-0 flex items-center bg-black z-50 py-6">
+                <div class="max-w-md md:max-w-xl pb-4 relative px-4 flex w-full hover:opacity-80">
+                    <div class="ml-auto cursor-pointer text-3xl" @click="closeOverlay">
+                        <font-awesome-icon :icon="['fas', 'xmark']" fixed-width/>
                     </div>
+                </div>
+                <div class="max-w-md md:max-w-xl px-4 relative overflow-y-scroll scrollbar-hide">
+                    <div>
+                        <h4 class="text-3xl sm:text-4xl border-solid border-yellow border-b-4 pb-2 font-semibold">{{ selected.name }}</h4>
+                        <!-- eslint-disable vue/no-v-html -->
+                        <p class="mt-4 break-words" v-html="selected.description"></p>
+                        <!--eslint-enable-->
 
-                    <div v-if="selected.youtube">
-                        <div class="mt-6">
-                            <div v-for="(v, index) in selected.youtube" :key="index" class="mt-6">
+                        <div v-if="selected.platforms" class="text-white flex flex-row items-center mt-2">
+                            <p class="font-semibold">Available on: </p>
+
+                            <div v-if="selected.platforms.includes('playstation')" class="px-2 text-2xl">
+                                <font-awesome-icon :icon="['fab', 'playstation']"/>
+                            </div>
+
+                            <div v-if="selected.platforms.includes('xbox')" class="px-2 text-2xl">
+                                <font-awesome-icon :icon="['fab', 'xbox']"/>
+                            </div>
+
+                            <div v-if="selected.platforms.includes('windows')" class="px-2 text-2xl">
+                                <font-awesome-icon :icon="['fab', 'windows']"/>
+                            </div>
+
+                            <div v-if="selected.platforms.includes('steam')" class="px-2 text-2xl">
+                                <font-awesome-icon :icon="['fab', 'steam']"/>
+                            </div>
+
+                            <div v-if="selected.platforms.includes('netflix')" class="px-2 text-2xl">
+                                <img src="/icons/netflix.svg" alt="Netflix icon" class="w-6 pb-0.5">
+                            </div>
+
+                            <div v-if="selected.platforms.includes('youtube')" class="px-2 text-2xl">
+                                <font-awesome-icon :icon="['fab', 'youtube']"/>
+                            </div>
+                        </div>
+
+                        <div v-if="selected.youtube">
+                            <div class="mt-6">
+                                <div v-for="(v, index) in selected.youtube" :key="index" class="mt-6">
+                                    <client-only>
+                                        <youtube :video-id="v" player-width="100%" />
+                                    </client-only>
+                                </div>
+                            </div>
+                            <div v-if="selected.youtube_playlist" class="mt-4"><a class="font-semibold text-yellow hover:underline" :href="selected.youtube_playlist">View Full Playlist</a></div>
+                        </div>
+
+                        <div v-if="selected.soundcloud_playlist" class="mt-4"><a class="font-semibold text-yellow hover:underline" :href="selected.soundcloud_playlist">Listen on SoundCloud</a></div>
+
+                        <div v-if="selected.youtube_channel" class="mt-4"><a class="font-semibold text-yellow hover:underline" :href="selected.youtube_channel">View {{ selected.name }} Channel on Youtube</a></div>
+
+                        <div v-if="selected.vimeo">
+                            <div v-for="(v, index) in selected.vimeo" :key="index" class="mt-6">
                                 <client-only>
-                                    <youtube :video-id="v" player-width="100%" />
+                                    <vimeo-player ref="player" :video-id="v" player-width="100%" :options="{ 'responsive': true }"/>
                                 </client-only>
                             </div>
                         </div>
-                        <div v-if="selected.youtube_playlist" class="mt-4"><a class="font-semibold text-yellow hover:underline" :href="selected.youtube_playlist">View Full Playlist</a></div>
-                    </div>
-
-                    <div v-if="selected.soundcloud_playlist" class="mt-4"><a class="font-semibold text-yellow hover:underline" :href="selected.soundcloud_playlist">Listen on SoundCloud</a></div>
-
-                    <div v-if="selected.youtube_channel" class="mt-4"><a class="font-semibold text-yellow hover:underline" :href="selected.youtube_channel">View {{ selected.name }} Channel on Youtube</a></div>
-
-                    <div v-if="selected.vimeo">
-                        <div v-for="(v, index) in selected.vimeo" :key="index" class="mt-6">
-                            <client-only>
-                                <vimeo-player ref="player" :video-id="v" player-width="100%" :options="{ 'responsive': true }"/>
-                            </client-only>
-                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </transition>
     </div>
 </template>
 
