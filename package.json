@@ -46,7 +46,7 @@
     "eslint-plugin-nuxt": "^3.2.0",
     "eslint-plugin-vue": "^9.2.0",
     "husky": "^8.0.1",
-    "postcss": "^8.3.5",
+    "postcss": "^8.4.21",
     "prettier": "^2.7.1",
     "push-dir": "^0.4.1",
     "tailwindcss-textshadow": "^2.1.3"
