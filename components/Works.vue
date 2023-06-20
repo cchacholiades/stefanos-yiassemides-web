@@ -14,8 +14,10 @@
             </div>
         </div>
         -->
-        <div class="flex flex-row sm:grid sm:grid-cols-4 md:grid-cols-5 gap-4 overflow-x-auto">
-            <div v-for="work in filteredWorks" :key="work.id" class="w-[80%] sm:w-auto relative flex flex-shrink-0 flex-col rounded-2xl items-baseline cursor-pointer aspect-w-4 aspect-h-5 border-4 border-transparent border-solid hover:border-yellow transition-all duration-300 overflow-hidden" @click.prevent="showOverlay(work)">
+        <!-- flex flex-row sm: -->
+        <div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-4 overflow-x-auto">
+            <!-- w-[80%] sm:w-auto  -->
+            <div v-for="work in filteredWorks" :key="work.id" class="relative flex flex-shrink-0 flex-col rounded-2xl items-baseline cursor-pointer aspect-w-4 aspect-h-5 border-4 border-transparent border-solid hover:border-yellow transition-all duration-300 overflow-hidden" @click.prevent="showOverlay(work)">
                 <NuxtImg format="webp" :src="`/${work.img}`" class="w-full h-full inset-0 object-cover" loading="lazy" :alt="work.name" width="780" height="900" />
                 <div class="bg-black bg-opacity-90 opacity-0 hover:opacity-100 duration-300 absolute inset-0 z-10 px-4 flex justify-center items-center text-center text-lg text-white font-semibold">
                     {{ work.name }}
