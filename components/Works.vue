@@ -15,7 +15,7 @@
         </div>
         -->
         <!-- flex flex-row sm: -->
-        <div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-4 overflow-x-auto">
+        <div class="grid grid-cols-3 gap-2 sm:grid-cols-4 md:grid-cols-5 sm:gap-4 overflow-x-auto">
             <!-- w-[80%] sm:w-auto  -->
             <div v-for="work in filteredWorks" :key="work.id" class="relative flex flex-shrink-0 flex-col rounded-2xl items-baseline cursor-pointer aspect-w-4 aspect-h-5 border-4 border-transparent border-solid hover:border-yellow transition-all duration-300 overflow-hidden" @click.prevent="showOverlay(work)">
                 <NuxtImg format="webp" :src="`/${work.img}`" class="w-full h-full inset-0 object-cover" loading="lazy" :alt="work.name" width="780" height="900" />
