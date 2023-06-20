@@ -14,14 +14,15 @@
             </div>
         </div>
         -->
-        <div class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-5 gap-4">
-            <div v-for="work in filteredWorks" :key="work.id" class="relative flex flex-col rounded-2xl items-baseline cursor-pointer aspect-w-4 aspect-h-5 border-4 border-transparent border-solid hover:border-yellow transition-all duration-300 overflow-hidden" @click.prevent="showOverlay(work)">
-                <NuxtImg format="webp" :src="`/${work.img}`" class="w-full h-full inset-0 object-cover" loading="lazy" :alt="work.name"  width="780" height="900"/>
+        <div class="flex flex-row sm:grid sm:grid-cols-4 md:grid-cols-5 gap-4 overflow-x-auto">
+            <div v-for="work in filteredWorks" :key="work.id" class="w-[80%] sm:w-auto relative flex flex-shrink-0 flex-col rounded-2xl items-baseline cursor-pointer aspect-w-4 aspect-h-5 border-4 border-transparent border-solid hover:border-yellow transition-all duration-300 overflow-hidden" @click.prevent="showOverlay(work)">
+                <NuxtImg format="webp" :src="`/${work.img}`" class="w-full h-full inset-0 object-cover" loading="lazy" :alt="work.name" width="780" height="900" />
                 <div class="bg-black bg-opacity-90 opacity-0 hover:opacity-100 duration-300 absolute inset-0 z-10 px-4 flex justify-center items-center text-center text-lg text-white font-semibold">
                     {{ work.name }}
                 </div>
             </div>
         </div>
+
         <transition
             enter-class="opacity-0"
             leave-to-class="opacity-0"
@@ -84,6 +85,12 @@
 
                         <div v-if="selected.youtube_channel" class="mt-4"><a class="font-semibold text-yellow hover:underline" :href="selected.youtube_channel">View {{ selected.name }} Channel on Youtube</a></div>
 
+                        <div v-if="selected.audible_trailer" class="mt-4">
+                            <iframe class="w-full h-[40vh]" :src="selected.audible_trailer" frameborder="0" allowfullscreen></iframe>
+                        </div>
+
+                        <div v-if="selected.audible" class="mt-4"><a class="font-semibold text-yellow hover:underline" :href="selected.audible">Listen on Audible</a></div>
+
                         <div v-if="selected.vimeo">
                             <div v-for="(v, index) in selected.vimeo" :key="index" class="mt-6">
                                 <client-only>
@@ -112,7 +119,7 @@ export default {
                     youtube: ["FnvGnfZgF0g"],
                     youtube_channel: "https://www.youtube.com/channel/UCsencBt7cZUdXb94yyffLBA",
                     platforms: ["youtube"],
-                    order: 2
+                    order: 3
                 },        {
                     id: 2,
                     img: "works/2.webp",
@@ -122,7 +129,7 @@ export default {
                     youtube: ["6_EDRNivnnI"],
                     youtube_channel: "https://www.youtube.com/channel/UCnEHS4Wa8WOxvQiKX4Vd-5g",
                     platforms: ["youtube"],
-                    order: 3
+                    order: 4
                 },
                 {
                     id: 3,
@@ -144,7 +151,7 @@ export default {
                     youtube: ["94YnB8nndf0"],
                     youtube_channel: "https://www.youtube.com/c/appMink/featured",
                     platforms: ["youtube"],
-                    order: 7
+                    order: 8
                 },
                 {
                     id: 5,
@@ -156,7 +163,7 @@ export default {
                     youtube_channel: "https://www.youtube.com/c/LittleBabyBum/featured",
                     youtube_playlist: "https://www.youtube.com/playlist?list=OLAK5uy_lDs7vUSxyA05wtoZx7SbuPely5bUexJ2Y",
                     platforms: ["youtube"],
-                    order: 9
+                    order: 10
                 },
                 {
                     id: 6,
@@ -167,7 +174,7 @@ export default {
                     youtube: ["frKQTxZoSzw", "yBBLivbQQ54"],
                     platforms: ["playstation", "windows", "xbox", "steam"],
                     soundcloud_playlist: "https://on.soundcloud.com/mXcq2",
-                    order: 6
+                    order: 7
                 },
                 {
                     id: 7,
@@ -179,7 +186,7 @@ export default {
                     youtube_channel: "https://www.youtube.com/user/ToyLabTV",
                     youtube_playlist: "https://www.youtube.com/watch?v=cJq9WdU5w4U&list=PLcR5BD0tGGBNZP7paeGlKNkmPVtFZH0KP",
                     platforms: ["youtube", "netflix"],
-                    order: 1,
+                    order: 2,
                 },
                 {
                     id: 8,
@@ -190,7 +197,7 @@ export default {
                     youtube: ["2KN7v75srZQ"],
                     youtube_playlist: "https://www.youtube.com/playlist?list=PLKCNCfD_4af8sxGFvIuYG3k9nvJQkv58r",
                     platforms: ["youtube"],
-                    order: 5
+                    order: 6
 
                 },
                 {
@@ -200,7 +207,7 @@ export default {
                     genre: ["Re-score"],
                     description: "Entry for the Westworld Scoring Competition hosted by Spitfire Audio. The task was to re-imagine and score a scene from Westworld Season 3.",
                     youtube: ["T__-goYTu3Q"],
-                    order: 11
+                    order: 12
                 },
                 {
                     id: 10,
@@ -209,7 +216,7 @@ export default {
                     genre: ["Re-score", "Animation"],
                     description: "It's winter in Patagonia, food is getting scarce. Koro the Llama engages with Oti the pesky penguin in an epic fight over that last tasty berry!",
                     youtube: ["mEcKY9gbUx4"],
-                    order: 13
+                    order: 14
                 },
                 {
                     id: 11,
@@ -219,7 +226,7 @@ export default {
                     description: `It Will Find You is a first person narrative driven horror experience, with a focus on environmental interaction and progressive narrative through game-play. It Will Find You aims to provide an immersive experience where a dark, twisting narrative evolves in tandem with your decisions. Developed by <a href="https://twitter.com/heraldofloco" class="text-yellow hover:underline" rel="nofollow">Mega Sloth Studios</a>.`,
                     youtube: ["k0RMwoxzLi0"],
                     platforms: ["steam", "windows"],
-                    order: 12
+                    order: 13
                 },
                 {
                     id: 12,
@@ -229,7 +236,7 @@ export default {
                     description: `Stop-motion animated series for kids produced by <a class="font-semibold text-yellow hover:underline" href="https://www.moonbug.com/" target="_blank" rel="noopener">Moonbug Entertainment</a>. Based on the Fisher-Price&reg; toy line of "Rescue Heroes", this online series tracks the adventures of a team of emergency responders who rescue people from various disasters.`,
                     youtube: ["KJltqNGhWns"],
                     youtube_playlist: "https://www.youtube.com/playlist?list=PLKCNCfD_4af-UtKntqcAQsPZykytye5lU",
-                    order: 10
+                    order: 11
                 },
                 {
                     id: 13,
@@ -239,7 +246,7 @@ export default {
                     description: "In a post-apocalyptic world where all the water and seas have disappeared, a courageous young female pilot fights against vicious sky pirates for control over the last remaining source of water, the clouds.",
                     youtube: null,
                     vimeo: ["229325041"],
-                    order: 14
+                    order: 15
                 },
                 {
                     id: 14,
@@ -249,7 +256,7 @@ export default {
                     description: "Wallace, after finding no cheese in the kitchen, decides that he and Gromit should go to a place known for its cheese. A glance out the window at the night sky gives him the idea to travel to the moon, since, according to Wallace, everybody knows that the moon is made of cheese.",
                     youtube: null,
                     vimeo: ["239726433"],
-                    order: 15
+                    order: 16
                 },
                 {
                     id: 15,
@@ -262,7 +269,7 @@ export default {
                         "239716421",
                         "239732509",
                     ],
-                    order: 16
+                    order: 17
                 },
                 {
                     id: 16,
@@ -272,7 +279,19 @@ export default {
                     description: "Let's Go Cozy Coupe is an online series that helps kids to learn, get creative and have lots of fun.",
                     youtube: ["3yzR-M_ZMdc"],
                     youtube_channel: "https://youtube.com/c/CozyCoupe",
-                    order: 8
+                    order: 9
+                },
+                {
+                    id: 17,
+                    img: "works/17.jpg",
+                    name: "Lellobee City Farm: Grandma Mei's Fantastic Folktales (Podcast Series)",
+                    genre: ["Podcast"],
+                    description: "It's time to tell a tale! Best friends Ella and Rishi play together on Lellobee City Farm as Grandma Mei recalls fantastic folktales collected from her travels around the world. Be transported by the atmospheric sounds of the Brazilian rainforest in the story of Domingo's Cat, then climb on a magical beanstalk through the clouds with Jack! Tailored for families to listen with their children aged 3-6, this series is an immersive storytelling experience that showcases the beauty of the natural world and cultures from across the globe.",
+                    youtube: [],
+                    youtube_channel: "",
+                    audible: "https://www.audible.com/pd/Lellobee-City-Farm-Grandma-Meis-Fantastic-Folktales-Series-1-Podcast/B0C78ZSLZF",
+                    audible_trailer: "https://m.media-amazon.com/images/I/C1aY4b30kYL.mp4",
+                    order: 1
                 },
             ],
             selected: null,

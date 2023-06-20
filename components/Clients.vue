@@ -3,7 +3,7 @@
         <div class="border-l-8 pl-4 border-solid border-yellow text-3xl sm:text-4xl font-bold mt-20 md:mt-32 mb-6 md:mb-10">CLIENTS</div>
         <div class="grid grid-cols-3 sm:grid-cols-6 gap-4 flex items-center justify-center">
             <a rel="nofollow" href="https://www.moonbug.com/">
-                <NuxtImg format="webp" src="/clients/1a.png" class="invert grayscale hover:grayscale-0 transition-all duration-500 contrast-125" loading="lazy" alt="Client logo for Moonbug Entertainment" width="304" height="70"/>
+                <NuxtImg format="webp" src="/clients/1b.png" class="invert grayscale hover:grayscale-0 transition-all duration-500 contrast-125" loading="lazy" alt="Client logo for Moonbug Entertainment" width="304" height="70"/>
             </a>
             <a rel="nofollow" href="https://www.lego.com/en-gb/themes/duplo">
                 <NuxtImg format="webp" src="/clients/2.png" class="grayscale hover:grayscale-0 transition-all duration-500 contrast-125 w-36 m-auto" loading="lazy" alt="Client logo for Lego" width="288" height="288"/>
