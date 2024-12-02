@@ -83,6 +83,8 @@
                             <div v-if="selected.youtube_playlist" class="mt-4"><a class="font-semibold text-yellow hover:underline" :href="selected.youtube_playlist">View Full Playlist</a></div>
                         </div>
 
+                        <div v-if="selected.imdb" class="mt-4"><a class="font-semibold text-yellow hover:underline" :href="selected.imdb">View on IMDB</a></div>
+
                         <div v-if="selected.soundcloud_playlist" class="mt-4"><a class="font-semibold text-yellow hover:underline" :href="selected.soundcloud_playlist">Listen on SoundCloud</a></div>
 
                         <div v-if="selected.youtube_channel" class="mt-4"><a class="font-semibold text-yellow hover:underline" :href="selected.youtube_channel">View {{ selected.name }} Channel on Youtube</a></div>
@@ -121,7 +123,7 @@ export default {
                     youtube: ["FnvGnfZgF0g"],
                     youtube_channel: "https://www.youtube.com/channel/UCsencBt7cZUdXb94yyffLBA",
                     platforms: ["youtube"],
-                    order: 3
+                    order: 12
                 },        {
                     id: 2,
                     img: "works/2.webp",
@@ -131,7 +133,7 @@ export default {
                     youtube: ["6_EDRNivnnI"],
                     youtube_channel: "https://www.youtube.com/channel/UCnEHS4Wa8WOxvQiKX4Vd-5g",
                     platforms: ["youtube"],
-                    order: 4
+                    order: 13
                 },
                 {
                     id: 3,
@@ -153,7 +155,7 @@ export default {
                     youtube: ["94YnB8nndf0"],
                     youtube_channel: "https://www.youtube.com/c/appMink/featured",
                     platforms: ["youtube"],
-                    order: 8
+                    order: 14
                 },
                 {
                     id: 5,
@@ -188,7 +190,7 @@ export default {
                     youtube_channel: "https://www.youtube.com/user/ToyLabTV",
                     youtube_playlist: "https://www.youtube.com/watch?v=cJq9WdU5w4U&list=PLcR5BD0tGGBNZP7paeGlKNkmPVtFZH0KP",
                     platforms: ["youtube", "netflix"],
-                    order: 2,
+                    order: 8,
                 },
                 {
                     id: 8,
@@ -209,7 +211,7 @@ export default {
                     genre: ["Re-score"],
                     description: "Entry for the Westworld Scoring Competition hosted by Spitfire Audio. The task was to re-imagine and score a scene from Westworld Season 3.",
                     youtube: ["T__-goYTu3Q"],
-                    order: 12
+                    order: 18
                 },
                 {
                     id: 10,
@@ -218,7 +220,7 @@ export default {
                     genre: ["Re-score", "Animation"],
                     description: "It's winter in Patagonia, food is getting scarce. Koro the Llama engages with Oti the pesky penguin in an epic fight over that last tasty berry!",
                     youtube: ["mEcKY9gbUx4"],
-                    order: 14
+                    order: 20
                 },
                 {
                     id: 11,
@@ -228,7 +230,7 @@ export default {
                     description: `It Will Find You is a first person narrative driven horror experience, with a focus on environmental interaction and progressive narrative through game-play. It Will Find You aims to provide an immersive experience where a dark, twisting narrative evolves in tandem with your decisions. Developed by <a href="https://twitter.com/heraldofloco" class="text-yellow hover:underline" rel="nofollow">Mega Sloth Studios</a>.`,
                     youtube: ["k0RMwoxzLi0"],
                     platforms: ["steam", "windows"],
-                    order: 13
+                    order: 19
                 },
                 {
                     id: 12,
@@ -271,7 +273,7 @@ export default {
                         "239716421",
                         "239732509",
                     ],
-                    order: 17
+                    order: 20
                 },
                 {
                     id: 16,
@@ -293,8 +295,47 @@ export default {
                     youtube_channel: "",
                     audible: "https://www.audible.com/pd/Lellobee-City-Farm-Grandma-Meis-Fantastic-Folktales-Series-1-Podcast/B0C78ZSLZF",
                     audible_trailer: "https://m.media-amazon.com/images/I/C1aY4b30kYL.mp4",
+                    order: 4
+                },
+                {
+                    id: 18,
+                    img: "works/18.jpg",
+                    name: "Paw Patrol: Rocky's Garage",
+                    genre: ["Animation"],
+                    description: "Rocky's Garage: Adventure Bay's amazing recycling pup, Rocky, fixes anything the PAW Patrol needs in his cool new garage.",
+                    youtube: ["txMGowizXx4"],
+                    youtube_channel: "",
+                    youtube_playlist: "https://youtube.com/playlist?list=PLU1E9f2XmDpberrQdMHOmHewlLD5kfCyL&si=RvK_nQD1vl4qOshp",
+                    audible: "",
+                    audible_trailer: "",
                     order: 1
                 },
+                {
+                    id: 19,
+                    img: "works/19.jpg",
+                    name: "Invitation for Return",
+                    genre: ["Animation"],
+                    description: "The film sets the protagonist to an opposition with the occupation of Cyprus, by Turkish troops and his reaction to the lifting of this weight. The film concludes with the return of the protagonist to his roots by riding a battering ram.",
+                    youtube: [],
+                    youtube_channel: "",
+                    audible: "",
+                    audible_trailer: "",
+                    imdb: "https://www.imdb.com/title/tt33384185/?ref_=tt_mv_close",
+                    order: 2
+                },
+                {
+                    id: 20,
+                    img: "works/20.jpg",
+                    name: "Gecko's Garage",
+                    genre: ["Animation"],
+                    description: "Gecko's Garage is the repair shop that cares, run by cheerful mechanic Gecko and his trusty robot sidekicks, The Mechanicals. The garage looks after all of the vehicles in town and keeps them running smoothly.",
+                    youtube: ["6KTfawqn40Y"],
+                    youtube_channel: "",
+                    youtube_playlist: "https://youtube.com/playlist?list=PLSjUhxzbatBgBnbMgEU6otCyp8QmNPlsM&si=fg5lqy5pm-OwZHRE",
+                    audible: "",
+                    audible_trailer: "",
+                    order: 3
+                }
             ],
             selected: null,
             selectedGenre: null
