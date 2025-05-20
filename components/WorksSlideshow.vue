@@ -142,7 +142,8 @@ export default {
       youtubePlayers: [],
       vimeoPlayers: [],
       autoPlayTimer: null,
-      isAutoPlaying: false
+      isAutoPlaying: false,
+      hasStartedAutoplay: false
     }
   },
 
@@ -220,8 +221,8 @@ export default {
         // Pause video and show overlay when tab is not visible
         this.stopCurrentVideo()
         this.isHovered = true
-      } else if (this.isAutoPlaying) {
-        // Hide overlay and resume video when tab becomes visible again and auto-play was active
+      } else if (this.isAutoPlaying && this.hasStartedAutoplay) {
+        // Only hide overlay and resume if autoplay has started
         this.isHovered = false
         this.playCurrentVideo()
       }
@@ -233,16 +234,18 @@ export default {
         this.autoPlayTimer = null
       }
 
-      // Reset auto-play state and show overlay
+      // Reset states
       this.isAutoPlaying = false
       this.isHovered = true
+      this.hasStartedAutoplay = false
 
       // Start new timer if current work has video
       const currentWork = this.works[this.currentIndex]
       if (this.hasVideo(currentWork)) {
         this.autoPlayTimer = setTimeout(() => {
           this.isAutoPlaying = true
-          this.isHovered = false // Hide overlay and show video
+          this.hasStartedAutoplay = true
+          this.isHovered = false // Hide overlay when autoplay starts
           this.playCurrentVideo()
         }, 5000)
       }
@@ -254,8 +257,8 @@ export default {
       if (isHovered && this.hasVideo(currentWork)) {
         // Pause video when hovering
         this.stopCurrentVideo()
-      } else if (!isHovered && this.hasVideo(currentWork) && this.isAutoPlaying) {
-        // Resume video when not hovering and auto-play is active
+      } else if (!isHovered && this.hasVideo(currentWork) && this.isAutoPlaying && this.hasStartedAutoplay) {
+        // Only resume if autoplay has started
         this.playCurrentVideo()
       }
     },
@@ -293,8 +296,8 @@ export default {
       this.isHovered = true
     },
     handleWindowFocus() {
-      // Hide overlay and resume video when window regains focus and auto-play was active
-      if (this.isAutoPlaying) {
+      // Only hide overlay and resume if autoplay has started
+      if (this.isAutoPlaying && this.hasStartedAutoplay) {
         this.isHovered = false
         this.playCurrentVideo()
       }
