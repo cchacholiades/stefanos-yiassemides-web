@@ -221,6 +221,8 @@ export default {
         // Pause video and show overlay when tab is not visible
         this.stopCurrentVideo()
         this.isHovered = true
+        // Reset autoplay timer if tab becomes hidden
+        this.resetAutoPlay()
       } else {
         const currentWork = this.works[this.currentIndex]
         // Only hide overlay and resume if autoplay has started and work has video
@@ -246,10 +248,17 @@ export default {
       const currentWork = this.works[this.currentIndex]
       if (this.hasVideo(currentWork)) {
         this.autoPlayTimer = setTimeout(() => {
-          this.isAutoPlaying = true
-          this.hasStartedAutoplay = true
-          this.isHovered = false // Hide overlay when autoplay starts
-          this.playCurrentVideo()
+          // Only start autoplay if the tab is visible and window is focused
+          if (!document.hidden && document.hasFocus()) {
+            this.isAutoPlaying = true
+            this.hasStartedAutoplay = true
+            this.isHovered = false // Hide overlay when autoplay starts
+            this.playCurrentVideo()
+          } else {
+            // If not focused, keep the overlay visible and reset the timer
+            this.isHovered = true
+            this.resetAutoPlay()
+          }
         }, 5000)
       } else {
         // Keep overlay visible for slides without video
@@ -300,6 +309,8 @@ export default {
       // Pause video and show overlay when window loses focus
       this.stopCurrentVideo()
       this.isHovered = true
+      // Reset autoplay timer if window loses focus
+      this.resetAutoPlay()
     },
     handleWindowFocus() {
       const currentWork = this.works[this.currentIndex]
