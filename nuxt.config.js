@@ -148,7 +148,7 @@ export default {
   fontawesome: {
     icons: {
       brands: ['faSoundcloud', 'faLinkedin', 'faTwitter', 'faInstagram', 'faImdb', 'faPlaystation', 'faSteam', 'faWindows', 'faXbox', 'faYoutube'],
-      solid: ['faXmark', 'faBars']
+      solid: ['faXmark', 'faBars', 'faChevronLeft', 'faChevronRight']
     },
   },
 

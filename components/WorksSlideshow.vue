@@ -14,22 +14,23 @@
         <NuxtImg
           :src="`/${work.img}`"
           class="w-full h-full object-cover transition-opacity duration-500"
-          :class="{ 'opacity-0': isHovered && (work.youtube || work.vimeo), 'opacity-100': !isHovered || (!work.youtube && !work.vimeo) }"
+          :class="{ 'opacity-0': isHovered && hasVideo(work), 'opacity-100': !isHovered || !hasVideo(work) }"
           loading="lazy"
           :alt="work.name"
         />
 
         <!-- Video Players Container -->
         <div
-          v-if="work.youtube || work.vimeo"
+          v-if="hasVideo(work)"
           class="absolute inset-0 transition-opacity duration-500 video-container"
           :class="{ 'opacity-100': isHovered, 'opacity-0': !isHovered }"
           style="width: 100vw; height: 100vh;"
         >
           <!-- YouTube Player -->
           <youtube
-            v-if="work.youtube"
-            :video-id="work.youtube"
+            v-if="work.youtube && work.youtube[0]"
+            ref="youtubePlayers"
+            :video-id="work.youtube[0]"
             :player-vars="{
               autoplay: 0,
               controls: 0,
@@ -46,26 +47,25 @@
             class="youtube-player"
             @ready="onPlayerReady($event, index)"
             @ended="onPlayerEnded(index)"
-            ref="youtubePlayers"
           />
 
           <!-- Vimeo Player -->
           <vimeo-player
-            v-if="work.vimeo"
-            :video-id="work.vimeo"
+            v-if="work.vimeo && work.vimeo[0]"
+            ref="vimeoPlayers"
+            :video-id="work.vimeo[0]"
             :options="{
               autoplay: false,
               controls: false,
               responsive: true,
               dnt: true,
-              background: true,
+              background: false,
               playsinline: true,
-              muted: true,
+              muted: false,
               loop: true
             }"
             class="vimeo-player"
             @ready="onVimeoReady($event, index)"
-            ref="vimeoPlayers"
           />
         </div>
 
@@ -78,7 +78,7 @@
           <!-- Work Details (Always Visible, Hidden on Hover) -->
           <div
             class="absolute bottom-0 left-0 right-0 p-8 transition-all duration-300"
-            :class="{ 'translate-y-4 opacity-0': isHovered, 'translate-y-0 opacity-100': !isHovered }"
+            :class="{ 'translate-y-4 opacity-0': isHovered && hasVideo(work), 'translate-y-0 opacity-100': !isHovered || !hasVideo(work) }"
           >
             <h2 class="text-4xl md:text-5xl font-bold text-white mb-4">{{ work.name }}</h2>
             <p class="text-lg text-white/90 max-w-2xl">{{ work.description }}</p>
@@ -96,26 +96,28 @@
 
       <!-- Navigation Arrows -->
       <button
+        class="fixed left-4 top-1/2 -translate-y-1/2 text-white/90 hover:text-white text-6xl transition-colors z-[200] nav-arrow nav-arrow-left"
         @click="prevSlide"
-        class="absolute left-4 top-1/2 -translate-y-1/2 text-white/80 hover:text-white text-4xl transition-colors z-50"
+        aria-label="Previous Slide"
       >
         <font-awesome-icon :icon="['fas', 'chevron-left']"/>
       </button>
       <button
+        class="fixed right-4 top-1/2 -translate-y-1/2 text-white/90 hover:text-white text-6xl transition-colors z-[200] nav-arrow nav-arrow-right"
         @click="nextSlide"
-        class="absolute right-4 top-1/2 -translate-y-1/2 text-white/80 hover:text-white text-4xl transition-colors z-50"
+        aria-label="Next Slide"
       >
         <font-awesome-icon :icon="['fas', 'chevron-right']"/>
       </button>
 
       <!-- Slide Indicators -->
-      <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex gap-2 z-50">
+      <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex gap-2 z-50 slide-indicators">
         <button
           v-for="(work, index) in works"
           :key="work.id"
-          @click="currentIndex = index"
-          class="w-2 h-2 rounded-full transition-all duration-300"
           :class="currentIndex === index ? 'bg-white scale-125' : 'bg-white/50 hover:bg-white/80'"
+          class="w-4 h-4 rounded-full border-2 border-white shadow-lg transition-all duration-300 focus:outline-none"
+          @click="currentIndex = index"
         />
       </div>
     </div>
@@ -147,6 +149,9 @@ export default {
   },
 
   methods: {
+    hasVideo(work) {
+      return (work.youtube && work.youtube.length > 0) || (work.vimeo && work.vimeo.length > 0)
+    },
     nextSlide() {
       this.stopCurrentVideo()
       this.currentIndex = (this.currentIndex + 1) % this.works.length
@@ -157,7 +162,9 @@ export default {
     },
     handleHover(isHovered) {
       this.isHovered = isHovered
-      if (isHovered) {
+      const currentWork = this.works[this.currentIndex]
+
+      if (isHovered && this.hasVideo(currentWork)) {
         this.playCurrentVideo()
       } else {
         this.stopCurrentVideo()
@@ -171,9 +178,9 @@ export default {
     },
     playCurrentVideo() {
       const currentWork = this.works[this.currentIndex]
-      if (currentWork.youtube && this.youtubePlayers[this.currentIndex]) {
+      if (currentWork.youtube && currentWork.youtube[0] && this.youtubePlayers[this.currentIndex]) {
         this.youtubePlayers[this.currentIndex].playVideo()
-      } else if (currentWork.vimeo && this.vimeoPlayers[this.currentIndex]) {
+      } else if (currentWork.vimeo && currentWork.vimeo[0] && this.vimeoPlayers[this.currentIndex]) {
         this.vimeoPlayers[this.currentIndex].play()
       }
     },
@@ -231,10 +238,8 @@ export default {
   top: 50% !important;
   left: 50% !important;
   transform: translate(-50%, -50%) !important;
-  width: 177.77777778vh !important; /* 16:9 aspect ratio */
-  height: 56.25vw !important; /* 16:9 aspect ratio */
-  min-width: 100vw !important;
-  min-height: 100vh !important;
+  width: 100vw !important;
+  height: 100vh !important;
   pointer-events: none;
   z-index: 1;
 }
@@ -255,10 +260,8 @@ export default {
   top: 50% !important;
   left: 50% !important;
   transform: translate(-50%, -50%) !important;
-  width: 177.77777778vh !important; /* 16:9 aspect ratio */
-  height: 56.25vw !important; /* 16:9 aspect ratio */
-  min-width: 100vw !important;
-  min-height: 100vh !important;
+  width: 100vw !important;
+  height: 100vh !important;
   pointer-events: none;
   z-index: 1;
 }
@@ -273,11 +276,48 @@ export default {
   /* Safari-specific styles */
   :deep(.youtube-player iframe),
   :deep(.vimeo-player iframe) {
-    width: 177.77777778vh !important;
-    height: 56.25vw !important;
-    min-width: 100vw !important;
-    min-height: 100vh !important;
+    width: 100vw !important;
+    height: 100vh !important;
     transform: translate(-50%, -50%) !important;
+  }
+}
+
+.slide-indicators {
+  z-index: 100 !important;
+}
+
+.nav-arrow {
+  background: rgba(0,0,0,0.3);
+  border-radius: 50%;
+  width: 64px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  transition: background 0.2s;
+}
+.nav-arrow:hover {
+  background: rgba(0,0,0,0.6);
+}
+.nav-arrow :deep(.fa-icon),
+.nav-arrow :deep(svg) {
+  font-size: 1.7rem !important;
+  width: 1.7rem !important;
+  height: 1.7rem !important;
+}
+
+@media (max-width: 640px) {
+  .nav-arrow {
+    width: 48px;
+    height: 48px;
+    font-size: 2rem;
+  }
+  .nav-arrow :deep(.fa-icon),
+  .nav-arrow :deep(svg) {
+    font-size: 1.2rem !important;
+    width: 1.2rem !important;
+    height: 1.2rem !important;
   }
 }
 </style>
