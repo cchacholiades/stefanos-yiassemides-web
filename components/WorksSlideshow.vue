@@ -71,23 +71,30 @@
 
         <!-- Overlay Content -->
         <div
-          class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"
+          class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent"
           @mouseenter="handleHover(true)"
           @mouseleave="handleHover(false)"
         >
-          <!-- Work Details (Always Visible, Hidden on Hover) -->
+          <!-- Work Details Container -->
           <div
-            class="absolute bottom-0 left-0 right-0 p-8 transition-all duration-300"
-            :class="{ 'translate-y-4 opacity-0': isHovered && hasVideo(work), 'translate-y-0 opacity-100': !isHovered || !hasVideo(work) }"
+            class="absolute inset-0 flex items-center justify-center transition-all duration-500"
+            :class="{ 'opacity-0': isHovered && hasVideo(work), 'opacity-100': !isHovered || !hasVideo(work) }"
           >
-            <h2 class="text-4xl md:text-5xl font-bold text-white mb-4">{{ work.name }}</h2>
-            <p class="text-lg text-white/90 max-w-2xl">{{ work.description }}</p>
+            <!-- Content Wrapper -->
+            <div class="w-full max-w-3xl mx-auto px-8">
+              <!-- Title and Description -->
+              <div class="mb-6">
+                <h2 class="text-4xl md:text-5xl font-bold text-white mb-3 tracking-tight">{{ work.name }}</h2>
+                <p class="text-lg text-white/90 max-w-2xl leading-relaxed" v-html="work.description"></p>
+              </div>
 
-            <!-- Platforms -->
-            <div v-if="work.platforms" class="flex gap-4 mt-4">
-              <div v-for="platform in work.platforms" :key="platform" class="text-2xl text-white">
-                <font-awesome-icon v-if="platform !== 'netflix'" :icon="['fab', platform]"/>
-                <img v-else src="/icons/netflix.svg" alt="Netflix" class="w-6 h-6">
+              <!-- Platforms -->
+              <div v-if="work.platforms" class="flex gap-4 items-center">
+                <div v-for="platform in work.platforms" :key="platform"
+                     class="text-2xl text-white/90 hover:text-white transition-colors">
+                  <font-awesome-icon v-if="platform !== 'netflix'" :icon="['fab', platform]"/>
+                  <img v-else src="/icons/netflix.svg" alt="Netflix" class="w-6 h-6">
+                </div>
               </div>
             </div>
           </div>
@@ -111,12 +118,12 @@
       </button>
 
       <!-- Slide Indicators -->
-      <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex gap-2 z-50 slide-indicators">
+      <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex gap-2 z-[150] slide-indicators">
         <button
           v-for="(work, index) in works"
           :key="work.id"
           :class="currentIndex === index ? 'bg-white scale-125' : 'bg-white/50 hover:bg-white/80'"
-          class="w-4 h-4 rounded-full border-2 border-white shadow-lg transition-all duration-300 focus:outline-none"
+          class="w-3 h-3 rounded-full border-2 border-white shadow-lg transition-all duration-300 focus:outline-none"
           @click="currentIndex = index"
         />
       </div>
@@ -266,24 +273,37 @@ export default {
   z-index: 1;
 }
 
-/* Ensure overlay content stays on top */
+/* Overlay Content Styles */
 .absolute.inset-0.bg-gradient-to-t {
   z-index: 2;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.9) 0%,
+    rgba(0, 0, 0, 0.5) 50%,
+    rgba(0, 0, 0, 0) 100%
+  );
 }
 
-/* Browser-specific fixes */
-@supports (-webkit-touch-callout: none) {
-  /* Safari-specific styles */
-  :deep(.youtube-player iframe),
-  :deep(.vimeo-player iframe) {
-    width: 100vw !important;
-    height: 100vh !important;
-    transform: translate(-50%, -50%) !important;
-  }
-}
-
+/* Slide Indicators */
 .slide-indicators {
-  z-index: 100 !important;
+  z-index: 150 !important;
+  margin-bottom: 1rem;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 640px) {
+  .max-w-7xl {
+    padding: 1.5rem;
+  }
+
+  h2 {
+    font-size: 2rem;
+    margin-bottom: 0.75rem;
+  }
+
+  p {
+    font-size: 1rem;
+  }
 }
 
 .nav-arrow {
