@@ -72,14 +72,14 @@
         <!-- Overlay Content -->
         <div
           class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent transition-opacity duration-500"
-          :class="{ 'opacity-100': isHovered, 'opacity-0': !isHovered }"
+          :class="{ 'opacity-100': isHovered || !hasVideo(work), 'opacity-0': !isHovered && hasVideo(work) }"
           @mouseenter="handleHover(true)"
           @mouseleave="handleHover(false)"
         >
           <!-- Work Details Container -->
           <div
             class="absolute inset-0 flex items-center justify-center transition-all duration-500"
-            :class="{ 'opacity-100': isHovered, 'opacity-0': !isHovered }"
+            :class="{ 'opacity-100': isHovered || !hasVideo(work), 'opacity-0': !isHovered && hasVideo(work) }"
           >
             <!-- Content Wrapper -->
             <div class="w-full max-w-3xl mx-auto px-8">
@@ -221,10 +221,13 @@ export default {
         // Pause video and show overlay when tab is not visible
         this.stopCurrentVideo()
         this.isHovered = true
-      } else if (this.isAutoPlaying && this.hasStartedAutoplay) {
-        // Only hide overlay and resume if autoplay has started
-        this.isHovered = false
-        this.playCurrentVideo()
+      } else {
+        const currentWork = this.works[this.currentIndex]
+        // Only hide overlay and resume if autoplay has started and work has video
+        if (this.isAutoPlaying && this.hasStartedAutoplay && this.hasVideo(currentWork)) {
+          this.isHovered = false
+          this.playCurrentVideo()
+        }
       }
     },
     resetAutoPlay() {
@@ -248,6 +251,9 @@ export default {
           this.isHovered = false // Hide overlay when autoplay starts
           this.playCurrentVideo()
         }, 5000)
+      } else {
+        // Keep overlay visible for slides without video
+        this.isHovered = true
       }
     },
     handleHover(isHovered) {
@@ -296,8 +302,9 @@ export default {
       this.isHovered = true
     },
     handleWindowFocus() {
-      // Only hide overlay and resume if autoplay has started
-      if (this.isAutoPlaying && this.hasStartedAutoplay) {
+      const currentWork = this.works[this.currentIndex]
+      // Only hide overlay and resume if autoplay has started and work has video
+      if (this.isAutoPlaying && this.hasStartedAutoplay && this.hasVideo(currentWork)) {
         this.isHovered = false
         this.playCurrentVideo()
       }
