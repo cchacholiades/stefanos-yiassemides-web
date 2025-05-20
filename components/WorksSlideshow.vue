@@ -97,19 +97,19 @@
       <!-- Navigation Arrows -->
       <button
         @click="prevSlide"
-        class="absolute left-4 top-1/2 -translate-y-1/2 text-white/80 hover:text-white text-4xl transition-colors"
+        class="absolute left-4 top-1/2 -translate-y-1/2 text-white/80 hover:text-white text-4xl transition-colors z-50"
       >
         <font-awesome-icon :icon="['fas', 'chevron-left']"/>
       </button>
       <button
         @click="nextSlide"
-        class="absolute right-4 top-1/2 -translate-y-1/2 text-white/80 hover:text-white text-4xl transition-colors"
+        class="absolute right-4 top-1/2 -translate-y-1/2 text-white/80 hover:text-white text-4xl transition-colors z-50"
       >
         <font-awesome-icon :icon="['fas', 'chevron-right']"/>
       </button>
 
       <!-- Slide Indicators -->
-      <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex gap-2">
+      <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex gap-2 z-50">
         <button
           v-for="(work, index) in works"
           :key="work.id"
@@ -212,7 +212,7 @@ export default {
   width: 100vw !important;
   height: 100vh !important;
   overflow: hidden;
-  z-index: 0;
+  z-index: 1;
 }
 
 /* YouTube Player */
@@ -223,19 +223,20 @@ export default {
   width: 100vw !important;
   height: 100vh !important;
   pointer-events: none;
-  z-index: 0;
+  z-index: 1;
 }
 
 :deep(.youtube-player iframe) {
   position: fixed !important;
   top: 50% !important;
   left: 50% !important;
-  transform: translate(-50%, -50%) scale(2) !important;
-  width: 100vw !important;
-  height: 100vh !important;
+  transform: translate(-50%, -50%) !important;
+  width: 177.77777778vh !important; /* 16:9 aspect ratio */
+  height: 56.25vw !important; /* 16:9 aspect ratio */
+  min-width: 100vw !important;
+  min-height: 100vh !important;
   pointer-events: none;
-  object-fit: cover !important;
-  z-index: 0;
+  z-index: 1;
 }
 
 /* Vimeo Player */
@@ -246,15 +247,37 @@ export default {
   width: 100vw !important;
   height: 100vh !important;
   pointer-events: none;
-  z-index: 0;
+  z-index: 1;
 }
 
 :deep(.vimeo-player iframe) {
-  width: 100vw !important;
-  height: 100vh !important;
   position: fixed !important;
-  top: 0 !important;
-  left: 0 !important;
-  z-index: 0;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  width: 177.77777778vh !important; /* 16:9 aspect ratio */
+  height: 56.25vw !important; /* 16:9 aspect ratio */
+  min-width: 100vw !important;
+  min-height: 100vh !important;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Ensure overlay content stays on top */
+.absolute.inset-0.bg-gradient-to-t {
+  z-index: 2;
+}
+
+/* Browser-specific fixes */
+@supports (-webkit-touch-callout: none) {
+  /* Safari-specific styles */
+  :deep(.youtube-player iframe),
+  :deep(.vimeo-player iframe) {
+    width: 177.77777778vh !important;
+    height: 56.25vw !important;
+    min-width: 100vw !important;
+    min-height: 100vh !important;
+    transform: translate(-50%, -50%) !important;
+  }
 }
 </style>
