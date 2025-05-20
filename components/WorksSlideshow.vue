@@ -217,10 +217,12 @@ export default {
     },
     handleVisibilityChange() {
       if (document.hidden) {
-        // Pause video when tab is not visible
+        // Pause video and show overlay when tab is not visible
         this.stopCurrentVideo()
-      } else if (!this.isHovered && this.isAutoPlaying) {
-        // Resume video when tab becomes visible again and auto-play was active
+        this.isHovered = true
+      } else if (this.isAutoPlaying) {
+        // Hide overlay and resume video when tab becomes visible again and auto-play was active
+        this.isHovered = false
         this.playCurrentVideo()
       }
     },
@@ -286,12 +288,14 @@ export default {
       }
     },
     handleWindowBlur() {
-      // Pause video when window loses focus
+      // Pause video and show overlay when window loses focus
       this.stopCurrentVideo()
+      this.isHovered = true
     },
     handleWindowFocus() {
-      // Resume video when window regains focus and auto-play was active
-      if (!this.isHovered && this.isAutoPlaying) {
+      // Hide overlay and resume video when window regains focus and auto-play was active
+      if (this.isAutoPlaying) {
+        this.isHovered = false
         this.playCurrentVideo()
       }
     }
