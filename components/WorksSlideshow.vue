@@ -14,7 +14,7 @@
         <NuxtImg
           :src="`/${work.img}`"
           class="w-full h-full object-cover transition-opacity duration-500"
-          :class="{ 'opacity-0': isHovered && hasVideo(work), 'opacity-100': !isHovered || !hasVideo(work) }"
+          :class="{ 'opacity-100': isHovered || !hasVideo(work), 'opacity-0': !isHovered && hasVideo(work) }"
           loading="lazy"
           :alt="work.name"
         />
@@ -23,7 +23,7 @@
         <div
           v-if="hasVideo(work)"
           class="absolute inset-0 transition-opacity duration-500 video-container"
-          :class="{ 'opacity-100': isHovered, 'opacity-0': !isHovered }"
+          :class="{ 'opacity-0': isHovered, 'opacity-100': !isHovered }"
           style="width: 100vw; height: 100vh;"
         >
           <!-- YouTube Player -->
@@ -71,14 +71,15 @@
 
         <!-- Overlay Content -->
         <div
-          class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent"
+          class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent transition-opacity duration-500"
+          :class="{ 'opacity-100': isHovered, 'opacity-0': !isHovered }"
           @mouseenter="handleHover(true)"
           @mouseleave="handleHover(false)"
         >
           <!-- Work Details Container -->
           <div
             class="absolute inset-0 flex items-center justify-center transition-all duration-500"
-            :class="{ 'opacity-0': isHovered && hasVideo(work), 'opacity-100': !isHovered || !hasVideo(work) }"
+            :class="{ 'opacity-100': isHovered, 'opacity-0': !isHovered }"
           >
             <!-- Content Wrapper -->
             <div class="w-full max-w-3xl mx-auto px-8">
@@ -136,10 +137,12 @@ export default {
   data() {
     return {
       currentIndex: 0,
-      isHovered: false,
+      isHovered: true,
       works: null,
       youtubePlayers: [],
-      vimeoPlayers: []
+      vimeoPlayers: [],
+      autoPlayTimer: null,
+      isAutoPlaying: false
     }
   },
 
@@ -149,13 +152,58 @@ export default {
     }
   },
 
+  watch: {
+    currentIndex() {
+      // Reset auto-play when changing slides
+      this.resetAutoPlay()
+    }
+  },
+
   async mounted() {
     // Import works data from the Works component
     const WorksComponent = await import('./Works.vue')
     this.works = WorksComponent.default.data().works.sort((a, b) => a.order - b.order)
+
+    // Add keyboard event listener
+    window.addEventListener('keydown', this.handleKeyDown)
+
+    // Add visibility change listener
+    document.addEventListener('visibilitychange', this.handleVisibilityChange)
+
+    // Add window blur/focus listeners
+    window.addEventListener('blur', this.handleWindowBlur)
+    window.addEventListener('focus', this.handleWindowFocus)
+
+    // Start auto-play timer for first slide
+    this.resetAutoPlay()
+  },
+
+  beforeDestroy() {
+    // Remove keyboard event listener
+    window.removeEventListener('keydown', this.handleKeyDown)
+
+    // Remove visibility change listener
+    document.removeEventListener('visibilitychange', this.handleVisibilityChange)
+
+    // Remove window blur/focus listeners
+    window.removeEventListener('blur', this.handleWindowBlur)
+    window.removeEventListener('focus', this.handleWindowFocus)
+
+    // Clear auto-play timer
+    if (this.autoPlayTimer) {
+      clearTimeout(this.autoPlayTimer)
+    }
   },
 
   methods: {
+    handleKeyDown(event) {
+      // Only handle arrow keys
+      if (event.key === 'ArrowLeft') {
+        this.prevSlide()
+      } else if (event.key === 'ArrowRight') {
+        this.nextSlide()
+      }
+    },
     hasVideo(work) {
       return (work.youtube && work.youtube.length > 0) || (work.vimeo && work.vimeo.length > 0)
     },
@@ -167,14 +215,46 @@ export default {
       this.stopCurrentVideo()
       this.currentIndex = (this.currentIndex - 1 + this.works.length) % this.works.length
     },
+    handleVisibilityChange() {
+      if (document.hidden) {
+        // Pause video when tab is not visible
+        this.stopCurrentVideo()
+      } else if (!this.isHovered && this.isAutoPlaying) {
+        // Resume video when tab becomes visible again and auto-play was active
+        this.playCurrentVideo()
+      }
+    },
+    resetAutoPlay() {
+      // Clear existing timer
+      if (this.autoPlayTimer) {
+        clearTimeout(this.autoPlayTimer)
+        this.autoPlayTimer = null
+      }
+
+      // Reset auto-play state and show overlay
+      this.isAutoPlaying = false
+      this.isHovered = true
+
+      // Start new timer if current work has video
+      const currentWork = this.works[this.currentIndex]
+      if (this.hasVideo(currentWork)) {
+        this.autoPlayTimer = setTimeout(() => {
+          this.isAutoPlaying = true
+          this.isHovered = false // Hide overlay and show video
+          this.playCurrentVideo()
+        }, 5000)
+      }
+    },
     handleHover(isHovered) {
       this.isHovered = isHovered
       const currentWork = this.works[this.currentIndex]
 
       if (isHovered && this.hasVideo(currentWork)) {
-        this.playCurrentVideo()
-      } else {
+        // Pause video when hovering
         this.stopCurrentVideo()
+      } else if (!isHovered && this.hasVideo(currentWork) && this.isAutoPlaying) {
+        // Resume video when not hovering and auto-play is active
+        this.playCurrentVideo()
       }
     },
     onPlayerReady(event, index) {
@@ -203,6 +283,16 @@ export default {
       if (this.youtubePlayers[index]) {
         this.youtubePlayers[index].seekTo(0)
         this.youtubePlayers[index].playVideo()
+      }
+    },
+    handleWindowBlur() {
+      // Pause video when window loses focus
+      this.stopCurrentVideo()
+    },
+    handleWindowFocus() {
+      // Resume video when window regains focus and auto-play was active
+      if (!this.isHovered && this.isAutoPlaying) {
+        this.playCurrentVideo()
       }
     }
   }
