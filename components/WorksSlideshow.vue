@@ -235,6 +235,16 @@
           </div>
         </div>
       </div>
+
+      <!-- Mobile Autoplay Label -->
+      <div class="fixed bottom-24 left-1/2 -translate-x-1/2 z-[150] md:hidden">
+        <div
+          v-if="isHovered && hasVideo(works[currentIndex]) && countdown > 0 && countdown <= 3"
+          class="bg-black/80 text-white px-4 py-2 rounded-full text-sm font-medium backdrop-blur-sm"
+        >
+          Autoplay in {{ countdown }} seconds
+        </div>
+      </div>
     </div>
   </div>
 </template>
