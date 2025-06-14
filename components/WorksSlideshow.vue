@@ -268,7 +268,9 @@ export default {
       lastMouseMove: Date.now(),
       mouseMoveTimer: null,
       previewIndex: null,
-      previewTimer: null
+      previewTimer: null,
+      isIOS: false,
+      hasUserInteracted: false
     }
   },
 
@@ -286,6 +288,9 @@ export default {
   },
 
   async mounted() {
+    // Check if device is iOS
+    this.isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream
+
     // Import works data from the Works component
     const WorksComponent = await import('./Works.vue')
     this.works = WorksComponent.default.data().works.sort((a, b) => a.order - b.order)
@@ -526,12 +531,25 @@ export default {
       if (index === this.currentIndex && this.isAutoPlaying) {
         console.log('Player ready for current slide, attempting to play')
         const player = event.target
+
+        if (this.isIOS && !this.hasUserInteracted) {
+          // For iOS, ensure the video is muted initially
+          player.mute()
+        } else if (this.isIOS && this.hasUserInteracted) {
+          // Unmute if user has interacted
+          player.unMute()
+        }
         player.playVideo()
 
         // Add multiple retry attempts with increasing delays
         setTimeout(() => {
           if (player.getPlayerState() !== 1) {
             console.log('First retry attempt for video playback...')
+            if (this.isIOS && !this.hasUserInteracted) {
+              player.mute()
+            } else if (this.isIOS && this.hasUserInteracted) {
+              player.unMute()
+            }
             player.playVideo()
           }
         }, 1000)
@@ -539,6 +557,11 @@ export default {
         setTimeout(() => {
           if (player.getPlayerState() !== 1) {
             console.log('Second retry attempt for video playback...')
+            if (this.isIOS && !this.hasUserInteracted) {
+              player.mute()
+            } else if (this.isIOS && this.hasUserInteracted) {
+              player.unMute()
+            }
             player.playVideo()
           }
         }, 2000)
@@ -546,6 +569,11 @@ export default {
         setTimeout(() => {
           if (player.getPlayerState() !== 1) {
             console.log('Final retry attempt for video playback...')
+            if (this.isIOS && !this.hasUserInteracted) {
+              player.mute()
+            } else if (this.isIOS && this.hasUserInteracted) {
+              player.unMute()
+            }
             player.playVideo()
           }
         }, 3000)
@@ -555,6 +583,13 @@ export default {
       this.vimeoPlayers[index] = player
       // If this is the first slide and we're ready to play, start the video
       if (index === 0 && this.isAutoPlaying) {
+        if (this.isIOS && !this.hasUserInteracted) {
+          // For iOS, ensure the video is muted initially
+          player.setVolume(0)
+        } else if (this.isIOS && this.hasUserInteracted) {
+          // Set volume to 1 if user has interacted
+          player.setVolume(1)
+        }
         this.playCurrentVideo()
       }
     },
@@ -565,7 +600,13 @@ export default {
           const player = this.youtubePlayers[this.currentIndex]
           console.log('Attempting to play YouTube video for index:', this.currentIndex)
 
-          // Force play the video
+          if (this.isIOS && !this.hasUserInteracted) {
+            // For iOS, we need to ensure the video is muted initially
+            player.mute()
+          } else if (this.isIOS && this.hasUserInteracted) {
+            // Unmute if user has interacted
+            player.unMute()
+          }
           player.playVideo()
 
           // Check if video started playing
@@ -574,6 +615,11 @@ export default {
             console.log('Current player state:', state)
             if (state !== 1) { // 1 is playing
               console.log('Video not playing, retrying...')
+              if (this.isIOS && !this.hasUserInteracted) {
+                player.mute()
+              } else if (this.isIOS && this.hasUserInteracted) {
+                player.unMute()
+              }
               player.playVideo()
             }
           }, 1000)
@@ -582,7 +628,15 @@ export default {
         }
       } else if (currentWork.vimeo && currentWork.vimeo[0] && this.vimeoPlayers[this.currentIndex]) {
         try {
-          this.vimeoPlayers[this.currentIndex].play()
+          const player = this.vimeoPlayers[this.currentIndex]
+          if (this.isIOS && !this.hasUserInteracted) {
+            // For iOS, ensure the video is muted initially
+            player.setVolume(0)
+          } else if (this.isIOS && this.hasUserInteracted) {
+            // Set volume to 1 if user has interacted
+            player.setVolume(1)
+          }
+          player.play()
           console.log('Playing Vimeo video')
         } catch (error) {
           console.error('Error playing Vimeo video:', error)
@@ -631,14 +685,16 @@ export default {
     handleTouchStart(event) {
       // Handle touch start
       this.handleHover(true)
+      this.hasUserInteracted = true
     },
     handleTouchMove(event) {
       // Handle touch move
-      // No need to prevent default as we're using passive listener
+      this.hasUserInteracted = true
     },
     handleTouchEnd(event) {
       // Handle touch end
       this.handleHover(false)
+      this.hasUserInteracted = true
     },
     handleVisibilityChange() {
       if (document.hidden) {
