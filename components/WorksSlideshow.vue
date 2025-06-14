@@ -1,5 +1,21 @@
 <template>
   <div class="fixed inset-0 bg-black" v-if="works">
+    <!-- Navigation Bar -->
+    <div
+      class="fixed top-0 left-0 right-0 z-[200] transition-all duration-500"
+      :class="{ 'opacity-0': !isHovered && isAutoPlaying, 'opacity-100': isHovered || !isAutoPlaying }"
+    >
+      <div class="absolute inset-0 bg-gradient-to-b from-black/80 via-black/40 to-transparent backdrop-blur-md"></div>
+      <div class="relative container mx-auto px-6 py-4">
+        <div class="flex items-center">
+          <div class="text-white">
+            <h1 class="text-xl font-bold tracking-tight">Stefanos Yiassemides</h1>
+            <p class="text-sm text-white/80">Music Composer</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- Main Slideshow Container -->
     <div class="relative w-full h-full">
       <!-- Current Slide -->
@@ -77,14 +93,6 @@
           @mouseleave="handleHover(false)"
           @mousemove="handleMouseMove"
         >
-          <!-- Countdown Label -->
-          <div
-            v-if="isHovered && hasVideo(work) && countdown > 0 && countdown <= 3"
-            class="absolute top-4 left-1/2 -translate-x-1/2 bg-black/80 text-white px-4 py-2 rounded-full text-sm font-medium"
-          >
-            Autoplay in {{ countdown }} seconds
-          </div>
-
           <!-- Work Details Container -->
           <div
             class="absolute inset-0 flex items-center justify-center transition-all duration-500"
@@ -113,62 +121,87 @@
 
       <!-- Navigation Arrows -->
       <button
-        class="fixed left-4 top-1/2 -translate-y-1/2 text-white/90 hover:text-white text-6xl transition-colors z-[200] nav-arrow nav-arrow-left"
+        class="fixed left-4 top-1/2 -translate-y-1/2 text-white/90 hover:text-white text-6xl transition-all duration-300 z-[200] nav-arrow nav-arrow-left group"
         @click="prevSlide"
         aria-label="Previous Slide"
       >
-        <font-awesome-icon :icon="['fas', 'chevron-left']"/>
+        <div class="absolute inset-0 bg-white/10 rounded-full backdrop-blur-md transform -scale-100 opacity-0 group-hover:opacity-100 transition-all duration-300 group-hover:shadow-[0_0_15px_rgba(255,255,255,0.2)]"></div>
+        <div class="relative flex items-center justify-center w-full h-full">
+          <font-awesome-icon :icon="['fas', 'chevron-left']"/>
+        </div>
       </button>
       <button
-        class="fixed right-4 top-1/2 -translate-y-1/2 text-white/90 hover:text-white text-6xl transition-colors z-[200] nav-arrow nav-arrow-right"
+        class="fixed right-4 top-1/2 -translate-y-1/2 text-white/90 hover:text-white text-6xl transition-all duration-300 z-[200] nav-arrow nav-arrow-right group"
         @click="nextSlide"
         aria-label="Next Slide"
       >
-        <font-awesome-icon :icon="['fas', 'chevron-right']"/>
+        <div class="absolute inset-0 bg-white/10 rounded-full backdrop-blur-md opacity-0 group-hover:opacity-100 transition-all duration-300 group-hover:shadow-[0_0_15px_rgba(255,255,255,0.2)]"></div>
+        <div class="relative flex items-center justify-center w-full h-full">
+          <font-awesome-icon :icon="['fas', 'chevron-right']"/>
+        </div>
       </button>
 
       <!-- Slide Indicators -->
-      <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex gap-2 z-[150] slide-indicators">
+      <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4 z-[150]">
+        <!-- Countdown Label -->
         <div
-          v-for="(work, index) in works"
-          :key="work.id"
-          class="relative"
+          v-if="isHovered && hasVideo(works[currentIndex]) && countdown > 0 && countdown <= 3"
+          class="bg-black/80 text-white px-4 py-2 rounded-full text-sm font-medium backdrop-blur-sm"
         >
-          <!-- Indicator Button -->
-          <button
-            :class="currentIndex === index ? 'bg-white scale-125' : 'bg-white/50 hover:bg-white/80'"
-            class="w-3 h-3 rounded-full border-2 border-white shadow-lg transition-all duration-300 focus:outline-none"
-            @click="currentIndex = index"
-            @mouseenter="showPreview(index)"
-            @mouseleave="hidePreview(index)"
-          />
+          Autoplay in {{ countdown }} seconds
+        </div>
 
-          <!-- Preview Popup -->
+        <!-- Indicators Container -->
+        <div class="flex gap-2 slide-indicators">
           <div
-            v-show="previewIndex === index"
-            class="absolute bottom-full left-1/2 -translate-x-1/2 mb-4 w-48 bg-black/90 rounded-lg shadow-xl overflow-hidden transform transition-all duration-300"
-            :class="{
-              'opacity-100 translate-y-0': previewIndex === index,
-              'opacity-0 translate-y-2': previewIndex !== index
-            }"
+            v-for="(work, index) in works"
+            :key="work.id"
+            class="relative"
           >
-            <!-- Preview Image -->
-            <div class="relative w-full h-24 overflow-hidden">
-              <NuxtImg
-                :src="`/${work.img}`"
-                class="w-full h-full object-cover"
-                loading="lazy"
-                :alt="work.name"
-              />
-            </div>
+            <!-- Indicator Button -->
+            <button
+              :class="currentIndex === index ? 'bg-white scale-125' : 'bg-white/50 hover:bg-white/80'"
+              class="w-3 h-3 rounded-full border-2 border-white shadow-lg transition-all duration-300 focus:outline-none backdrop-blur-sm"
+              @click="currentIndex = index"
+              @mouseenter="showPreview(index)"
+              @mouseleave="hidePreview(index)"
+            />
 
-            <!-- Preview Title -->
-            <div class="p-2 text-center">
-              <h3 class="text-sm font-medium text-white truncate">{{ work.name }}</h3>
-            </div>
+            <!-- Preview Popup -->
+            <div
+              v-show="previewIndex === index"
+              class="absolute bottom-full left-1/2 -translate-x-1/2 mb-4 w-48 rounded-lg shadow-xl overflow-hidden transform transition-all duration-300"
+              :class="{
+                'opacity-100 translate-y-0': previewIndex === index,
+                'opacity-0 translate-y-2': previewIndex !== index
+              }"
+            >
+              <!-- Glass Effect Background -->
+              <div class="absolute inset-0 bg-gradient-to-b from-black/90 via-black/70 to-black/90 backdrop-blur-md"></div>
 
-            <!-- Arrow Pointer -->
-            <div class="absolute -bottom-2 left-1/2 -translate-x-1/2 w-4 h-4 bg-black/90 transform rotate-45"></div>
+              <!-- Preview Content -->
+              <div class="relative">
+                <!-- Preview Image -->
+                <div class="relative w-full h-24 overflow-hidden">
+                  <NuxtImg
+                    :src="`/${work.img}`"
+                    class="w-full h-full object-cover"
+                    loading="lazy"
+                    :alt="work.name"
+                  />
+                  <!-- Image Overlay Gradient -->
+                  <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+                </div>
+
+                <!-- Preview Title -->
+                <div class="p-2 text-center">
+                  <h3 class="text-sm font-medium text-white truncate">{{ work.name }}</h3>
+                </div>
+
+                <!-- Arrow Pointer -->
+                <div class="absolute -bottom-2 left-1/2 -translate-x-1/2 w-4 h-4 bg-black/90 transform rotate-45 backdrop-blur-md"></div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -702,31 +735,42 @@ export default {
 }
 
 .nav-arrow {
-  background: rgba(0,0,0,0.3);
-  border-radius: 50%;
   width: 64px;
   height: 64px;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-  transition: background 0.2s;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+  border-radius: 50%;
+  will-change: transform, opacity;
 }
+
 .nav-arrow:hover {
-  background: rgba(0,0,0,0.6);
+  transform: translateY(-50%);
 }
+
+.nav-arrow .absolute {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: opacity, transform;
+}
+
 .nav-arrow :deep(.fa-icon),
 .nav-arrow :deep(svg) {
   font-size: 1.7rem !important;
   width: 1.7rem !important;
   height: 1.7rem !important;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+  position: relative;
+  z-index: 1;
+  will-change: transform;
 }
 
 @media (max-width: 640px) {
   .nav-arrow {
     width: 48px;
     height: 48px;
-    font-size: 2rem;
   }
   .nav-arrow :deep(.fa-icon),
   .nav-arrow :deep(svg) {
