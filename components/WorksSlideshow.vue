@@ -129,13 +129,48 @@
 
       <!-- Slide Indicators -->
       <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex gap-2 z-[150] slide-indicators">
-        <button
+        <div
           v-for="(work, index) in works"
           :key="work.id"
-          :class="currentIndex === index ? 'bg-white scale-125' : 'bg-white/50 hover:bg-white/80'"
-          class="w-3 h-3 rounded-full border-2 border-white shadow-lg transition-all duration-300 focus:outline-none"
-          @click="currentIndex = index"
-        />
+          class="relative"
+        >
+          <!-- Indicator Button -->
+          <button
+            :class="currentIndex === index ? 'bg-white scale-125' : 'bg-white/50 hover:bg-white/80'"
+            class="w-3 h-3 rounded-full border-2 border-white shadow-lg transition-all duration-300 focus:outline-none"
+            @click="currentIndex = index"
+            @mouseenter="showPreview(index)"
+            @mouseleave="hidePreview(index)"
+          />
+
+          <!-- Preview Popup -->
+          <div
+            v-show="previewIndex === index"
+            class="absolute bottom-full left-1/2 -translate-x-1/2 mb-4 w-48 bg-black/90 rounded-lg shadow-xl overflow-hidden transform transition-all duration-300"
+            :class="{
+              'opacity-100 translate-y-0': previewIndex === index,
+              'opacity-0 translate-y-2': previewIndex !== index
+            }"
+          >
+            <!-- Preview Image -->
+            <div class="relative w-full h-24 overflow-hidden">
+              <NuxtImg
+                :src="`/${work.img}`"
+                class="w-full h-full object-cover"
+                loading="lazy"
+                :alt="work.name"
+              />
+            </div>
+
+            <!-- Preview Title -->
+            <div class="p-2 text-center">
+              <h3 class="text-sm font-medium text-white truncate">{{ work.name }}</h3>
+            </div>
+
+            <!-- Arrow Pointer -->
+            <div class="absolute -bottom-2 left-1/2 -translate-x-1/2 w-4 h-4 bg-black/90 transform rotate-45"></div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -158,7 +193,9 @@ export default {
       countdown: 0,
       countdownTimer: null,
       lastMouseMove: Date.now(),
-      mouseMoveTimer: null
+      mouseMoveTimer: null,
+      previewIndex: null,
+      previewTimer: null
     }
   },
 
@@ -253,6 +290,9 @@ export default {
     if (this.mouseMoveTimer) {
       clearTimeout(this.mouseMoveTimer)
     }
+    if (this.previewTimer) {
+      clearTimeout(this.previewTimer)
+    }
   },
 
   methods: {
@@ -285,12 +325,17 @@ export default {
         clearTimeout(this.mouseMoveTimer)
         this.mouseMoveTimer = null
       }
+      if (this.previewTimer) {
+        clearTimeout(this.previewTimer)
+        this.previewTimer = null
+      }
 
       // Reset states
       this.isAutoPlaying = false
       this.isHovered = true
       this.hasStartedAutoplay = false
       this.countdown = 0
+      this.previewIndex = null
 
       // Start new timer if current work has video
       const currentWork = this.works[this.currentIndex]
@@ -531,6 +576,29 @@ export default {
         // Reset autoplay when tab is hidden
         this.resetAutoPlay()
       }
+    },
+    showPreview(index) {
+      // Clear any existing preview timer
+      if (this.previewTimer) {
+        clearTimeout(this.previewTimer)
+      }
+
+      // Set preview index after a small delay to prevent flickering
+      this.previewTimer = setTimeout(() => {
+        this.previewIndex = index
+      }, 50)
+    },
+
+    hidePreview(index) {
+      // Clear any existing preview timer
+      if (this.previewTimer) {
+        clearTimeout(this.previewTimer)
+      }
+
+      // Hide preview after a small delay to allow for hover on the preview itself
+      this.previewTimer = setTimeout(() => {
+        this.previewIndex = null
+      }, 100)
     }
   }
 }
