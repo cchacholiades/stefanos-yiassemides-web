@@ -5,12 +5,16 @@
       class="fixed top-0 left-0 right-0 z-[200] transition-all duration-500"
       :class="{ 'opacity-0': !isHovered && isAutoPlaying, 'opacity-100': isHovered || !isAutoPlaying }"
     >
-      <div class="absolute inset-0 bg-gradient-to-b from-black/80 via-black/40 to-transparent backdrop-blur-md"></div>
+      <div class="absolute inset-0 bg-gradient-to-b from-black/40 via-black/20 to-transparent backdrop-blur-[20px] supports-[backdrop-filter]:bg-white/5"></div>
       <div class="relative container mx-auto px-6 py-4">
         <div class="flex items-center">
           <div class="text-white">
-            <h1 class="text-xl font-bold tracking-tight">Stefanos Yiassemides</h1>
-            <p class="text-sm text-white/80">Music Composer</p>
+            <h1 class="text-2xl font-bold tracking-tight bg-gradient-to-r from-white to-white/80 bg-clip-text text-transparent">
+              Stefanos Yiassemides
+            </h1>
+            <p class="text-sm text-white/70 font-medium tracking-wide mt-0.5">
+              Music Composer
+            </p>
           </div>
         </div>
       </div>
