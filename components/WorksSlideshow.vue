@@ -14,7 +14,7 @@
         <NuxtImg
           :src="`/${work.img}`"
           class="w-full h-full object-cover transition-opacity duration-500"
-          :class="{ 'opacity-100': isHovered || !hasVideo(work), 'opacity-0': !isHovered && hasVideo(work) }"
+          :class="{ 'opacity-100': isHovered || !hasVideo(work) || !isAutoPlaying, 'opacity-0': !isHovered && hasVideo(work) && isAutoPlaying }"
           loading="lazy"
           :alt="work.name"
         />
@@ -23,7 +23,7 @@
         <div
           v-if="hasVideo(work)"
           class="absolute inset-0 transition-opacity duration-500 video-container"
-          :class="{ 'opacity-0': isHovered, 'opacity-100': !isHovered }"
+          :class="{ 'opacity-0': isHovered || !isAutoPlaying, 'opacity-100': !isHovered && isAutoPlaying }"
           style="width: 100vw; height: 100vh;"
         >
           <!-- YouTube Player -->
@@ -72,14 +72,23 @@
         <!-- Overlay Content -->
         <div
           class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent transition-opacity duration-500"
-          :class="{ 'opacity-100': isHovered || !hasVideo(work), 'opacity-0': !isHovered && hasVideo(work) }"
+          :class="{ 'opacity-100': isHovered || !hasVideo(work) || !isAutoPlaying, 'opacity-0': !isHovered && hasVideo(work) && isAutoPlaying }"
           @mouseenter="handleHover(true)"
           @mouseleave="handleHover(false)"
+          @mousemove="handleMouseMove"
         >
+          <!-- Countdown Label -->
+          <div
+            v-if="isHovered && hasVideo(work) && countdown > 0 && countdown <= 3"
+            class="absolute top-4 left-1/2 -translate-x-1/2 bg-black/80 text-white px-4 py-2 rounded-full text-sm font-medium"
+          >
+            Autoplay in {{ countdown }} seconds
+          </div>
+
           <!-- Work Details Container -->
           <div
             class="absolute inset-0 flex items-center justify-center transition-all duration-500"
-            :class="{ 'opacity-100': isHovered || !hasVideo(work), 'opacity-0': !isHovered && hasVideo(work) }"
+            :class="{ 'opacity-100': isHovered || !hasVideo(work) || !isAutoPlaying, 'opacity-0': !isHovered && hasVideo(work) && isAutoPlaying }"
           >
             <!-- Content Wrapper -->
             <div class="w-full max-w-3xl mx-auto px-8">
@@ -143,7 +152,13 @@ export default {
       vimeoPlayers: [],
       autoPlayTimer: null,
       isAutoPlaying: false,
-      hasStartedAutoplay: false
+      hasStartedAutoplay: false,
+      inactivityTimer: null,
+      playAttempts: 0,
+      countdown: 0,
+      countdownTimer: null,
+      lastMouseMove: Date.now(),
+      mouseMoveTimer: null
     }
   },
 
@@ -175,8 +190,35 @@ export default {
     window.addEventListener('blur', this.handleWindowBlur)
     window.addEventListener('focus', this.handleWindowFocus)
 
-    // Start auto-play timer for first slide
-    this.resetAutoPlay()
+    // Add touch event listeners with passive option
+    const overlay = document.querySelector('.overlay-content')
+    if (overlay) {
+      overlay.addEventListener('touchstart', this.handleTouchStart, { passive: true })
+      overlay.addEventListener('touchmove', this.handleTouchMove, { passive: true })
+      overlay.addEventListener('touchend', this.handleTouchEnd, { passive: true })
+    }
+
+    // Start inactivity timer for first slide
+    this.$nextTick(() => {
+      const currentWork = this.works[this.currentIndex]
+      if (this.hasVideo(currentWork)) {
+        console.log('Starting inactivity timer for first slide')
+        this.inactivityTimer = setTimeout(() => {
+          if (!document.hidden && document.hasFocus()) {
+            console.log('Inactivity timer completed, starting video')
+            this.isAutoPlaying = true
+            this.hasStartedAutoplay = true
+            this.isHovered = false
+            // Try to play the video multiple times to ensure it starts
+            this.playCurrentVideo()
+            // Add additional retry attempts with increasing delays
+            setTimeout(() => this.playCurrentVideo(), 1000)
+            setTimeout(() => this.playCurrentVideo(), 2000)
+            setTimeout(() => this.playCurrentVideo(), 3000)
+          }
+        }, 3000)
+      }
+    })
   },
 
   beforeDestroy() {
@@ -190,9 +232,26 @@ export default {
     window.removeEventListener('blur', this.handleWindowBlur)
     window.removeEventListener('focus', this.handleWindowFocus)
 
-    // Clear auto-play timer
+    // Remove touch event listeners
+    const overlay = document.querySelector('.overlay-content')
+    if (overlay) {
+      overlay.removeEventListener('touchstart', this.handleTouchStart)
+      overlay.removeEventListener('touchmove', this.handleTouchMove)
+      overlay.removeEventListener('touchend', this.handleTouchEnd)
+    }
+
+    // Clear all timers
     if (this.autoPlayTimer) {
       clearTimeout(this.autoPlayTimer)
+    }
+    if (this.inactivityTimer) {
+      clearTimeout(this.inactivityTimer)
+    }
+    if (this.countdownTimer) {
+      clearInterval(this.countdownTimer)
+    }
+    if (this.mouseMoveTimer) {
+      clearTimeout(this.mouseMoveTimer)
     }
   },
 
@@ -208,87 +267,208 @@ export default {
     hasVideo(work) {
       return (work.youtube && work.youtube.length > 0) || (work.vimeo && work.vimeo.length > 0)
     },
-    nextSlide() {
-      this.stopCurrentVideo()
-      this.currentIndex = (this.currentIndex + 1) % this.works.length
-    },
-    prevSlide() {
-      this.stopCurrentVideo()
-      this.currentIndex = (this.currentIndex - 1 + this.works.length) % this.works.length
-    },
-    handleVisibilityChange() {
-      if (document.hidden) {
-        // Pause video and show overlay when tab is not visible
-        this.stopCurrentVideo()
-        this.isHovered = true
-        // Reset autoplay timer if tab becomes hidden
-        this.resetAutoPlay()
-      } else {
-        const currentWork = this.works[this.currentIndex]
-        // Only hide overlay and resume if autoplay has started and work has video
-        if (this.isAutoPlaying && this.hasStartedAutoplay && this.hasVideo(currentWork)) {
-          this.isHovered = false
-          this.playCurrentVideo()
-        }
-      }
-    },
     resetAutoPlay() {
-      // Clear existing timer
+      // Clear existing timers
       if (this.autoPlayTimer) {
         clearTimeout(this.autoPlayTimer)
         this.autoPlayTimer = null
+      }
+      if (this.inactivityTimer) {
+        clearTimeout(this.inactivityTimer)
+        this.inactivityTimer = null
+      }
+      if (this.countdownTimer) {
+        clearInterval(this.countdownTimer)
+        this.countdownTimer = null
+      }
+      if (this.mouseMoveTimer) {
+        clearTimeout(this.mouseMoveTimer)
+        this.mouseMoveTimer = null
       }
 
       // Reset states
       this.isAutoPlaying = false
       this.isHovered = true
       this.hasStartedAutoplay = false
+      this.countdown = 0
 
       // Start new timer if current work has video
       const currentWork = this.works[this.currentIndex]
       if (this.hasVideo(currentWork)) {
-        this.autoPlayTimer = setTimeout(() => {
-          // Only start autoplay if the tab is visible and window is focused
-          if (!document.hidden && document.hasFocus()) {
-            this.isAutoPlaying = true
-            this.hasStartedAutoplay = true
-            this.isHovered = false // Hide overlay when autoplay starts
-            this.playCurrentVideo()
-          } else {
-            // If not focused, keep the overlay visible and reset the timer
-            this.isHovered = true
-            this.resetAutoPlay()
-          }
-        }, 5000)
+        this.startInactivityTimer()
       } else {
         // Keep overlay visible for slides without video
         this.isHovered = true
       }
     },
+    startInactivityTimer() {
+      // Clear any existing timer
+      if (this.inactivityTimer) {
+        clearTimeout(this.inactivityTimer)
+      }
+
+      const currentWork = this.works[this.currentIndex]
+      if (this.hasVideo(currentWork)) {
+        this.inactivityTimer = setTimeout(() => {
+          // Only start if tab is visible and window is focused
+          if (!document.hidden && document.hasFocus()) {
+            this.isAutoPlaying = true
+            this.hasStartedAutoplay = true
+            this.isHovered = false
+            this.playCurrentVideo()
+          }
+        }, 3000) // Start after 3 seconds of inactivity
+      }
+    },
+    handleMouseMove() {
+      this.lastMouseMove = Date.now()
+
+      // Clear existing mouse move timer
+      if (this.mouseMoveTimer) {
+        clearTimeout(this.mouseMoveTimer)
+      }
+
+      // If video is playing, pause it and show image
+      if (this.isAutoPlaying) {
+        this.stopCurrentVideo()
+        this.isAutoPlaying = false
+      }
+
+      // Start new timer for mouse inactivity
+      this.mouseMoveTimer = setTimeout(() => {
+        if (this.isHovered && this.hasVideo(this.works[this.currentIndex])) {
+          this.startCountdown()
+        }
+      }, 1000) // Wait 1 second of mouse inactivity before starting countdown
+    },
+
+    startCountdown() {
+      // Don't start countdown if window is not visible or focused
+      if (document.hidden || !document.hasFocus()) {
+        return
+      }
+
+      // Clear any existing countdown
+      if (this.countdownTimer) {
+        clearInterval(this.countdownTimer)
+      }
+
+      this.countdown = 5
+      this.countdownTimer = setInterval(() => {
+        // Check window state before continuing countdown
+        if (document.hidden || !document.hasFocus()) {
+          clearInterval(this.countdownTimer)
+          this.countdown = 0
+          return
+        }
+
+        this.countdown--
+
+        if (this.countdown <= 0) {
+          clearInterval(this.countdownTimer)
+          this.isHovered = false
+          this.isAutoPlaying = true
+          this.playCurrentVideo()
+        }
+      }, 1000)
+    },
+
     handleHover(isHovered) {
       this.isHovered = isHovered
       const currentWork = this.works[this.currentIndex]
 
       if (isHovered && this.hasVideo(currentWork)) {
-        // Pause video when hovering
+        // Pause video when hovering and show image
         this.stopCurrentVideo()
-      } else if (!isHovered && this.hasVideo(currentWork) && this.isAutoPlaying && this.hasStartedAutoplay) {
-        // Only resume if autoplay has started
-        this.playCurrentVideo()
+        this.isAutoPlaying = false
+
+        // Clear any existing timers
+        if (this.inactivityTimer) {
+          clearTimeout(this.inactivityTimer)
+        }
+        if (this.countdownTimer) {
+          clearInterval(this.countdownTimer)
+        }
+
+        // Start countdown
+        this.startCountdown()
+      } else if (!isHovered && this.hasVideo(currentWork)) {
+        // Clear countdown when mouse leaves
+        if (this.countdownTimer) {
+          clearInterval(this.countdownTimer)
+        }
+        this.countdown = 0
       }
     },
     onPlayerReady(event, index) {
+      console.log('YouTube player ready for index:', index)
       this.youtubePlayers[index] = event.target
+
+      // If this is the current slide and we're ready to play, start the video
+      if (index === this.currentIndex && this.isAutoPlaying) {
+        console.log('Player ready for current slide, attempting to play')
+        const player = event.target
+        player.playVideo()
+
+        // Add multiple retry attempts with increasing delays
+        setTimeout(() => {
+          if (player.getPlayerState() !== 1) {
+            console.log('First retry attempt for video playback...')
+            player.playVideo()
+          }
+        }, 1000)
+
+        setTimeout(() => {
+          if (player.getPlayerState() !== 1) {
+            console.log('Second retry attempt for video playback...')
+            player.playVideo()
+          }
+        }, 2000)
+
+        setTimeout(() => {
+          if (player.getPlayerState() !== 1) {
+            console.log('Final retry attempt for video playback...')
+            player.playVideo()
+          }
+        }, 3000)
+      }
     },
     onVimeoReady(player, index) {
       this.vimeoPlayers[index] = player
+      // If this is the first slide and we're ready to play, start the video
+      if (index === 0 && this.isAutoPlaying) {
+        this.playCurrentVideo()
+      }
     },
     playCurrentVideo() {
       const currentWork = this.works[this.currentIndex]
       if (currentWork.youtube && currentWork.youtube[0] && this.youtubePlayers[this.currentIndex]) {
-        this.youtubePlayers[this.currentIndex].playVideo()
+        try {
+          const player = this.youtubePlayers[this.currentIndex]
+          console.log('Attempting to play YouTube video for index:', this.currentIndex)
+
+          // Force play the video
+          player.playVideo()
+
+          // Check if video started playing
+          setTimeout(() => {
+            const state = player.getPlayerState()
+            console.log('Current player state:', state)
+            if (state !== 1) { // 1 is playing
+              console.log('Video not playing, retrying...')
+              player.playVideo()
+            }
+          }, 1000)
+        } catch (error) {
+          console.error('Error playing YouTube video:', error)
+        }
       } else if (currentWork.vimeo && currentWork.vimeo[0] && this.vimeoPlayers[this.currentIndex]) {
-        this.vimeoPlayers[this.currentIndex].play()
+        try {
+          this.vimeoPlayers[this.currentIndex].play()
+          console.log('Playing Vimeo video')
+        } catch (error) {
+          console.error('Error playing Vimeo video:', error)
+        }
       }
     },
     stopCurrentVideo() {
@@ -309,15 +489,47 @@ export default {
       // Pause video and show overlay when window loses focus
       this.stopCurrentVideo()
       this.isHovered = true
-      // Reset autoplay timer if window loses focus
+      this.isAutoPlaying = false
+      // Reset autoplay when window loses focus
       this.resetAutoPlay()
     },
     handleWindowFocus() {
       const currentWork = this.works[this.currentIndex]
-      // Only hide overlay and resume if autoplay has started and work has video
-      if (this.isAutoPlaying && this.hasStartedAutoplay && this.hasVideo(currentWork)) {
-        this.isHovered = false
-        this.playCurrentVideo()
+      if (this.hasVideo(currentWork)) {
+        // Start new inactivity timer when window gains focus
+        this.startInactivityTimer()
+      }
+    },
+    nextSlide() {
+      this.stopCurrentVideo()
+      this.currentIndex = (this.currentIndex + 1) % this.works.length
+      this.resetAutoPlay()
+    },
+    prevSlide() {
+      this.stopCurrentVideo()
+      this.currentIndex = (this.currentIndex - 1 + this.works.length) % this.works.length
+      this.resetAutoPlay()
+    },
+    handleTouchStart(event) {
+      // Handle touch start
+      this.handleHover(true)
+    },
+    handleTouchMove(event) {
+      // Handle touch move
+      // No need to prevent default as we're using passive listener
+    },
+    handleTouchEnd(event) {
+      // Handle touch end
+      this.handleHover(false)
+    },
+    handleVisibilityChange() {
+      if (document.hidden) {
+        // Pause video and show overlay when tab is hidden
+        this.stopCurrentVideo()
+        this.isHovered = true
+        this.isAutoPlaying = false
+        // Reset autoplay when tab is hidden
+        this.resetAutoPlay()
       }
     }
   }
