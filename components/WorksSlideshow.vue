@@ -103,19 +103,19 @@
             :class="{ 'opacity-100': isHovered || !hasVideo(work) || !isAutoPlaying, 'opacity-0': !isHovered && hasVideo(work) && isAutoPlaying }"
           >
             <!-- Content Wrapper -->
-            <div class="w-full max-w-3xl mx-auto px-8">
+            <div class="w-full max-w-3xl mx-auto px-8 md:px-16 relative">
               <!-- Title and Description -->
-              <div class="mb-6">
-                <h2 class="text-4xl md:text-5xl font-bold text-white mb-3 tracking-tight">{{ work.name }}</h2>
-                <p class="text-lg text-white/90 max-w-2xl leading-relaxed" v-html="work.description"></p>
+              <div class="mb-6 md:mb-8">
+                <h2 class="text-3xl md:text-5xl font-bold text-white mb-3 tracking-tight pr-12 md:pr-0">{{ work.name }}</h2>
+                <p class="text-base md:text-lg text-white/90 max-w-2xl leading-relaxed" v-html="work.description"></p>
               </div>
 
               <!-- Platforms -->
               <div v-if="work.platforms" class="flex gap-4 items-center">
                 <div v-for="platform in work.platforms" :key="platform"
-                     class="text-2xl text-white/90 hover:text-white transition-colors">
+                     class="text-xl md:text-2xl text-white/90 hover:text-white transition-colors">
                   <font-awesome-icon v-if="platform !== 'netflix'" :icon="['fab', platform]"/>
-                  <img v-else src="/icons/netflix.svg" alt="Netflix" class="w-6 h-6">
+                  <img v-else src="/icons/netflix.svg" alt="Netflix" class="w-5 h-5 md:w-6 md:h-6">
                 </div>
               </div>
             </div>
@@ -123,30 +123,56 @@
         </div>
       </div>
 
-      <!-- Navigation Arrows -->
-      <button
-        class="fixed left-4 top-1/2 -translate-y-1/2 text-white/90 hover:text-white text-6xl transition-all duration-300 z-[200] nav-arrow nav-arrow-left group"
-        @click="prevSlide"
-        aria-label="Previous Slide"
-      >
-        <div class="absolute inset-0 bg-white/10 rounded-full backdrop-blur-md transform -scale-100 opacity-0 group-hover:opacity-100 transition-all duration-300 group-hover:shadow-[0_0_15px_rgba(255,255,255,0.2)]"></div>
-        <div class="relative flex items-center justify-center w-full h-full">
-          <font-awesome-icon :icon="['fas', 'chevron-left']"/>
-        </div>
-      </button>
-      <button
-        class="fixed right-4 top-1/2 -translate-y-1/2 text-white/90 hover:text-white text-6xl transition-all duration-300 z-[200] nav-arrow nav-arrow-right group"
-        @click="nextSlide"
-        aria-label="Next Slide"
-      >
-        <div class="absolute inset-0 bg-white/10 rounded-full backdrop-blur-md opacity-0 group-hover:opacity-100 transition-all duration-300 group-hover:shadow-[0_0_15px_rgba(255,255,255,0.2)]"></div>
-        <div class="relative flex items-center justify-center w-full h-full">
-          <font-awesome-icon :icon="['fas', 'chevron-right']"/>
-        </div>
-      </button>
+      <!-- Mobile Navigation Arrows -->
+      <div class="fixed bottom-8 left-0 right-0 flex justify-center items-center gap-4 z-[200] md:hidden">
+        <button
+          class="text-white/90 hover:text-white text-3xl transition-all duration-300 nav-arrow nav-arrow-left group"
+          @click="prevSlide"
+          aria-label="Previous Slide"
+        >
+          <div class="absolute inset-0 bg-white/10 rounded-full backdrop-blur-md opacity-0 group-hover:opacity-100 transition-all duration-300 group-hover:shadow-[0_0_15px_rgba(255,255,255,0.2)]"></div>
+          <div class="relative flex items-center justify-center w-full h-full">
+            <font-awesome-icon :icon="['fas', 'chevron-left']"/>
+          </div>
+        </button>
+        <button
+          class="text-white/90 hover:text-white text-3xl transition-all duration-300 nav-arrow nav-arrow-right group"
+          @click="nextSlide"
+          aria-label="Next Slide"
+        >
+          <div class="absolute inset-0 bg-white/10 rounded-full backdrop-blur-md opacity-0 group-hover:opacity-100 transition-all duration-300 group-hover:shadow-[0_0_15px_rgba(255,255,255,0.2)]"></div>
+          <div class="relative flex items-center justify-center w-full h-full">
+            <font-awesome-icon :icon="['fas', 'chevron-right']"/>
+          </div>
+        </button>
+      </div>
+
+      <!-- Desktop Navigation Arrows -->
+      <div class="hidden md:block">
+        <button
+          class="fixed left-4 top-1/2 -translate-y-1/2 text-white/90 hover:text-white text-6xl transition-all duration-300 z-[200] nav-arrow nav-arrow-left group"
+          @click="prevSlide"
+          aria-label="Previous Slide"
+        >
+          <div class="absolute inset-0 bg-white/10 rounded-full backdrop-blur-md transform -scale-100 opacity-0 group-hover:opacity-100 transition-all duration-300 group-hover:shadow-[0_0_15px_rgba(255,255,255,0.2)]"></div>
+          <div class="relative flex items-center justify-center w-full h-full">
+            <font-awesome-icon :icon="['fas', 'chevron-left']"/>
+          </div>
+        </button>
+        <button
+          class="fixed right-4 top-1/2 -translate-y-1/2 text-white/90 hover:text-white text-6xl transition-all duration-300 z-[200] nav-arrow nav-arrow-right group"
+          @click="nextSlide"
+          aria-label="Next Slide"
+        >
+          <div class="absolute inset-0 bg-white/10 rounded-full backdrop-blur-md opacity-0 group-hover:opacity-100 transition-all duration-300 group-hover:shadow-[0_0_15px_rgba(255,255,255,0.2)]"></div>
+          <div class="relative flex items-center justify-center w-full h-full">
+            <font-awesome-icon :icon="['fas', 'chevron-right']"/>
+          </div>
+        </button>
+      </div>
 
       <!-- Slide Indicators -->
-      <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4 z-[150]">
+      <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4 z-[150] hidden md:flex">
         <!-- Countdown Label -->
         <div
           v-if="isHovered && hasVideo(works[currentIndex]) && countdown > 0 && countdown <= 3"
@@ -724,20 +750,24 @@ export default {
 
 /* Responsive Adjustments */
 @media (max-width: 640px) {
-  .max-w-7xl {
-    padding: 1.5rem;
+  .max-w-3xl {
+    padding-left: 2rem;
+    padding-right: 2rem;
   }
 
   h2 {
-    font-size: 2rem;
+    font-size: 1.75rem;
+    line-height: 1.2;
     margin-bottom: 0.75rem;
   }
 
   p {
-    font-size: 1rem;
+    font-size: 0.9375rem;
+    line-height: 1.5;
   }
 }
 
+/* Navigation Arrows */
 .nav-arrow {
   width: 64px;
   height: 64px;
@@ -771,16 +801,45 @@ export default {
   will-change: transform;
 }
 
-@media (max-width: 640px) {
+/* Mobile Navigation Arrows */
+@media (max-width: 767px) {
   .nav-arrow {
-    width: 48px;
-    height: 48px;
+    width: 40px;
+    height: 40px;
   }
+
   .nav-arrow :deep(.fa-icon),
   .nav-arrow :deep(svg) {
-    font-size: 1.2rem !important;
-    width: 1.2rem !important;
-    height: 1.2rem !important;
+    font-size: 1rem !important;
+    width: 1rem !important;
+    height: 1rem !important;
+  }
+
+  .nav-arrow .absolute {
+    opacity: 0;
+  }
+
+  .nav-arrow:hover {
+    transform: none;
+  }
+
+  .nav-arrow:hover .absolute {
+    opacity: 1;
+  }
+}
+
+/* Desktop Navigation Arrows */
+@media (min-width: 768px) {
+  .nav-arrow {
+    width: 64px;
+    height: 64px;
+  }
+
+  .nav-arrow :deep(.fa-icon),
+  .nav-arrow :deep(svg) {
+    font-size: 1.7rem !important;
+    width: 1.7rem !important;
+    height: 1.7rem !important;
   }
 }
 </style>
