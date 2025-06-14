@@ -237,9 +237,9 @@
       </div>
 
       <!-- Mobile Autoplay Label -->
-      <div class="fixed bottom-24 left-1/2 -translate-x-1/2 z-[150] md:hidden">
+      <div class="fixed bottom-24 left-1/2 -translate-x-1/2 z-[200] md:hidden">
         <div
-          v-if="isHovered && hasVideo(works[currentIndex]) && countdown > 0 && countdown <= 3"
+          v-if="hasVideo(works[currentIndex]) && countdown > 0 && countdown <= 3"
           class="bg-black/80 text-white px-4 py-2 rounded-full text-sm font-medium backdrop-blur-sm"
         >
           Autoplay in {{ countdown }} seconds
@@ -270,7 +270,8 @@ export default {
       previewIndex: null,
       previewTimer: null,
       isIOS: false,
-      hasUserInteracted: false
+      hasUserInteracted: false,
+      isCountingDown: false
     }
   },
 
@@ -414,6 +415,7 @@ export default {
       this.hasStartedAutoplay = false
       this.countdown = 0
       this.previewIndex = null
+      this.isCountingDown = false
 
       // Start new timer if current work has video
       const currentWork = this.works[this.currentIndex]
@@ -466,22 +468,26 @@ export default {
     },
 
     startCountdown() {
-      // Don't start countdown if window is not visible or focused
-      if (document.hidden || !document.hasFocus()) {
+      // Don't start countdown if window is not visible, focused, or already counting down
+      if (document.hidden || !document.hasFocus() || this.isCountingDown) {
         return
       }
 
       // Clear any existing countdown
       if (this.countdownTimer) {
         clearInterval(this.countdownTimer)
+        this.countdownTimer = null
       }
 
-      this.countdown = 5
+      this.isCountingDown = true
+      this.countdown = 3
       this.countdownTimer = setInterval(() => {
         // Check window state before continuing countdown
         if (document.hidden || !document.hasFocus()) {
           clearInterval(this.countdownTimer)
+          this.countdownTimer = null
           this.countdown = 0
+          this.isCountingDown = false
           return
         }
 
@@ -489,6 +495,8 @@ export default {
 
         if (this.countdown <= 0) {
           clearInterval(this.countdownTimer)
+          this.countdownTimer = null
+          this.isCountingDown = false
           this.isHovered = false
           this.isAutoPlaying = true
           this.playCurrentVideo()
@@ -511,15 +519,22 @@ export default {
         }
         if (this.countdownTimer) {
           clearInterval(this.countdownTimer)
+          this.countdownTimer = null
         }
 
-        // Start countdown
+        // Reset countdown state
+        this.isCountingDown = false
+        this.countdown = 0
+
+        // Start countdown immediately
         this.startCountdown()
       } else if (!isHovered && this.hasVideo(currentWork)) {
         // Clear countdown when mouse leaves
         if (this.countdownTimer) {
           clearInterval(this.countdownTimer)
+          this.countdownTimer = null
         }
+        this.isCountingDown = false
         this.countdown = 0
       }
     },
