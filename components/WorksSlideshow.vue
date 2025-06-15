@@ -151,6 +151,41 @@
               </div>
             </div>
           </div>
+
+          <!-- Preview Content -->
+          <div
+            class="absolute inset-0 flex items-center justify-center transition-all duration-500"
+            :class="{
+              'opacity-100': previewIndex !== null,
+              'opacity-0 pointer-events-none': previewIndex === null
+            }"
+          >
+            <div class="w-full max-w-4xl mx-auto px-8 md:px-16">
+              <div class="relative w-64 mx-auto transform transition-all duration-300"
+                :class="{
+                  'scale-100': previewIndex !== null,
+                  'scale-95': previewIndex === null
+                }"
+              >
+                <!-- Preview Image -->
+                <div class="relative w-full aspect-[2/3] rounded-lg overflow-hidden shadow-2xl">
+                  <NuxtImg
+                    v-if="previewIndex !== null"
+                    :src="`/${works[previewIndex]?.img}`"
+                    class="w-full h-full object-cover"
+                    loading="eager"
+                    :alt="works[previewIndex]?.name"
+                  />
+                  <div class="absolute inset-0 border border-white/10 rounded-lg"></div>
+                </div>
+
+                <!-- Preview Title -->
+                <div class="mt-4 text-center">
+                  <h3 class="text-lg font-medium text-white">{{ works[previewIndex]?.name }}</h3>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -240,41 +275,38 @@
               @click="currentIndex = index"
             />
 
-            <!-- Preview Popup -->
+            <!-- Previous Preview (Commented Out) -->
+            <!--
             <div
               v-show="previewIndex === index"
-              class="absolute bottom-full left-1/2 -translate-x-1/2 mb-4 w-36 rounded-lg shadow-xl overflow-hidden transform transition-all duration-300"
+              class="fixed inset-0 flex items-center justify-center z-[160]"
               :class="{
-                'opacity-100 translate-y-0 scale-100': previewIndex === index,
-                'opacity-0 translate-y-2 scale-95': previewIndex !== index
+                'opacity-100': previewIndex === index,
+                'opacity-0': previewIndex !== index
               }"
             >
-              <!-- Glass Effect Background -->
-              <div class="absolute inset-0 bg-gradient-to-b from-black/90 via-black/70 to-black/90 backdrop-blur-md"></div>
-
-              <!-- Preview Content -->
-              <div class="relative">
-                <!-- Preview Image -->
-                <div class="relative w-full aspect-[2/3] overflow-hidden">
+              <div class="relative w-64 transform transition-all duration-300"
+                :class="{
+                  'scale-100': previewIndex === index,
+                  'scale-95': previewIndex !== index
+                }"
+              >
+                <div class="relative w-full aspect-[2/3] rounded-lg overflow-hidden shadow-2xl">
                   <NuxtImg
                     :src="`/${work.img}`"
                     class="w-full h-full object-cover"
                     loading="lazy"
                     :alt="work.name"
                   />
-                  <!-- Image Overlay Gradient -->
                   <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
                 </div>
 
-                <!-- Preview Title -->
-                <div class="p-2 text-center">
-                  <h3 class="text-sm font-medium text-white truncate">{{ work.name }}</h3>
+                <div class="mt-4 text-center">
+                  <h3 class="text-lg font-medium text-white">{{ work.name }}</h3>
                 </div>
-
-                <!-- Arrow Pointer -->
-                <div class="absolute -bottom-2 left-1/2 -translate-x-1/2 w-4 h-4 bg-black/90 transform rotate-45 backdrop-blur-md"></div>
               </div>
             </div>
+            -->
           </div>
         </div>
       </div>
