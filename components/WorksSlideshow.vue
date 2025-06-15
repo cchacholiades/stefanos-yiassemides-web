@@ -33,7 +33,7 @@
         <!-- Background Image -->
         <NuxtImg
           :src="`/${work.img}`"
-          class="w-full h-full object-cover transition-opacity duration-500"
+          class="w-full h-full object-cover transition-opacity duration-500 blur-2xl"
           :class="{ 'opacity-100': isHovered || !hasVideo(work) || !isAutoPlaying, 'opacity-0': !isHovered && hasVideo(work) && isAutoPlaying }"
           loading="lazy"
           :alt="work.name"
@@ -103,19 +103,39 @@
             :class="{ 'opacity-100': isHovered || !hasVideo(work) || !isAutoPlaying, 'opacity-0': !isHovered && hasVideo(work) && isAutoPlaying }"
           >
             <!-- Content Wrapper -->
-            <div class="w-full max-w-3xl mx-auto px-8 md:px-16 relative">
-              <!-- Title and Description -->
-              <div class="mb-6 md:mb-8">
-                <h2 class="text-3xl md:text-5xl font-bold text-white mb-3 tracking-tight pr-12 md:pr-0">{{ work.name }}</h2>
-                <p class="text-base md:text-lg text-white/90 max-w-2xl leading-relaxed" v-html="work.description"></p>
-              </div>
+            <div class="w-full flex justify-center items-center min-h-[50vh]">
+              <div class="w-full max-w-4xl mx-auto px-8 md:px-16 relative flex items-center gap-12">
+                <!-- Work Image -->
+                <div class="hidden md:block w-[180px] flex-shrink-0">
+                  <div class="relative aspect-[2/3] rounded-lg overflow-hidden shadow-2xl">
+                    <NuxtImg
+                      :src="`/${work.img}`"
+                      class="w-full h-full object-cover"
+                      loading="lazy"
+                      :alt="work.name"
+                      width="180"
+                      height="270"
+                    />
+                    <div class="absolute inset-0 border border-white/10 rounded-lg"></div>
+                  </div>
+                </div>
 
-              <!-- Platforms -->
-              <div v-if="work.platforms" class="flex gap-4 items-center">
-                <div v-for="platform in work.platforms" :key="platform"
-                     class="text-xl md:text-2xl text-white/90 hover:text-white transition-colors">
-                  <font-awesome-icon v-if="platform !== 'netflix'" :icon="['fab', platform]"/>
-                  <img v-else src="/icons/netflix.svg" alt="Netflix" class="w-5 h-5 md:w-6 md:h-6">
+                <!-- Content -->
+                <div class="flex-1 space-y-8">
+                  <!-- Title and Description -->
+                  <div>
+                    <h2 class="text-3xl md:text-5xl font-bold text-white mb-4 tracking-tight pr-12 md:pr-0">{{ work.name }}</h2>
+                    <p class="text-base md:text-lg text-white/90 max-w-2xl leading-relaxed" v-html="work.description"></p>
+                  </div>
+
+                  <!-- Platforms -->
+                  <div v-if="work.platforms" class="flex gap-6 items-center">
+                    <div v-for="platform in work.platforms" :key="platform"
+                         class="text-xl md:text-2xl text-white/90 hover:text-white transition-colors">
+                      <font-awesome-icon v-if="platform !== 'netflix'" :icon="['fab', platform]"/>
+                      <img v-else src="/icons/netflix.svg" alt="Netflix" class="w-5 h-5 md:w-6 md:h-6">
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -846,9 +866,19 @@ export default {
   margin-bottom: 1rem;
 }
 
+/* Work Image Styles */
+.aspect-\[2\/3\] {
+  aspect-ratio: 2/3;
+}
+
+.aspect-\[2\/3\] img {
+  object-fit: cover;
+  object-position: center;
+}
+
 /* Responsive Adjustments */
 @media (max-width: 640px) {
-  .max-w-3xl {
+  .max-w-4xl {
     padding-left: 2rem;
     padding-right: 2rem;
   }
@@ -856,7 +886,7 @@ export default {
   h2 {
     font-size: 1.75rem;
     line-height: 1.2;
-    margin-bottom: 0.75rem;
+    margin-bottom: 1rem;
   }
 
   p {
