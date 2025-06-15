@@ -128,6 +128,8 @@
         <button
           class="text-white/90 hover:text-white text-3xl transition-all duration-300 nav-arrow nav-arrow-left group"
           @click="prevSlide"
+          @mouseenter="handleNavHover(true)"
+          @mouseleave="handleNavHover(false)"
           aria-label="Previous Slide"
         >
           <div class="absolute inset-0 bg-white/10 rounded-full backdrop-blur-md opacity-0 group-hover:opacity-100 transition-all duration-300 group-hover:shadow-[0_0_15px_rgba(255,255,255,0.2)]"></div>
@@ -138,6 +140,8 @@
         <button
           class="text-white/90 hover:text-white text-3xl transition-all duration-300 nav-arrow nav-arrow-right group"
           @click="nextSlide"
+          @mouseenter="handleNavHover(true)"
+          @mouseleave="handleNavHover(false)"
           aria-label="Next Slide"
         >
           <div class="absolute inset-0 bg-white/10 rounded-full backdrop-blur-md opacity-0 group-hover:opacity-100 transition-all duration-300 group-hover:shadow-[0_0_15px_rgba(255,255,255,0.2)]"></div>
@@ -152,6 +156,8 @@
         <button
           class="fixed left-4 top-1/2 -translate-y-1/2 text-white/90 hover:text-white text-6xl transition-all duration-300 z-[200] nav-arrow nav-arrow-left group"
           @click="prevSlide"
+          @mouseenter="handleNavHover(true)"
+          @mouseleave="handleNavHover(false)"
           aria-label="Previous Slide"
         >
           <div class="absolute inset-0 bg-white/10 rounded-full backdrop-blur-md transform -scale-100 opacity-0 group-hover:opacity-100 transition-all duration-300 group-hover:shadow-[0_0_15px_rgba(255,255,255,0.2)]"></div>
@@ -162,6 +168,8 @@
         <button
           class="fixed right-4 top-1/2 -translate-y-1/2 text-white/90 hover:text-white text-6xl transition-all duration-300 z-[200] nav-arrow nav-arrow-right group"
           @click="nextSlide"
+          @mouseenter="handleNavHover(true)"
+          @mouseleave="handleNavHover(false)"
           aria-label="Next Slide"
         >
           <div class="absolute inset-0 bg-white/10 rounded-full backdrop-blur-md opacity-0 group-hover:opacity-100 transition-all duration-300 group-hover:shadow-[0_0_15px_rgba(255,255,255,0.2)]"></div>
@@ -271,7 +279,8 @@ export default {
       previewTimer: null,
       isIOS: false,
       hasUserInteracted: false,
-      isCountingDown: false
+      isCountingDown: false,
+      isNavHovered: false
     }
   },
 
@@ -504,7 +513,15 @@ export default {
       }, 1000)
     },
 
+    handleNavHover(isHovered) {
+      this.isNavHovered = isHovered
+      // Don't trigger the main hover handler when hovering over nav arrows
+    },
+
     handleHover(isHovered) {
+      // Only handle hover if not hovering over nav arrows
+      if (this.isNavHovered) return
+
       this.isHovered = isHovered
       const currentWork = this.works[this.currentIndex]
 
