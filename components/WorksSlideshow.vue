@@ -27,14 +27,14 @@
         v-for="(work, index) in works"
         :key="work.id"
         v-show="currentIndex === index"
-        class="absolute inset-0 transition-opacity duration-500"
+        class="absolute inset-0"
         :class="{ 'opacity-100': currentIndex === index, 'opacity-0': currentIndex !== index }"
       >
         <!-- Background Image -->
         <NuxtImg
           :src="`/${work.img}`"
           class="w-full h-full object-cover transition-opacity duration-500 blur-2xl"
-          :class="{ 'opacity-100': isHovered || !hasVideo(work) || !isAutoPlaying, 'opacity-0': !isHovered && hasVideo(work) && isAutoPlaying }"
+          :class="{ 'opacity-100': currentIndex === index, 'opacity-0': currentIndex !== index }"
           loading="lazy"
           :alt="work.name"
         />
@@ -91,7 +91,7 @@
 
         <!-- Overlay Content -->
         <div
-          class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent transition-opacity duration-500"
+          class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent transition-all duration-500"
           :class="{ 'opacity-100': isHovered || !hasVideo(work) || !isAutoPlaying, 'opacity-0': !isHovered && hasVideo(work) && isAutoPlaying }"
           @mouseenter="handleHover(true)"
           @mouseleave="handleHover(false)"
@@ -100,13 +100,16 @@
           <!-- Work Details Container -->
           <div
             class="absolute inset-0 flex items-center justify-center transition-all duration-500"
-            :class="{ 'opacity-100': isHovered || !hasVideo(work) || !isAutoPlaying, 'opacity-0': !isHovered && hasVideo(work) && isAutoPlaying }"
+            :class="{
+              'opacity-100': (isHovered || !hasVideo(work) || !isAutoPlaying) && previewIndex === null,
+              'opacity-0': (!isHovered && hasVideo(work) && isAutoPlaying) || previewIndex !== null
+            }"
           >
             <!-- Content Wrapper -->
             <div class="w-full flex justify-center items-center min-h-[50vh]">
-              <div class="w-full max-w-4xl mx-auto px-8 md:px-16 relative flex items-center gap-12">
+              <div class="w-full max-w-4xl mx-auto px-8 md:px-16 relative flex flex-col md:flex-row items-start gap-8 md:gap-12">
                 <!-- Work Image -->
-                <div class="hidden md:block w-[180px] flex-shrink-0">
+                <div class="w-[180px] flex-shrink-0">
                   <div class="relative aspect-[2/3] rounded-lg overflow-hidden shadow-2xl">
                     <NuxtImg
                       :src="`/${work.img}`"
@@ -121,19 +124,27 @@
                 </div>
 
                 <!-- Content -->
-                <div class="flex-1 space-y-8">
+                <div class="flex-1 space-y-8 pt-2 h-[270px] flex flex-col">
                   <!-- Title and Description -->
-                  <div>
-                    <h2 class="text-3xl md:text-5xl font-bold text-white mb-4 tracking-tight pr-12 md:pr-0">{{ work.name }}</h2>
-                    <p class="text-base md:text-lg text-white/90 max-w-2xl leading-relaxed" v-html="work.description"></p>
-                  </div>
+                  <div class="flex-1 flex flex-col">
+                    <h2
+                      class="font-bold text-white mb-4 tracking-tight pr-12 md:pr-0"
+                      :class="{
+                        'text-2xl md:text-4xl': work.name.length > TITLE_LENGTH_THRESHOLD,
+                        'text-3xl md:text-5xl': work.name.length <= TITLE_LENGTH_THRESHOLD
+                      }"
+                    >{{ work.name }}</h2>
+                    <div class="overflow-y-auto pr-4 space-y-8">
+                      <p class="text-base md:text-lg text-white/90 max-w-2xl leading-relaxed" v-html="work.description"></p>
 
-                  <!-- Platforms -->
-                  <div v-if="work.platforms" class="flex gap-6 items-center">
-                    <div v-for="platform in work.platforms" :key="platform"
-                         class="text-xl md:text-2xl text-white/90 hover:text-white transition-colors">
-                      <font-awesome-icon v-if="platform !== 'netflix'" :icon="['fab', platform]"/>
-                      <img v-else src="/icons/netflix.svg" alt="Netflix" class="w-5 h-5 md:w-6 md:h-6">
+                      <!-- Platforms -->
+                      <div v-if="work.platforms" class="flex gap-6 items-center">
+                        <div v-for="platform in work.platforms" :key="platform"
+                             class="text-xl md:text-2xl text-white/90 hover:text-white transition-colors">
+                          <font-awesome-icon v-if="platform !== 'netflix'" :icon="['fab', platform]"/>
+                          <img v-else src="/icons/netflix.svg" alt="Netflix" class="w-5 h-5 md:w-6 md:h-6">
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -146,7 +157,8 @@
       <!-- Mobile Navigation Arrows -->
       <div class="fixed bottom-8 left-0 right-0 flex justify-center items-center gap-4 z-[200] md:hidden">
         <button
-          class="text-white/90 hover:text-white text-3xl transition-all duration-300 nav-arrow nav-arrow-left group"
+          class="text-white/90 hover:text-white text-3xl transition-all duration-500 nav-arrow nav-arrow-left group"
+          :class="{ 'opacity-100': previewIndex === null, 'opacity-0': previewIndex !== null }"
           @click="prevSlide"
           @mouseenter="handleNavHover(true)"
           @mouseleave="handleNavHover(false)"
@@ -158,7 +170,8 @@
           </div>
         </button>
         <button
-          class="text-white/90 hover:text-white text-3xl transition-all duration-300 nav-arrow nav-arrow-right group"
+          class="text-white/90 hover:text-white text-3xl transition-all duration-500 nav-arrow nav-arrow-right group"
+          :class="{ 'opacity-100': previewIndex === null, 'opacity-0': previewIndex !== null }"
           @click="nextSlide"
           @mouseenter="handleNavHover(true)"
           @mouseleave="handleNavHover(false)"
@@ -174,7 +187,8 @@
       <!-- Desktop Navigation Arrows -->
       <div class="hidden md:block">
         <button
-          class="fixed left-4 top-1/2 -translate-y-1/2 text-white/90 hover:text-white text-6xl transition-all duration-300 z-[200] nav-arrow nav-arrow-left group"
+          class="fixed left-4 top-1/2 -translate-y-1/2 text-white/90 hover:text-white text-6xl transition-all duration-500 z-[200] nav-arrow nav-arrow-left group"
+          :class="{ 'opacity-100': previewIndex === null, 'opacity-0': previewIndex !== null }"
           @click="prevSlide"
           @mouseenter="handleNavHover(true)"
           @mouseleave="handleNavHover(false)"
@@ -186,7 +200,8 @@
           </div>
         </button>
         <button
-          class="fixed right-4 top-1/2 -translate-y-1/2 text-white/90 hover:text-white text-6xl transition-all duration-300 z-[200] nav-arrow nav-arrow-right group"
+          class="fixed right-4 top-1/2 -translate-y-1/2 text-white/90 hover:text-white text-6xl transition-all duration-500 z-[200] nav-arrow nav-arrow-right group"
+          :class="{ 'opacity-100': previewIndex === null, 'opacity-0': previewIndex !== null }"
           @click="nextSlide"
           @mouseenter="handleNavHover(true)"
           @mouseleave="handleNavHover(false)"
@@ -215,23 +230,23 @@
             v-for="(work, index) in works"
             :key="work.id"
             class="relative"
+            @mouseenter="showPreview(index)"
+            @mouseleave="hidePreview(index)"
           >
             <!-- Indicator Button -->
             <button
               :class="currentIndex === index ? 'bg-white scale-125' : 'bg-white/50 hover:bg-white/80'"
-              class="w-3 h-3 rounded-full border-2 border-white shadow-lg transition-all duration-300 focus:outline-none backdrop-blur-sm"
+              class="w-3 h-3 rounded-full border-2 border-white shadow-lg transition-all duration-300 focus:outline-none backdrop-blur-sm hover:scale-150"
               @click="currentIndex = index"
-              @mouseenter="showPreview(index)"
-              @mouseleave="hidePreview(index)"
             />
 
             <!-- Preview Popup -->
             <div
               v-show="previewIndex === index"
-              class="absolute bottom-full left-1/2 -translate-x-1/2 mb-4 w-48 rounded-lg shadow-xl overflow-hidden transform transition-all duration-300"
+              class="absolute bottom-full left-1/2 -translate-x-1/2 mb-4 w-36 rounded-lg shadow-xl overflow-hidden transform transition-all duration-300"
               :class="{
-                'opacity-100 translate-y-0': previewIndex === index,
-                'opacity-0 translate-y-2': previewIndex !== index
+                'opacity-100 translate-y-0 scale-100': previewIndex === index,
+                'opacity-0 translate-y-2 scale-95': previewIndex !== index
               }"
             >
               <!-- Glass Effect Background -->
@@ -240,7 +255,7 @@
               <!-- Preview Content -->
               <div class="relative">
                 <!-- Preview Image -->
-                <div class="relative w-full h-24 overflow-hidden">
+                <div class="relative w-full aspect-[2/3] overflow-hidden">
                   <NuxtImg
                     :src="`/${work.img}`"
                     class="w-full h-full object-cover"
@@ -300,7 +315,8 @@ export default {
       isIOS: false,
       hasUserInteracted: false,
       isCountingDown: false,
-      isNavHovered: false
+      isNavHovered: false,
+      TITLE_LENGTH_THRESHOLD: 30
     }
   },
 
