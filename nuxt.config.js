@@ -47,8 +47,6 @@ export default {
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
-    '~/plugins/v-scroll-lock.client.js',
-    '~/plugins/soundcloud.client.js',
     '~plugins/vimeo-player.client.js',
     '~plugins/youtube-player.client.js',
   ],

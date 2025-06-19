@@ -44,8 +44,5 @@ export default {
             ...jsonld
         }
     },
-    methods: {
-
-    }
 }
 </script>
