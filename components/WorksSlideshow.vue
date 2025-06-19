@@ -260,13 +260,14 @@
         </div>
 
         <!-- Indicators Container -->
-        <div class="flex gap-3 slide-indicators">
+        <div class="flex gap-3 slide-indicators"
+             @mouseenter="handleIndicatorsEnter"
+             @mouseleave="handleIndicatorsLeave">
           <div
             v-for="(work, index) in works"
             :key="work.id"
-            class="relative group"
+            class="relative group flex items-center"
             @mouseenter="showPreview(index)"
-            @mouseleave="hidePreview(index)"
           >
             <!-- Indicator Button -->
             <button
@@ -331,7 +332,8 @@ export default {
       hasUserInteracted: false,
       isCountingDown: false,
       isNavHovered: false,
-      TITLE_LENGTH_THRESHOLD: 30
+      TITLE_LENGTH_THRESHOLD: 30,
+      hoveredIndicatorIndex: null
     }
   },
 
@@ -790,27 +792,21 @@ export default {
       }
     },
     showPreview(index) {
-      // Clear any existing preview timer
-      if (this.previewTimer) {
-        clearTimeout(this.previewTimer)
-      }
-
-      // Set preview index after a small delay to prevent flickering
-      this.previewTimer = setTimeout(() => {
-        this.previewIndex = index
-      }, 50)
+      this.previewIndex = index;
+      this.hoveredIndicatorIndex = index;
     },
-
-    hidePreview(index) {
-      // Clear any existing preview timer
-      if (this.previewTimer) {
-        clearTimeout(this.previewTimer)
+    hidePreview() {
+      this.previewIndex = null;
+      this.hoveredIndicatorIndex = null;
+    },
+    handleIndicatorsEnter() {
+      if (this.hoveredIndicatorIndex !== null) {
+        this.previewIndex = this.hoveredIndicatorIndex;
       }
-
-      // Hide preview after a small delay to allow for hover on the preview itself
-      this.previewTimer = setTimeout(() => {
-        this.previewIndex = null
-      }, 100)
+    },
+    handleIndicatorsLeave() {
+      this.previewIndex = null;
+      this.hoveredIndicatorIndex = null;
     }
   }
 }
