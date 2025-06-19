@@ -553,11 +553,11 @@ export default {
       const response = await fetch('/works.json')
       data = await response.json()
       if (!Array.isArray(data)) {
-        console.error('works.json did not return an array:', data)
+        // console.error('works.json did not return an array:', data)
         data = []
       }
     } catch (e) {
-      console.error('Failed to fetch works.json:', e)
+      // console.error('Failed to fetch works.json:', e)
       data = []
     }
     this.works = data.sort((a, b) => a.order - b.order)
@@ -590,10 +590,10 @@ export default {
     this.$nextTick(() => {
       const currentWork = this.works[this.currentIndex]
       if (this.hasVideo(currentWork)) {
-        console.log('Starting inactivity timer for first slide')
+        // console.log('Starting inactivity timer for first slide')
         this.inactivityTimer = setTimeout(() => {
           if (!document.hidden && document.hasFocus()) {
-            console.log('Inactivity timer completed, starting video')
+            // console.log('Inactivity timer completed, starting video')
             this.isAutoPlaying = true
             this.hasStartedAutoplay = true
             this.isHovered = false
@@ -1306,10 +1306,6 @@ export default {
 @media (max-width: 767px) {
   .mobile-socials-bar {
     display: flex;
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%) translateY(50%);
-    bottom: -1.2rem;
     width: max-content;
     background: rgba(255, 255, 255, 0.18);
     border-radius: 9999px;
@@ -1320,6 +1316,7 @@ export default {
     padding: 0.25rem 0.3rem;
     z-index: 210;
     align-items: center;
+    margin-top: 0.5rem;
   }
   .social-icon-link {
     width: 2.5rem;
