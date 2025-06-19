@@ -362,9 +362,20 @@ export default {
     // Check if device is iOS
     this.isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream
 
-    // Import works data from the Works component
-    const WorksComponent = await import('./Works.vue')
-    this.works = WorksComponent.default.data().works.sort((a, b) => a.order - b.order)
+    // Fetch works data from JSON file
+    let data = []
+    try {
+      const response = await fetch('/works.json')
+      data = await response.json()
+      if (!Array.isArray(data)) {
+        console.error('works.json did not return an array:', data)
+        data = []
+      }
+    } catch (e) {
+      console.error('Failed to fetch works.json:', e)
+      data = []
+    }
+    this.works = data.sort((a, b) => a.order - b.order)
 
     // Add keyboard event listener
     window.addEventListener('keydown', this.handleKeyDown)
