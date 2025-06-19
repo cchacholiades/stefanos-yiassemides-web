@@ -260,53 +260,36 @@
         </div>
 
         <!-- Indicators Container -->
-        <div class="flex gap-2 slide-indicators">
+        <div class="flex gap-3 slide-indicators">
           <div
             v-for="(work, index) in works"
             :key="work.id"
-            class="relative"
+            class="relative group"
             @mouseenter="showPreview(index)"
             @mouseleave="hidePreview(index)"
           >
             <!-- Indicator Button -->
             <button
-              :class="currentIndex === index ? 'bg-white scale-125' : 'bg-white/50 hover:bg-white/80'"
-              class="w-3 h-3 rounded-full border-2 border-white shadow-lg transition-all duration-300 focus:outline-none backdrop-blur-sm hover:scale-150"
+              :class="[
+                currentIndex === index
+                  ? 'bg-white scale-110 ring-4 ring-white/20'
+                  : 'bg-white/30 hover:bg-white/50',
+                'w-3 h-3 rounded-full transition-all duration-300 ease-out'
+              ]"
+              class="focus:outline-none backdrop-blur-sm group-hover:scale-150"
               @click="currentIndex = index"
-            />
-
-            <!-- Previous Preview (Commented Out) -->
-            <!--
-            <div
-              v-show="previewIndex === index"
-              class="fixed inset-0 flex items-center justify-center z-[160]"
-              :class="{
-                'opacity-100': previewIndex === index,
-                'opacity-0': previewIndex !== index
-              }"
             >
-              <div class="relative w-64 transform transition-all duration-300"
-                :class="{
-                  'scale-100': previewIndex === index,
-                  'scale-95': previewIndex !== index
-                }"
-              >
-                <div class="relative w-full aspect-[2/3] rounded-lg overflow-hidden shadow-2xl">
-                  <NuxtImg
-                    :src="`/${work.img}`"
-                    class="w-full h-full object-cover"
-                    loading="lazy"
-                    :alt="work.name"
-                  />
-                  <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
-                </div>
+              <!-- Hover Circle -->
+              <div
+                class="absolute inset-0 rounded-full bg-white/10 scale-0 group-hover:scale-150 transition-transform duration-300 ease-out"
+              ></div>
+            </button>
 
-                <div class="mt-4 text-center">
-                  <h3 class="text-lg font-medium text-white">{{ work.name }}</h3>
-                </div>
-              </div>
-            </div>
-            -->
+            <!-- Active Indicator Ring -->
+            <div
+              v-if="currentIndex === index"
+              class="absolute inset-0 rounded-full ring-2 ring-white/30 animate-pulse"
+            ></div>
           </div>
         </div>
       </div>
@@ -912,6 +895,47 @@ export default {
 .slide-indicators {
   z-index: 150 !important;
   margin-bottom: 1rem;
+  padding: 0.5rem;
+  border-radius: 9999px;
+  background: rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(8px);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.slide-indicators button {
+  position: relative;
+  overflow: hidden;
+  transform-origin: center;
+  will-change: transform, background-color;
+}
+
+.slide-indicators button::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: 9999px;
+  background: linear-gradient(45deg, rgba(255,255,255,0.1), rgba(255,255,255,0.2));
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.slide-indicators button:hover::before {
+  opacity: 1;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 0.5;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.1);
+  }
+}
+
+.animate-pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 
 /* Work Image Styles */
