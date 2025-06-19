@@ -32,11 +32,11 @@
       >
         <!-- Background Image -->
         <NuxtImg
-          :src="`/${work.img}`"
+          v-if="works && works[activeIndexForBackground]"
+          :src="`/${works[activeIndexForBackground].img}`"
           class="w-full h-full object-cover transition-opacity duration-500 blur-2xl"
-          :class="{ 'opacity-100': currentIndex === index, 'opacity-0': currentIndex !== index }"
           loading="lazy"
-          :alt="work.name"
+          :alt="works[activeIndexForBackground].name"
         />
 
         <!-- Video Players Container -->
@@ -181,7 +181,7 @@
 
                 <!-- Preview Title -->
                 <div class="mt-4 text-center">
-                  <h3 class="text-lg font-medium text-white">{{ works[previewIndex]?.name }}</h3>
+                  <h3 class="text-xl font-bold text-white">{{ works[previewIndex]?.name }}</h3>
                 </div>
               </div>
             </div>
@@ -268,6 +268,7 @@
             :key="work.id"
             class="relative group flex items-center"
             @mouseenter="showPreview(index)"
+            @mouseleave="setHoveredIndicator(index)"
           >
             <!-- Indicator Button -->
             <button
@@ -275,14 +276,18 @@
                 currentIndex === index
                   ? 'bg-white scale-110 ring-4 ring-white/20'
                   : 'bg-white/30 hover:bg-white/50',
-                'w-3 h-3 rounded-full transition-all duration-300 ease-out'
+                (hoveredIndicatorIndex === index && previewIndex !== null) ? 'scale-150 ring-4 ring-white/40' : '',
+                'w-3 h-3 rounded-full transition-all duration-150 ease-out'
               ]"
-              class="focus:outline-none backdrop-blur-sm group-hover:scale-150"
+              class="focus:outline-none backdrop-blur-sm"
               @click="currentIndex = index"
             >
               <!-- Hover Circle -->
               <div
-                class="absolute inset-0 rounded-full bg-white/10 scale-0 group-hover:scale-150 transition-transform duration-300 ease-out"
+                :class="[
+                  'absolute inset-0 rounded-full bg-white/10 transition-transform duration-150 ease-out',
+                  (hoveredIndicatorIndex === index && previewIndex !== null) ? 'scale-150 opacity-100' : 'scale-0 opacity-0'
+                ]"
               ></div>
             </button>
 
@@ -340,6 +345,9 @@ export default {
   computed: {
     origin() {
       return process.client ? window.location.origin : ''
+    },
+    activeIndexForBackground() {
+      return this.previewIndex !== null ? this.previewIndex : this.currentIndex;
     }
   },
 
@@ -530,8 +538,8 @@ export default {
     },
 
     startCountdown() {
-      // Don't start countdown if window is not visible, focused, or already counting down
-      if (document.hidden || !document.hasFocus() || this.isCountingDown) {
+      // Don't start countdown if window is not visible, focused, already counting down, or slider is hovered
+      if (document.hidden || !document.hasFocus() || this.isCountingDown || this.previewIndex !== null) {
         return
       }
 
@@ -572,8 +580,8 @@ export default {
     },
 
     handleHover(isHovered) {
-      // Only handle hover if not hovering over nav arrows
-      if (this.isNavHovered) return
+      // Only handle hover if not hovering over nav arrows or slider indicators
+      if (this.isNavHovered || this.previewIndex !== null) return
 
       this.isHovered = isHovered
       const currentWork = this.works[this.currentIndex]
@@ -795,14 +803,22 @@ export default {
       this.previewIndex = index;
       this.hoveredIndicatorIndex = index;
     },
-    hidePreview() {
-      this.previewIndex = null;
-      this.hoveredIndicatorIndex = null;
+    setHoveredIndicator(index) {
+      this.hoveredIndicatorIndex = index;
     },
     handleIndicatorsEnter() {
       if (this.hoveredIndicatorIndex !== null) {
         this.previewIndex = this.hoveredIndicatorIndex;
       }
+      // Pause or reset autoplay/countdown when slider is hovered
+      if (this.countdownTimer) {
+        clearInterval(this.countdownTimer);
+        this.countdownTimer = null;
+      }
+      this.isCountingDown = false;
+      this.countdown = 0;
+      this.isAutoPlaying = false;
+      this.hasStartedAutoplay = false;
     },
     handleIndicatorsLeave() {
       this.previewIndex = null;
@@ -912,7 +928,7 @@ export default {
   border-radius: 9999px;
   background: linear-gradient(45deg, rgba(255,255,255,0.1), rgba(255,255,255,0.2));
   opacity: 0;
-  transition: opacity 0.3s ease;
+  transition: opacity 0.15s ease;
 }
 
 .slide-indicators button:hover::before {
