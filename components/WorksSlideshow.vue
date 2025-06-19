@@ -1,5 +1,5 @@
 <template>
-  <div class="fixed inset-0 bg-black" v-if="works">
+  <div v-if="works" class="fixed inset-0 bg-black">
     <!-- Navigation Bar -->
     <div
       class="fixed top-0 left-0 right-0 z-[200] transition-all duration-500"
@@ -8,16 +8,22 @@
       <div class="relative container mx-auto px-6 py-4">
         <div class="flex items-center justify-between">
           <div class="text-white flex flex-col">
-            <h1 class="text-2xl font-bold tracking-tight bg-gradient-to-r from-white to-white/80 bg-clip-text text-transparent">
+            <h1
+              class="text-2xl font-bold tracking-tight bg-gradient-to-r from-white to-white/80 bg-clip-text text-transparent"
+            >
               Stefanos Yiassemides
             </h1>
-            <p class="text-sm text-white/70 font-medium tracking-wide mt-0.5">
+            <p
+              class="text-sm text-white/70 font-medium tracking-wide mt-0.5"
+            >
               Music Composer
             </p>
           </div>
-          <div class="desktop-socials-bar hidden md:flex flex-wrap items-center gap-2 md:gap-4 mt-3 md:mt-0"
-               @mouseenter="isSocialsBarHovered = true"
-               @mouseleave="isSocialsBarHovered = false">
+          <div
+            class="desktop-socials-bar hidden md:flex flex-wrap items-center gap-2 md:gap-4 mt-3 md:mt-0"
+            @mouseenter="isSocialsBarHovered = true"
+            @mouseleave="isSocialsBarHovered = false"
+          >
             <a class="social-icon-link" href="https://soundcloud.com/stefanos-yiassemides" title="Stefanos Yiassemides on Soundcloud" target="_blank" rel="noopener"><font-awesome-icon :icon="['fab', 'soundcloud']"/></a>
             <a class="social-icon-link" href="https://www.linkedin.com/in/stefanos-yiassemides-99870579" title="Stefanos Yiassemides on LinkedIn" target="_blank" rel="noopener"><font-awesome-icon :icon="['fab', 'linkedin']"/></a>
             <a class="social-icon-link" href="https://www.instagram.com/stefyiassemidesmusic" title="Stefanos Yiassemides on Instagram" target="_blank" rel="noopener"><font-awesome-icon :icon="['fab', 'instagram']"/></a>
@@ -45,8 +51,8 @@
       <!-- Current Slide -->
       <div
         v-for="(work, index) in works"
-        :key="work.id"
         v-show="currentIndex === index"
+        :key="work.id"
         class="absolute inset-0"
         :class="{ 'opacity-100': currentIndex === index, 'opacity-0': currentIndex !== index }"
       >
@@ -154,13 +160,18 @@
                         'text-3xl md:text-5xl': work.name.length <= TITLE_LENGTH_THRESHOLD
                       }"
                     >{{ work.name }}</h2>
-                    <div class="overflow-y-auto pr-4 space-y-8">
+                    <div
+                      class="overflow-y-auto pr-4 space-y-8"
+                    >
                       <p class="text-base md:text-lg text-white/90 max-w-2xl leading-relaxed" v-html="work.description"></p>
 
                       <!-- Platforms -->
                       <div v-if="work.platforms" class="flex gap-6 items-center">
-                        <div v-for="platform in work.platforms" :key="platform"
-                             class="text-xl md:text-2xl text-white/90 hover:text-white transition-colors">
+                        <div
+                          v-for="platform in work.platforms"
+                          :key="platform"
+                          class="text-xl md:text-2xl text-white/90 hover:text-white transition-colors"
+                        >
                           <font-awesome-icon v-if="platform !== 'netflix'" :icon="['fab', platform]"/>
                           <img v-else src="/icons/netflix.svg" alt="Netflix" class="w-5 h-5 md:w-6 md:h-6">
                         </div>
@@ -212,12 +223,12 @@
       <!-- Mobile Navigation Arrows -->
       <div class="fixed bottom-8 left-0 right-0 flex justify-center items-center gap-4 z-[200] md:hidden">
         <button
+          aria-label="Previous Slide"
           class="text-white/90 hover:text-white text-3xl transition-all duration-500 nav-arrow nav-arrow-left group"
           :class="{ 'opacity-100': previewIndex === null, 'opacity-0': previewIndex !== null }"
           @click="prevSlide"
           @mouseenter="handleNavHover(true)"
           @mouseleave="handleNavHover(false)"
-          aria-label="Previous Slide"
         >
           <div class="absolute inset-0 bg-white/10 rounded-full backdrop-blur-md opacity-0 group-hover:opacity-100 transition-all duration-300 group-hover:shadow-[0_0_15px_rgba(255,255,255,0.2)]"></div>
           <div class="relative flex items-center justify-center w-full h-full">
@@ -225,12 +236,12 @@
           </div>
         </button>
         <button
+          aria-label="Next Slide"
           class="text-white/90 hover:text-white text-3xl transition-all duration-500 nav-arrow nav-arrow-right group"
           :class="{ 'opacity-100': previewIndex === null, 'opacity-0': previewIndex !== null }"
           @click="nextSlide"
           @mouseenter="handleNavHover(true)"
           @mouseleave="handleNavHover(false)"
-          aria-label="Next Slide"
         >
           <div class="absolute inset-0 bg-white/10 rounded-full backdrop-blur-md opacity-0 group-hover:opacity-100 transition-all duration-300 group-hover:shadow-[0_0_15px_rgba(255,255,255,0.2)]"></div>
           <div class="relative flex items-center justify-center w-full h-full">
@@ -242,12 +253,12 @@
       <!-- Desktop Navigation Arrows -->
       <div class="hidden md:block">
         <button
+          aria-label="Previous Slide"
           class="fixed left-4 top-1/2 -translate-y-1/2 text-white/90 hover:text-white text-6xl transition-all duration-500 z-[200] nav-arrow nav-arrow-left group"
           :class="{ 'opacity-100': previewIndex === null, 'opacity-0': previewIndex !== null }"
           @click="prevSlide"
           @mouseenter="handleNavHover(true)"
           @mouseleave="handleNavHover(false)"
-          aria-label="Previous Slide"
         >
           <div class="absolute inset-0 bg-white/10 rounded-full backdrop-blur-md transform -scale-100 opacity-0 group-hover:opacity-100 transition-all duration-300 group-hover:shadow-[0_0_15px_rgba(255,255,255,0.2)]"></div>
           <div class="relative flex items-center justify-center w-full h-full">
@@ -255,12 +266,12 @@
           </div>
         </button>
         <button
+          aria-label="Next Slide"
           class="fixed right-4 top-1/2 -translate-y-1/2 text-white/90 hover:text-white text-6xl transition-all duration-500 z-[200] nav-arrow nav-arrow-right group"
           :class="{ 'opacity-100': previewIndex === null, 'opacity-0': previewIndex !== null }"
           @click="nextSlide"
           @mouseenter="handleNavHover(true)"
           @mouseleave="handleNavHover(false)"
-          aria-label="Next Slide"
         >
           <div class="absolute inset-0 bg-white/10 rounded-full backdrop-blur-md opacity-0 group-hover:opacity-100 transition-all duration-300 group-hover:shadow-[0_0_15px_rgba(255,255,255,0.2)]"></div>
           <div class="relative flex items-center justify-center w-full h-full">
@@ -649,27 +660,19 @@ export default {
       }
     },
     onPlayerReady(event, index) {
-      console.log('YouTube player ready for index:', index)
       this.youtubePlayers[index] = event.target
 
       // If this is the current slide and we're ready to play, start the video
       if (index === this.currentIndex && this.isAutoPlaying) {
-        console.log('Player ready for current slide, attempting to play')
         const player = event.target
-
         if (this.isIOS && !this.hasUserInteracted) {
-          // For iOS, ensure the video is muted initially
           player.mute()
         } else if (this.isIOS && this.hasUserInteracted) {
-          // Unmute if user has interacted
           player.unMute()
         }
         player.playVideo()
-
-        // Add multiple retry attempts with increasing delays
         setTimeout(() => {
           if (player.getPlayerState() !== 1) {
-            console.log('First retry attempt for video playback...')
             if (this.isIOS && !this.hasUserInteracted) {
               player.mute()
             } else if (this.isIOS && this.hasUserInteracted) {
@@ -678,10 +681,8 @@ export default {
             player.playVideo()
           }
         }, 1000)
-
         setTimeout(() => {
           if (player.getPlayerState() !== 1) {
-            console.log('Second retry attempt for video playback...')
             if (this.isIOS && !this.hasUserInteracted) {
               player.mute()
             } else if (this.isIOS && this.hasUserInteracted) {
@@ -690,10 +691,8 @@ export default {
             player.playVideo()
           }
         }, 2000)
-
         setTimeout(() => {
           if (player.getPlayerState() !== 1) {
-            console.log('Final retry attempt for video playback...')
             if (this.isIOS && !this.hasUserInteracted) {
               player.mute()
             } else if (this.isIOS && this.hasUserInteracted) {
@@ -706,13 +705,10 @@ export default {
     },
     onVimeoReady(player, index) {
       this.vimeoPlayers[index] = player
-      // If this is the first slide and we're ready to play, start the video
       if (index === 0 && this.isAutoPlaying) {
         if (this.isIOS && !this.hasUserInteracted) {
-          // For iOS, ensure the video is muted initially
           player.setVolume(0)
         } else if (this.isIOS && this.hasUserInteracted) {
-          // Set volume to 1 if user has interacted
           player.setVolume(1)
         }
         this.playCurrentVideo()
@@ -723,23 +719,15 @@ export default {
       if (currentWork.youtube && currentWork.youtube[0] && this.youtubePlayers[this.currentIndex]) {
         try {
           const player = this.youtubePlayers[this.currentIndex]
-          console.log('Attempting to play YouTube video for index:', this.currentIndex)
-
           if (this.isIOS && !this.hasUserInteracted) {
-            // For iOS, we need to ensure the video is muted initially
             player.mute()
           } else if (this.isIOS && this.hasUserInteracted) {
-            // Unmute if user has interacted
             player.unMute()
           }
           player.playVideo()
-
-          // Check if video started playing
           setTimeout(() => {
             const state = player.getPlayerState()
-            console.log('Current player state:', state)
-            if (state !== 1) { // 1 is playing
-              console.log('Video not playing, retrying...')
+            if (state !== 1) {
               if (this.isIOS && !this.hasUserInteracted) {
                 player.mute()
               } else if (this.isIOS && this.hasUserInteracted) {
@@ -749,22 +737,17 @@ export default {
             }
           }, 1000)
         } catch (error) {
-          console.error('Error playing YouTube video:', error)
         }
       } else if (currentWork.vimeo && currentWork.vimeo[0] && this.vimeoPlayers[this.currentIndex]) {
         try {
           const player = this.vimeoPlayers[this.currentIndex]
           if (this.isIOS && !this.hasUserInteracted) {
-            // For iOS, ensure the video is muted initially
             player.setVolume(0)
           } else if (this.isIOS && this.hasUserInteracted) {
-            // Set volume to 1 if user has interacted
             player.setVolume(1)
           }
           player.play()
-          console.log('Playing Vimeo video')
         } catch (error) {
-          console.error('Error playing Vimeo video:', error)
         }
       }
     },
@@ -1147,7 +1130,7 @@ export default {
     box-shadow: 0 2px 24px 0 rgba(255,255,255,0.22), 0 1.5px 12px 0 rgba(120,180,255,0.13);
     backdrop-filter: blur(8px) saturate(1.3);
     -webkit-backdrop-filter: blur(8px) saturate(1.3);
-    padding: 0.25rem 0.7rem;
+    padding: 0.25rem 0.3rem;
     z-index: 210;
     align-items: center;
   }
@@ -1159,9 +1142,6 @@ export default {
   }
 }
 
-.desktop-socials-bar {
-  /* Only visible on md and up */
-}
 @media (min-width: 768px) {
   .desktop-socials-bar {
     background: rgba(255,255,255,0.13);
@@ -1169,7 +1149,7 @@ export default {
     box-shadow: 0 2px 24px 0 rgba(255,255,255,0.13), 0 1.5px 12px 0 rgba(120,180,255,0.08);
     backdrop-filter: blur(8px) saturate(1.2);
     -webkit-backdrop-filter: blur(8px) saturate(1.2);
-    padding: 0.35rem 1.2rem;
+    padding: 0.3rem 0.5rem;
     border: 1.5px solid rgba(255,255,255,0.18);
     align-items: center;
     transition: background 0.22s, box-shadow 0.22s, border 0.22s;
