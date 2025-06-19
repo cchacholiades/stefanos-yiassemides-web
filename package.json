@@ -10,6 +10,7 @@
     "lint:js": "eslint --ext \".js,.vue\" --ignore-path .gitignore .",
     "prepare": "husky install",
     "lint": "npm run lint:js",
+    "format": "prettier --write \"**/*.{js,vue,json,css,md}\"",
     "deploy": "push-dir --dir=dist --branch=gh-pages --cleanup"
   },
   "dependencies": {

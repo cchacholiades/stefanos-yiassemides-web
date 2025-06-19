@@ -4,46 +4,71 @@ export default {
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: 'Music Composer & Sound Designer for Film & Media | Stefanos Yiassemides',
+    title:
+      'Music Composer & Sound Designer for Film & Media | Stefanos Yiassemides',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: 'Stefanos Yiassemides is a Music Composer and Sound Designer for Film & Media.' },
+      {
+        hid: 'description',
+        name: 'description',
+        content:
+          'Stefanos Yiassemides is a Music Composer and Sound Designer for Film & Media.',
+      },
 
-      { name: 'keywords', content: 'music composer, sound designer, film, tv, television, media, games, animation' },
+      {
+        name: 'keywords',
+        content:
+          'music composer, sound designer, film, tv, television, media, games, animation',
+      },
       { name: 'copyright', content: 'Stefanos Yiassemides' },
       { name: 'reply-to', content: 'info@stefanosyiassemides.com' },
       { name: 'theme-color', content: '#000' },
 
       { name: 'twitter:card', content: 'summary_large_image' },
       { name: 'twitter:site', content: 'https://stefanosyiassemides.com/' },
-      { name: 'twitter:title', content: 'Music Composer & Sound Designer for Film & Media | Stefanos Yiassemides' },
-      { name: 'twitter:description', content: 'Stefanos Yiassemides is a Music Composer and Sound Designer for Film & Media.' },
+      {
+        name: 'twitter:title',
+        content:
+          'Music Composer & Sound Designer for Film & Media | Stefanos Yiassemides',
+      },
+      {
+        name: 'twitter:description',
+        content:
+          'Stefanos Yiassemides is a Music Composer and Sound Designer for Film & Media.',
+      },
       { name: 'twitter:image', content: '/about-2.jpeg' },
 
       { property: 'og:type', content: 'website' },
       { property: 'og:url', content: 'https://stefanosyiassemides.com/' },
       { property: 'og:image', content: '/about-2.jpeg' },
-      { property: 'og:description', content: 'Stefanos Yiassemides is a Music Composer and Sound Designer for Film & Media.' },
+      {
+        property: 'og:description',
+        content:
+          'Stefanos Yiassemides is a Music Composer and Sound Designer for Film & Media.',
+      },
       { property: 'og:title', content: 'Stefanos Yiassemides' },
-      { property: 'og:site_name', content: 'Music Composer & Sound Designer for Film & Media | Stefanos Yiassemides' },
-      { property: 'fb:app_id', content: '1849135811851242' }
+      {
+        property: 'og:site_name',
+        content:
+          'Music Composer & Sound Designer for Film & Media | Stefanos Yiassemides',
+      },
+      { property: 'fb:app_id', content: '1849135811851242' },
     ],
     htmlAttrs: {
-      class: "antialiased bg-black text-white scrollbar-hide font-montserrat"
+      class: 'antialiased bg-black text-white scrollbar-hide font-montserrat',
     },
     bodyAttrs: {
-      class: "antialiased bg-black text-white scrollbar-hide font-montserrat"
+      class: 'antialiased bg-black text-white scrollbar-hide font-montserrat',
     },
     link: [
       { rel: 'canonical', href: 'https://stefanosyiassemides.com' },
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
-    ]
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+    ],
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
-  css: [
-  ],
+  css: [],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
@@ -94,59 +119,70 @@ export default {
         url: '/',
         changefreq: 'yearly',
         priority: 1,
-        lastmod: '2022-12-15T13:00:00.000Z'
-      }
-    ]
+        lastmod: '2022-12-15T13:00:00.000Z',
+      },
+    ],
   },
 
   // Robots
   robots: {
-      UserAgent: '*',
-      Allow: '/',
-      Sitemap: "https://stefanosyiassemides.com/sitemap.xml"
+    UserAgent: '*',
+    Allow: '/',
+    Sitemap: 'https://stefanosyiassemides.com/sitemap.xml',
   },
 
   gtm: {
-      enabled: true,
-      debug: true,
-      id: "GTM-TS9GHDL",
-      layer: 'dataLayer',
-      variables: {},
-      pageTracking: false,
-      pageViewEventName: 'nuxtRoute',
-      autoInit: true,
-      // respectDoNotTrack: true,
-      scriptId: 'gtm-script',
-      scriptDefer: true,
-      scriptURL: 'https://www.googletagmanager.com/gtm.js',
-      crossOrigin: true,
-      noscript: true,
-      noscriptId: 'gtm-noscript',
-      noscriptURL: 'https://www.googletagmanager.com/ns.html'
+    enabled: true,
+    debug: true,
+    id: 'GTM-TS9GHDL',
+    layer: 'dataLayer',
+    variables: {},
+    pageTracking: false,
+    pageViewEventName: 'nuxtRoute',
+    autoInit: true,
+    // respectDoNotTrack: true,
+    scriptId: 'gtm-script',
+    scriptDefer: true,
+    scriptURL: 'https://www.googletagmanager.com/gtm.js',
+    crossOrigin: true,
+    noscript: true,
+    noscriptId: 'gtm-noscript',
+    noscriptURL: 'https://www.googletagmanager.com/ns.html',
   },
 
   // PWA module configuration: https://go.nuxtjs.dev/pwa
   pwa: {
     manifest: {
-      lang: 'en'
-    }
+      lang: 'en',
+    },
   },
 
   // Google fonts module configuration: https://google-fonts.nuxtjs.org/options/
   googleFonts: {
     families: {
-      'Roboto': true,
+      Roboto: true,
       'Source+Code+Pro': true,
-      'Montserrat': true,
-      'Lora': true,
-      'Inter': true,
-    }
+      Montserrat: true,
+      Lora: true,
+      Inter: true,
+    },
   },
 
   fontawesome: {
     icons: {
-      brands: ['faSoundcloud', 'faLinkedin', 'faTwitter', 'faInstagram', 'faImdb', 'faPlaystation', 'faSteam', 'faWindows', 'faXbox', 'faYoutube'],
-      solid: ['faXmark', 'faBars', 'faChevronLeft', 'faChevronRight']
+      brands: [
+        'faSoundcloud',
+        'faLinkedin',
+        'faTwitter',
+        'faInstagram',
+        'faImdb',
+        'faPlaystation',
+        'faSteam',
+        'faWindows',
+        'faXbox',
+        'faYoutube',
+      ],
+      solid: ['faXmark', 'faBars', 'faChevronLeft', 'faChevronRight'],
     },
   },
 
@@ -154,7 +190,7 @@ export default {
   tailwindcss: {
     configPath: 'tailwind.config.js',
     exposeConfig: false,
-    config: {}
+    config: {},
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
@@ -162,7 +198,7 @@ export default {
     minifyCSS: true,
     minifyJS: true,
     extractCSS: true,
-    optimizeCSS: false
+    optimizeCSS: false,
   },
 
   devServerHandlers: [],

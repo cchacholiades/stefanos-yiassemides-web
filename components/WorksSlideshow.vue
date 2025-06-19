@@ -3,7 +3,10 @@
     <!-- Navigation Bar -->
     <div
       class="fixed top-0 left-0 right-0 z-[200] transition-all duration-500"
-      :class="{ 'opacity-0': !isHovered && isAutoPlaying, 'opacity-100': isHovered || !isAutoPlaying }"
+      :class="{
+        'opacity-0': !isHovered && isAutoPlaying,
+        'opacity-100': isHovered || !isAutoPlaying,
+      }"
     >
       <div class="relative container mx-auto px-6 py-4">
         <div class="flex items-center justify-between">
@@ -13,9 +16,7 @@
             >
               Stefanos Yiassemides
             </h1>
-            <p
-              class="text-sm text-white/70 font-medium tracking-wide mt-0.5"
-            >
+            <p class="text-sm text-white/70 font-medium tracking-wide mt-0.5">
               Music Composer
             </p>
           </div>
@@ -24,23 +25,95 @@
             @mouseenter="isSocialsBarHovered = true"
             @mouseleave="isSocialsBarHovered = false"
           >
-            <a class="social-icon-link" href="https://soundcloud.com/stefanos-yiassemides" title="Stefanos Yiassemides on Soundcloud" target="_blank" rel="noopener"><font-awesome-icon :icon="['fab', 'soundcloud']"/></a>
-            <a class="social-icon-link" href="https://www.linkedin.com/in/stefanos-yiassemides-99870579" title="Stefanos Yiassemides on LinkedIn" target="_blank" rel="noopener"><font-awesome-icon :icon="['fab', 'linkedin']"/></a>
-            <a class="social-icon-link" href="https://www.instagram.com/stefyiassemidesmusic" title="Stefanos Yiassemides on Instagram" target="_blank" rel="noopener"><font-awesome-icon :icon="['fab', 'instagram']"/></a>
-            <a class="social-icon-link" href="https://www.imdb.com/name/nm9390509/" title="Stefanos Yiassemides on IMDB" target="_blank" rel="noopener"><font-awesome-icon :icon="['fab', 'imdb']"/></a>
-            <a class="social-icon-link" href="https://twitter.com/Stef_Yia_Music" title="Stefanos Yiassemides on Twitter" target="_blank" rel="noopener"><font-awesome-icon :icon="['fab', 'twitter']"/></a>
+            <a
+              class="social-icon-link"
+              href="https://soundcloud.com/stefanos-yiassemides"
+              title="Stefanos Yiassemides on Soundcloud"
+              target="_blank"
+              rel="noopener"
+              ><font-awesome-icon :icon="['fab', 'soundcloud']"
+            /></a>
+            <a
+              class="social-icon-link"
+              href="https://www.linkedin.com/in/stefanos-yiassemides-99870579"
+              title="Stefanos Yiassemides on LinkedIn"
+              target="_blank"
+              rel="noopener"
+              ><font-awesome-icon :icon="['fab', 'linkedin']"
+            /></a>
+            <a
+              class="social-icon-link"
+              href="https://www.instagram.com/stefyiassemidesmusic"
+              title="Stefanos Yiassemides on Instagram"
+              target="_blank"
+              rel="noopener"
+              ><font-awesome-icon :icon="['fab', 'instagram']"
+            /></a>
+            <a
+              class="social-icon-link"
+              href="https://www.imdb.com/name/nm9390509/"
+              title="Stefanos Yiassemides on IMDB"
+              target="_blank"
+              rel="noopener"
+              ><font-awesome-icon :icon="['fab', 'imdb']"
+            /></a>
+            <a
+              class="social-icon-link"
+              href="https://twitter.com/Stef_Yia_Music"
+              title="Stefanos Yiassemides on Twitter"
+              target="_blank"
+              rel="noopener"
+              ><font-awesome-icon :icon="['fab', 'twitter']"
+            /></a>
           </div>
           <!-- Floating socials bar for mobile -->
         </div>
-        <div class="mobile-socials-bar md:hidden"
-             @mouseenter="isSocialsBarHovered = true"
-             @mouseleave="isSocialsBarHovered = false">
+        <div
+          class="mobile-socials-bar md:hidden"
+          @mouseenter="isSocialsBarHovered = true"
+          @mouseleave="isSocialsBarHovered = false"
+        >
           <div class="flex items-center justify-center gap-2">
-            <a class="social-icon-link social-icon-mobile" href="https://soundcloud.com/stefanos-yiassemides" title="Stefanos Yiassemides on Soundcloud" target="_blank" rel="noopener"><font-awesome-icon :icon="['fab', 'soundcloud']"/></a>
-            <a class="social-icon-link social-icon-mobile" href="https://www.linkedin.com/in/stefanos-yiassemides-99870579" title="Stefanos Yiassemides on LinkedIn" target="_blank" rel="noopener"><font-awesome-icon :icon="['fab', 'linkedin']"/></a>
-            <a class="social-icon-link social-icon-mobile" href="https://www.instagram.com/stefyiassemidesmusic" title="Stefanos Yiassemides on Instagram" target="_blank" rel="noopener"><font-awesome-icon :icon="['fab', 'instagram']"/></a>
-            <a class="social-icon-link social-icon-mobile" href="https://www.imdb.com/name/nm9390509/" title="Stefanos Yiassemides on IMDB" target="_blank" rel="noopener"><font-awesome-icon :icon="['fab', 'imdb']"/></a>
-            <a class="social-icon-link social-icon-mobile" href="https://twitter.com/Stef_Yia_Music" title="Stefanos Yiassemides on Twitter" target="_blank" rel="noopener"><font-awesome-icon :icon="['fab', 'twitter']"/></a>
+            <a
+              class="social-icon-link social-icon-mobile"
+              href="https://soundcloud.com/stefanos-yiassemides"
+              title="Stefanos Yiassemides on Soundcloud"
+              target="_blank"
+              rel="noopener"
+              ><font-awesome-icon :icon="['fab', 'soundcloud']"
+            /></a>
+            <a
+              class="social-icon-link social-icon-mobile"
+              href="https://www.linkedin.com/in/stefanos-yiassemides-99870579"
+              title="Stefanos Yiassemides on LinkedIn"
+              target="_blank"
+              rel="noopener"
+              ><font-awesome-icon :icon="['fab', 'linkedin']"
+            /></a>
+            <a
+              class="social-icon-link social-icon-mobile"
+              href="https://www.instagram.com/stefyiassemidesmusic"
+              title="Stefanos Yiassemides on Instagram"
+              target="_blank"
+              rel="noopener"
+              ><font-awesome-icon :icon="['fab', 'instagram']"
+            /></a>
+            <a
+              class="social-icon-link social-icon-mobile"
+              href="https://www.imdb.com/name/nm9390509/"
+              title="Stefanos Yiassemides on IMDB"
+              target="_blank"
+              rel="noopener"
+              ><font-awesome-icon :icon="['fab', 'imdb']"
+            /></a>
+            <a
+              class="social-icon-link social-icon-mobile"
+              href="https://twitter.com/Stef_Yia_Music"
+              title="Stefanos Yiassemides on Twitter"
+              target="_blank"
+              rel="noopener"
+              ><font-awesome-icon :icon="['fab', 'twitter']"
+            /></a>
           </div>
         </div>
       </div>
@@ -54,7 +127,10 @@
         v-show="currentIndex === index"
         :key="work.id"
         class="absolute inset-0"
-        :class="{ 'opacity-100': currentIndex === index, 'opacity-0': currentIndex !== index }"
+        :class="{
+          'opacity-100': currentIndex === index,
+          'opacity-0': currentIndex !== index,
+        }"
       >
         <!-- Background Image -->
         <NuxtImg
@@ -69,8 +145,11 @@
         <div
           v-if="hasVideo(work)"
           class="absolute inset-0 transition-opacity duration-500 video-container"
-          :class="{ 'opacity-0': isHovered || !isAutoPlaying, 'opacity-100': !isHovered && isAutoPlaying }"
-          style="width: 100vw; height: 100vh;"
+          :class="{
+            'opacity-0': isHovered || !isAutoPlaying,
+            'opacity-100': !isHovered && isAutoPlaying,
+          }"
+          style="width: 100vw; height: 100vh"
         >
           <!-- YouTube Player -->
           <youtube
@@ -88,7 +167,7 @@
               mute: 1,
               enablejsapi: 1,
               origin: origin,
-              fs: 0
+              fs: 0,
             }"
             class="youtube-player"
             @ready="onPlayerReady($event, index)"
@@ -108,7 +187,7 @@
               background: false,
               playsinline: true,
               muted: false,
-              loop: true
+              loop: true,
             }"
             class="vimeo-player"
             @ready="onVimeoReady($event, index)"
@@ -118,7 +197,10 @@
         <!-- Overlay Content -->
         <div
           class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent transition-all duration-500"
-          :class="{ 'opacity-100': isHovered || !hasVideo(work) || !isAutoPlaying, 'opacity-0': !isHovered && hasVideo(work) && isAutoPlaying }"
+          :class="{
+            'opacity-100': isHovered || !hasVideo(work) || !isAutoPlaying,
+            'opacity-0': !isHovered && hasVideo(work) && isAutoPlaying,
+          }"
           @mouseenter="handleHover(true)"
           @mouseleave="handleHover(false)"
           @mousemove="handleMouseMove"
@@ -127,16 +209,24 @@
           <div
             class="absolute inset-0 flex items-center justify-center transition-all duration-500"
             :class="{
-              'opacity-100': (isHovered || !hasVideo(work) || !isAutoPlaying) && previewIndex === null,
-              'opacity-0': (!isHovered && hasVideo(work) && isAutoPlaying) || previewIndex !== null
+              'opacity-100':
+                (isHovered || !hasVideo(work) || !isAutoPlaying) &&
+                previewIndex === null,
+              'opacity-0':
+                (!isHovered && hasVideo(work) && isAutoPlaying) ||
+                previewIndex !== null,
             }"
           >
             <!-- Content Wrapper -->
             <div class="w-full flex justify-center items-center min-h-[50vh]">
-              <div class="w-full max-w-4xl mx-auto px-8 md:px-16 relative flex flex-col md:flex-row items-start gap-8 md:gap-12">
+              <div
+                class="w-full max-w-4xl mx-auto px-8 md:px-16 relative flex flex-col md:flex-row items-start gap-8 md:gap-12"
+              >
                 <!-- Work Image -->
                 <div class="w-[180px] flex-shrink-0">
-                  <div class="relative aspect-[2/3] rounded-lg overflow-hidden shadow-2xl">
+                  <div
+                    class="relative aspect-[2/3] rounded-lg overflow-hidden shadow-2xl"
+                  >
                     <NuxtImg
                       :src="`/${work.img}`"
                       class="w-full h-full object-cover"
@@ -145,7 +235,9 @@
                       width="180"
                       height="270"
                     />
-                    <div class="absolute inset-0 border border-white/10 rounded-lg"></div>
+                    <div
+                      class="absolute inset-0 border border-white/10 rounded-lg"
+                    ></div>
                   </div>
                 </div>
 
@@ -156,24 +248,40 @@
                     <h2
                       class="font-bold text-white mb-4 tracking-tight pr-12 md:pr-0"
                       :class="{
-                        'text-2xl md:text-4xl': work.name.length > TITLE_LENGTH_THRESHOLD,
-                        'text-3xl md:text-5xl': work.name.length <= TITLE_LENGTH_THRESHOLD
+                        'text-2xl md:text-4xl':
+                          work.name.length > TITLE_LENGTH_THRESHOLD,
+                        'text-3xl md:text-5xl':
+                          work.name.length <= TITLE_LENGTH_THRESHOLD,
                       }"
-                    >{{ work.name }}</h2>
-                    <div
-                      class="overflow-y-auto pr-4 space-y-8"
                     >
-                      <p class="text-base md:text-lg text-white/90 max-w-2xl leading-relaxed" v-html="work.description"></p>
+                      {{ work.name }}
+                    </h2>
+                    <div class="overflow-y-auto pr-4 space-y-8">
+                      <p
+                        class="text-base md:text-lg text-white/90 max-w-2xl leading-relaxed"
+                        v-html="work.description"
+                      ></p>
 
                       <!-- Platforms -->
-                      <div v-if="work.platforms" class="flex gap-6 items-center">
+                      <div
+                        v-if="work.platforms"
+                        class="flex gap-6 items-center"
+                      >
                         <div
                           v-for="platform in work.platforms"
                           :key="platform"
                           class="text-xl md:text-2xl text-white/90 hover:text-white transition-colors"
                         >
-                          <font-awesome-icon v-if="platform !== 'netflix'" :icon="['fab', platform]"/>
-                          <img v-else src="/icons/netflix.svg" alt="Netflix" class="w-5 h-5 md:w-6 md:h-6">
+                          <font-awesome-icon
+                            v-if="platform !== 'netflix'"
+                            :icon="['fab', platform]"
+                          />
+                          <img
+                            v-else
+                            src="/icons/netflix.svg"
+                            alt="Netflix"
+                            class="w-5 h-5 md:w-6 md:h-6"
+                          />
                         </div>
                       </div>
                     </div>
@@ -188,18 +296,21 @@
             class="absolute inset-0 flex items-center justify-center transition-all duration-500"
             :class="{
               'opacity-100': previewIndex !== null,
-              'opacity-0 pointer-events-none': previewIndex === null
+              'opacity-0 pointer-events-none': previewIndex === null,
             }"
           >
             <div class="w-full max-w-4xl mx-auto px-8 md:px-16">
-              <div class="relative w-64 mx-auto transform transition-all duration-300"
+              <div
+                class="relative w-64 mx-auto transform transition-all duration-300"
                 :class="{
                   'scale-100': previewIndex !== null,
-                  'scale-95': previewIndex === null
+                  'scale-95': previewIndex === null,
                 }"
               >
                 <!-- Preview Image -->
-                <div class="relative w-full aspect-[2/3] rounded-lg overflow-hidden shadow-2xl">
+                <div
+                  class="relative w-full aspect-[2/3] rounded-lg overflow-hidden shadow-2xl"
+                >
                   <NuxtImg
                     v-if="previewIndex !== null"
                     :src="`/${works[previewIndex]?.img}`"
@@ -207,12 +318,16 @@
                     loading="eager"
                     :alt="works[previewIndex]?.name"
                   />
-                  <div class="absolute inset-0 border border-white/10 rounded-lg"></div>
+                  <div
+                    class="absolute inset-0 border border-white/10 rounded-lg"
+                  ></div>
                 </div>
 
                 <!-- Preview Title -->
                 <div class="mt-4 text-center">
-                  <h3 class="text-xl font-bold text-white">{{ works[previewIndex]?.name }}</h3>
+                  <h3 class="text-xl font-bold text-white">
+                    {{ works[previewIndex]?.name }}
+                  </h3>
                 </div>
               </div>
             </div>
@@ -221,31 +336,43 @@
       </div>
 
       <!-- Mobile Navigation Arrows -->
-      <div class="fixed bottom-8 left-0 right-0 flex justify-center items-center gap-4 z-[200] md:hidden">
+      <div
+        class="fixed bottom-8 left-0 right-0 flex justify-center items-center gap-4 z-[200] md:hidden"
+      >
         <button
           aria-label="Previous Slide"
           class="text-white/90 hover:text-white text-3xl transition-all duration-500 nav-arrow nav-arrow-left group"
-          :class="{ 'opacity-100': previewIndex === null, 'opacity-0': previewIndex !== null }"
+          :class="{
+            'opacity-100': previewIndex === null,
+            'opacity-0': previewIndex !== null,
+          }"
           @click="prevSlide"
           @mouseenter="handleNavHover(true)"
           @mouseleave="handleNavHover(false)"
         >
-          <div class="absolute inset-0 bg-white/10 rounded-full backdrop-blur-md opacity-0 group-hover:opacity-100 transition-all duration-300 group-hover:shadow-[0_0_15px_rgba(255,255,255,0.2)]"></div>
+          <div
+            class="absolute inset-0 bg-white/10 rounded-full backdrop-blur-md opacity-0 group-hover:opacity-100 transition-all duration-300 group-hover:shadow-[0_0_15px_rgba(255,255,255,0.2)]"
+          ></div>
           <div class="relative flex items-center justify-center w-full h-full">
-            <font-awesome-icon :icon="['fas', 'chevron-left']"/>
+            <font-awesome-icon :icon="['fas', 'chevron-left']" />
           </div>
         </button>
         <button
           aria-label="Next Slide"
           class="text-white/90 hover:text-white text-3xl transition-all duration-500 nav-arrow nav-arrow-right group"
-          :class="{ 'opacity-100': previewIndex === null, 'opacity-0': previewIndex !== null }"
+          :class="{
+            'opacity-100': previewIndex === null,
+            'opacity-0': previewIndex !== null,
+          }"
           @click="nextSlide"
           @mouseenter="handleNavHover(true)"
           @mouseleave="handleNavHover(false)"
         >
-          <div class="absolute inset-0 bg-white/10 rounded-full backdrop-blur-md opacity-0 group-hover:opacity-100 transition-all duration-300 group-hover:shadow-[0_0_15px_rgba(255,255,255,0.2)]"></div>
+          <div
+            class="absolute inset-0 bg-white/10 rounded-full backdrop-blur-md opacity-0 group-hover:opacity-100 transition-all duration-300 group-hover:shadow-[0_0_15px_rgba(255,255,255,0.2)]"
+          ></div>
           <div class="relative flex items-center justify-center w-full h-full">
-            <font-awesome-icon :icon="['fas', 'chevron-right']"/>
+            <font-awesome-icon :icon="['fas', 'chevron-right']" />
           </div>
         </button>
       </div>
@@ -255,45 +382,64 @@
         <button
           aria-label="Previous Slide"
           class="fixed left-4 top-1/2 -translate-y-1/2 text-white/90 hover:text-white text-6xl transition-all duration-500 z-[200] nav-arrow nav-arrow-left group"
-          :class="{ 'opacity-100': previewIndex === null, 'opacity-0': previewIndex !== null }"
+          :class="{
+            'opacity-100': previewIndex === null,
+            'opacity-0': previewIndex !== null,
+          }"
           @click="prevSlide"
           @mouseenter="handleNavHover(true)"
           @mouseleave="handleNavHover(false)"
         >
-          <div class="absolute inset-0 bg-white/10 rounded-full backdrop-blur-md transform -scale-100 opacity-0 group-hover:opacity-100 transition-all duration-300 group-hover:shadow-[0_0_15px_rgba(255,255,255,0.2)]"></div>
+          <div
+            class="absolute inset-0 bg-white/10 rounded-full backdrop-blur-md transform -scale-100 opacity-0 group-hover:opacity-100 transition-all duration-300 group-hover:shadow-[0_0_15px_rgba(255,255,255,0.2)]"
+          ></div>
           <div class="relative flex items-center justify-center w-full h-full">
-            <font-awesome-icon :icon="['fas', 'chevron-left']"/>
+            <font-awesome-icon :icon="['fas', 'chevron-left']" />
           </div>
         </button>
         <button
           aria-label="Next Slide"
           class="fixed right-4 top-1/2 -translate-y-1/2 text-white/90 hover:text-white text-6xl transition-all duration-500 z-[200] nav-arrow nav-arrow-right group"
-          :class="{ 'opacity-100': previewIndex === null, 'opacity-0': previewIndex !== null }"
+          :class="{
+            'opacity-100': previewIndex === null,
+            'opacity-0': previewIndex !== null,
+          }"
           @click="nextSlide"
           @mouseenter="handleNavHover(true)"
           @mouseleave="handleNavHover(false)"
         >
-          <div class="absolute inset-0 bg-white/10 rounded-full backdrop-blur-md opacity-0 group-hover:opacity-100 transition-all duration-300 group-hover:shadow-[0_0_15px_rgba(255,255,255,0.2)]"></div>
+          <div
+            class="absolute inset-0 bg-white/10 rounded-full backdrop-blur-md opacity-0 group-hover:opacity-100 transition-all duration-300 group-hover:shadow-[0_0_15px_rgba(255,255,255,0.2)]"
+          ></div>
           <div class="relative flex items-center justify-center w-full h-full">
-            <font-awesome-icon :icon="['fas', 'chevron-right']"/>
+            <font-awesome-icon :icon="['fas', 'chevron-right']" />
           </div>
         </button>
       </div>
 
       <!-- Slide Indicators -->
-      <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4 z-[150] hidden md:flex">
+      <div
+        class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4 z-[150] hidden md:flex"
+      >
         <!-- Countdown Label -->
         <div
-          v-if="isHovered && hasVideo(works[currentIndex]) && countdown > 0 && countdown <= 3"
+          v-if="
+            isHovered &&
+            hasVideo(works[currentIndex]) &&
+            countdown > 0 &&
+            countdown <= 3
+          "
           class="bg-black/80 text-white px-4 py-2 rounded-full text-sm font-medium backdrop-blur-sm"
         >
           Autoplay in {{ countdown }} seconds
         </div>
 
         <!-- Indicators Container -->
-        <div class="flex gap-3 slide-indicators"
-             @mouseenter="handleIndicatorsEnter"
-             @mouseleave="handleIndicatorsLeave">
+        <div
+          class="flex gap-3 slide-indicators"
+          @mouseenter="handleIndicatorsEnter"
+          @mouseleave="handleIndicatorsLeave"
+        >
           <div
             v-for="(work, index) in works"
             :key="work.id"
@@ -307,8 +453,10 @@
                 currentIndex === index
                   ? 'bg-white scale-110 ring-4 ring-white/20'
                   : 'bg-white/30 hover:bg-white/50',
-                (hoveredIndicatorIndex === index && previewIndex !== null) ? 'scale-150 ring-4 ring-white/40' : '',
-                'w-3 h-3 rounded-full transition-all duration-150 ease-out'
+                hoveredIndicatorIndex === index && previewIndex !== null
+                  ? 'scale-150 ring-4 ring-white/40'
+                  : '',
+                'w-3 h-3 rounded-full transition-all duration-150 ease-out',
               ]"
               class="focus:outline-none backdrop-blur-sm"
               @click="currentIndex = index"
@@ -317,7 +465,9 @@
               <div
                 :class="[
                   'absolute inset-0 rounded-full bg-white/10 transition-transform duration-150 ease-out',
-                  (hoveredIndicatorIndex === index && previewIndex !== null) ? 'scale-150 opacity-100' : 'scale-0 opacity-0'
+                  hoveredIndicatorIndex === index && previewIndex !== null
+                    ? 'scale-150 opacity-100'
+                    : 'scale-0 opacity-0',
                 ]"
               ></div>
             </button>
@@ -334,7 +484,9 @@
       <!-- Mobile Autoplay Label -->
       <div class="fixed bottom-24 left-1/2 -translate-x-1/2 z-[200] md:hidden">
         <div
-          v-if="hasVideo(works[currentIndex]) && countdown > 0 && countdown <= 3"
+          v-if="
+            hasVideo(works[currentIndex]) && countdown > 0 && countdown <= 3
+          "
           class="bg-black/80 text-white px-4 py-2 rounded-full text-sm font-medium backdrop-blur-sm"
         >
           Autoplay in {{ countdown }} seconds
@@ -370,7 +522,7 @@ export default {
       isNavHovered: false,
       isSocialsBarHovered: false,
       TITLE_LENGTH_THRESHOLD: 30,
-      hoveredIndicatorIndex: null
+      hoveredIndicatorIndex: null,
     }
   },
 
@@ -379,20 +531,21 @@ export default {
       return process.client ? window.location.origin : ''
     },
     activeIndexForBackground() {
-      return this.previewIndex !== null ? this.previewIndex : this.currentIndex;
-    }
+      return this.previewIndex !== null ? this.previewIndex : this.currentIndex
+    },
   },
 
   watch: {
     currentIndex() {
       // Reset auto-play when changing slides
       this.resetAutoPlay()
-    }
+    },
   },
 
   async mounted() {
     // Check if device is iOS
-    this.isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream
+    this.isIOS =
+      /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream
 
     // Fetch works data from JSON file
     let data = []
@@ -422,9 +575,15 @@ export default {
     // Add touch event listeners with passive option
     const overlay = document.querySelector('.overlay-content')
     if (overlay) {
-      overlay.addEventListener('touchstart', this.handleTouchStart, { passive: true })
-      overlay.addEventListener('touchmove', this.handleTouchMove, { passive: true })
-      overlay.addEventListener('touchend', this.handleTouchEnd, { passive: true })
+      overlay.addEventListener('touchstart', this.handleTouchStart, {
+        passive: true,
+      })
+      overlay.addEventListener('touchmove', this.handleTouchMove, {
+        passive: true,
+      })
+      overlay.addEventListener('touchend', this.handleTouchEnd, {
+        passive: true,
+      })
     }
 
     // Start inactivity timer for first slide
@@ -455,7 +614,10 @@ export default {
     window.removeEventListener('keydown', this.handleKeyDown)
 
     // Remove visibility change listener
-    document.removeEventListener('visibilitychange', this.handleVisibilityChange)
+    document.removeEventListener(
+      'visibilitychange',
+      this.handleVisibilityChange
+    )
 
     // Remove window blur/focus listeners
     window.removeEventListener('blur', this.handleWindowBlur)
@@ -497,7 +659,10 @@ export default {
       }
     },
     hasVideo(work) {
-      return (work.youtube && work.youtube.length > 0) || (work.vimeo && work.vimeo.length > 0)
+      return (
+        (work.youtube && work.youtube.length > 0) ||
+        (work.vimeo && work.vimeo.length > 0)
+      )
     },
     resetAutoPlay() {
       // Clear existing timers
@@ -582,7 +747,13 @@ export default {
 
     startCountdown() {
       // Don't start countdown if window is not visible, focused, already counting down, slider is hovered, or socials bar is hovered
-      if (document.hidden || !document.hasFocus() || this.isCountingDown || this.previewIndex !== null || this.isSocialsBarHovered) {
+      if (
+        document.hidden ||
+        !document.hasFocus() ||
+        this.isCountingDown ||
+        this.previewIndex !== null ||
+        this.isSocialsBarHovered
+      ) {
         return
       }
 
@@ -716,7 +887,11 @@ export default {
     },
     playCurrentVideo() {
       const currentWork = this.works[this.currentIndex]
-      if (currentWork.youtube && currentWork.youtube[0] && this.youtubePlayers[this.currentIndex]) {
+      if (
+        currentWork.youtube &&
+        currentWork.youtube[0] &&
+        this.youtubePlayers[this.currentIndex]
+      ) {
         try {
           const player = this.youtubePlayers[this.currentIndex]
           if (this.isIOS && !this.hasUserInteracted) {
@@ -736,9 +911,12 @@ export default {
               player.playVideo()
             }
           }, 1000)
-        } catch (error) {
-        }
-      } else if (currentWork.vimeo && currentWork.vimeo[0] && this.vimeoPlayers[this.currentIndex]) {
+        } catch (error) {}
+      } else if (
+        currentWork.vimeo &&
+        currentWork.vimeo[0] &&
+        this.vimeoPlayers[this.currentIndex]
+      ) {
         try {
           const player = this.vimeoPlayers[this.currentIndex]
           if (this.isIOS && !this.hasUserInteracted) {
@@ -747,8 +925,7 @@ export default {
             player.setVolume(1)
           }
           player.play()
-        } catch (error) {
-        }
+        } catch (error) {}
       }
     },
     stopCurrentVideo() {
@@ -787,7 +964,8 @@ export default {
     },
     prevSlide() {
       this.stopCurrentVideo()
-      this.currentIndex = (this.currentIndex - 1 + this.works.length) % this.works.length
+      this.currentIndex =
+        (this.currentIndex - 1 + this.works.length) % this.works.length
       this.resetAutoPlay()
     },
     handleTouchStart(event) {
@@ -815,31 +993,31 @@ export default {
       }
     },
     showPreview(index) {
-      this.previewIndex = index;
-      this.hoveredIndicatorIndex = index;
+      this.previewIndex = index
+      this.hoveredIndicatorIndex = index
     },
     setHoveredIndicator(index) {
-      this.hoveredIndicatorIndex = index;
+      this.hoveredIndicatorIndex = index
     },
     handleIndicatorsEnter() {
       if (this.hoveredIndicatorIndex !== null) {
-        this.previewIndex = this.hoveredIndicatorIndex;
+        this.previewIndex = this.hoveredIndicatorIndex
       }
       // Pause or reset autoplay/countdown when slider is hovered
       if (this.countdownTimer) {
-        clearInterval(this.countdownTimer);
-        this.countdownTimer = null;
+        clearInterval(this.countdownTimer)
+        this.countdownTimer = null
       }
-      this.isCountingDown = false;
-      this.countdown = 0;
-      this.isAutoPlaying = false;
-      this.hasStartedAutoplay = false;
+      this.isCountingDown = false
+      this.countdown = 0
+      this.isAutoPlaying = false
+      this.hasStartedAutoplay = false
     },
     handleIndicatorsLeave() {
-      this.previewIndex = null;
-      this.hoveredIndicatorIndex = null;
-    }
-  }
+      this.previewIndex = null
+      this.hoveredIndicatorIndex = null
+    },
+  },
 }
 </script>
 
@@ -926,7 +1104,8 @@ export default {
   border-radius: 9999px;
   background: rgba(0, 0, 0, 0.2);
   backdrop-filter: blur(8px);
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
 }
 
 .slide-indicators button {
@@ -941,7 +1120,11 @@ export default {
   position: absolute;
   inset: -2px;
   border-radius: 9999px;
-  background: linear-gradient(45deg, rgba(255,255,255,0.1), rgba(255,255,255,0.2));
+  background: linear-gradient(
+    45deg,
+    rgba(255, 255, 255, 0.1),
+    rgba(255, 255, 255, 0.2)
+  );
   opacity: 0;
   transition: opacity 0.15s ease;
 }
@@ -951,7 +1134,8 @@ export default {
 }
 
 @keyframes pulse {
-  0%, 100% {
+  0%,
+  100% {
     opacity: 0.5;
     transform: scale(1);
   }
@@ -1001,7 +1185,7 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   overflow: hidden;
   border-radius: 50%;
@@ -1022,7 +1206,7 @@ export default {
   font-size: 1.7rem !important;
   width: 1.7rem !important;
   height: 1.7rem !important;
-  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
   position: relative;
   z-index: 1;
   will-change: transform;
@@ -1077,16 +1261,18 @@ export default {
   font-size: 2rem;
   color: #fff;
   border-radius: 9999px;
-  transition: background 0.22s, color 0.22s, box-shadow 0.22s, transform 0.22s, border-radius 0.22s;
+  transition: background 0.22s, color 0.22s, box-shadow 0.22s, transform 0.22s,
+    border-radius 0.22s;
   padding: 0.25rem;
   position: relative;
   width: 4.5rem;
   height: 2.5rem;
 }
 .social-icon-link:hover {
-  background: rgba(255,255,255,0.18);
+  background: rgba(255, 255, 255, 0.18);
   color: #fff;
-  box-shadow: 0 2px 24px 0 rgba(255,255,255,0.22), 0 1.5px 12px 0 rgba(120,180,255,0.13);
+  box-shadow: 0 2px 24px 0 rgba(255, 255, 255, 0.22),
+    0 1.5px 12px 0 rgba(120, 180, 255, 0.13);
   filter: brightness(1.18) drop-shadow(0 0 8px #e0e7ef);
   transform: scale(1.13);
   z-index: 2;
@@ -1096,7 +1282,7 @@ export default {
 }
 .social-icon-link:active {
   transform: scale(0.97);
-  background: rgba(255,255,255,0.18);
+  background: rgba(255, 255, 255, 0.18);
 }
 
 .social-icon-mobile {
@@ -1125,9 +1311,10 @@ export default {
     transform: translateX(-50%) translateY(50%);
     bottom: -1.2rem;
     width: max-content;
-    background: rgba(255,255,255,0.18);
+    background: rgba(255, 255, 255, 0.18);
     border-radius: 9999px;
-    box-shadow: 0 2px 24px 0 rgba(255,255,255,0.22), 0 1.5px 12px 0 rgba(120,180,255,0.13);
+    box-shadow: 0 2px 24px 0 rgba(255, 255, 255, 0.22),
+      0 1.5px 12px 0 rgba(120, 180, 255, 0.13);
     backdrop-filter: blur(8px) saturate(1.3);
     -webkit-backdrop-filter: blur(8px) saturate(1.3);
     padding: 0.25rem 0.3rem;
@@ -1144,13 +1331,14 @@ export default {
 
 @media (min-width: 768px) {
   .desktop-socials-bar {
-    background: rgba(255,255,255,0.13);
+    background: rgba(255, 255, 255, 0.13);
     border-radius: 9999px;
-    box-shadow: 0 2px 24px 0 rgba(255,255,255,0.13), 0 1.5px 12px 0 rgba(120,180,255,0.08);
+    box-shadow: 0 2px 24px 0 rgba(255, 255, 255, 0.13),
+      0 1.5px 12px 0 rgba(120, 180, 255, 0.08);
     backdrop-filter: blur(8px) saturate(1.2);
     -webkit-backdrop-filter: blur(8px) saturate(1.2);
     padding: 0.3rem 0.5rem;
-    border: 1.5px solid rgba(255,255,255,0.18);
+    border: 1.5px solid rgba(255, 255, 255, 0.18);
     align-items: center;
     transition: background 0.22s, box-shadow 0.22s, border 0.22s;
   }
