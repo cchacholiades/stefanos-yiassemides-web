@@ -9,6 +9,9 @@ export default {
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+      { name: 'language', content: 'en' },
+      { name: 'geo.region', content: 'GB' },
+      { name: 'geo.placename', content: 'United Kingdom' },
       {
         hid: 'description',
         name: 'description',
@@ -19,11 +22,18 @@ export default {
       {
         name: 'keywords',
         content:
-          'music composer, sound designer, film, tv, television, media, games, animation',
+          'music composer, sound designer, film composer, tv composer, game composer, animation music, netflix composer, youtube music, film score, soundtrack, audio design, sound effects, music production, entertainment composer, stefanos yiassemides',
       },
       { name: 'copyright', content: 'Stefanos Yiassemides' },
       { name: 'reply-to', content: 'info@stefanosyiassemides.com' },
       { name: 'theme-color', content: '#000' },
+      { name: 'author', content: 'Stefanos Yiassemides' },
+      {
+        name: 'robots',
+        content:
+          'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1',
+      },
+      { name: 'googlebot', content: 'index, follow' },
 
       { name: 'twitter:card', content: 'summary_large_image' },
       { name: 'twitter:site', content: 'https://stefanosyiassemides.com/' },
@@ -38,10 +48,20 @@ export default {
           'Stefanos Yiassemides is a Music Composer and Sound Designer for Film & Media.',
       },
       { name: 'twitter:image', content: '/about-2.jpeg' },
+      {
+        name: 'twitter:image:alt',
+        content: 'Stefanos Yiassemides - Music Composer & Sound Designer',
+      },
 
       { property: 'og:type', content: 'website' },
       { property: 'og:url', content: 'https://stefanosyiassemides.com/' },
       { property: 'og:image', content: '/about-2.jpeg' },
+      { property: 'og:image:width', content: '1200' },
+      { property: 'og:image:height', content: '630' },
+      {
+        property: 'og:image:alt',
+        content: 'Stefanos Yiassemides - Music Composer & Sound Designer',
+      },
       {
         property: 'og:description',
         content:
@@ -64,6 +84,45 @@ export default {
     link: [
       { rel: 'canonical', href: 'https://stefanosyiassemides.com' },
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+      { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
+      {
+        rel: 'preconnect',
+        href: 'https://fonts.gstatic.com',
+        crossorigin: true,
+      },
+    ],
+    script: [
+      {
+        type: 'application/ld+json',
+        innerHTML: JSON.stringify({
+          '@context': 'https://schema.org',
+          '@type': 'Person',
+          name: 'Stefanos Yiassemides',
+          jobTitle: 'Music Composer & Sound Designer',
+          description:
+            'Award-winning Music Composer & Sound Designer for Film, TV, Games & Animation',
+          url: 'https://stefanosyiassemides.com',
+          sameAs: [
+            'https://soundcloud.com/stefanos-yiassemides',
+            'https://www.linkedin.com/in/stefanos-yiassemides-99870579',
+            'https://www.instagram.com/stefyiassemidesmusic',
+            'https://www.imdb.com/name/nm9390509/',
+            'https://twitter.com/Stef_Yia_Music',
+          ],
+          worksFor: {
+            '@type': 'Organization',
+            name: 'Freelance Music Composer',
+          },
+          knowsAbout: [
+            'Music Composition',
+            'Sound Design',
+            'Film Scoring',
+            'Game Audio',
+            'Animation Music',
+            'Soundtrack Production',
+          ],
+        }),
+      },
     ],
   },
 
@@ -114,12 +173,18 @@ export default {
   sitemap: {
     hostname: 'https://stefanosyiassemides.com',
     gzip: true,
+    trailingSlash: true,
+    defaults: {
+      changefreq: 'monthly',
+      priority: 0.8,
+      lastmod: new Date().toISOString(),
+    },
     routes: [
       {
         url: '/',
-        changefreq: 'yearly',
+        changefreq: 'weekly',
         priority: 1,
-        lastmod: '2022-12-15T13:00:00.000Z',
+        lastmod: new Date().toISOString(),
       },
     ],
   },
@@ -154,6 +219,20 @@ export default {
   pwa: {
     manifest: {
       lang: 'en',
+      name: 'Stefanos Yiassemides - Music Composer',
+      short_name: 'Stefanos Yiassemides',
+      description: 'Music Composer & Sound Designer for Film & Media',
+      theme_color: '#000000',
+      background_color: '#000000',
+      display: 'standalone',
+      start_url: '/',
+      icons: [
+        {
+          src: '/icon.png',
+          sizes: '192x192',
+          type: 'image/png',
+        },
+      ],
     },
   },
 
@@ -182,7 +261,14 @@ export default {
         'faXbox',
         'faYoutube',
       ],
-      solid: ['faXmark', 'faBars', 'faChevronLeft', 'faChevronRight', 'faPlay', 'faBackward'],
+      solid: [
+        'faXmark',
+        'faBars',
+        'faChevronLeft',
+        'faChevronRight',
+        'faPlay',
+        'faBackward',
+      ],
     },
   },
 
@@ -193,6 +279,14 @@ export default {
     config: {},
   },
 
+  // Loading configuration
+  loading: {
+    color: '#ffffff',
+    height: '3px',
+    continuous: true,
+    duration: 2000,
+  },
+
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
     minifyCSS: true,
@@ -200,6 +294,17 @@ export default {
     extractCSS: true,
     optimizeCSS: false,
   },
+
+  // Security headers
+  serverMiddleware: [
+    (req, res, next) => {
+      res.setHeader('X-Content-Type-Options', 'nosniff')
+      res.setHeader('X-Frame-Options', 'DENY')
+      res.setHeader('X-XSS-Protection', '1; mode=block')
+      res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin')
+      next()
+    },
+  ],
 
   devServerHandlers: [],
 }

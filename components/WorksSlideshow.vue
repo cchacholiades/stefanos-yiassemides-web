@@ -152,7 +152,6 @@
           style="width: 100vw; height: 100vh"
           @click="stopPreview"
         >
-
           <!-- YouTube Player -->
           <youtube
             v-if="work.youtube && work.youtube[0]"
@@ -216,9 +215,7 @@
             }"
           >
             <!-- Content Wrapper -->
-            <div
-              class="w-full flex justify-center items-center min-h-[50vh]"
-            >
+            <div class="w-full flex justify-center items-center min-h-[50vh]">
               <div
                 class="w-full max-w-4xl mx-auto px-8 md:px-16 relative flex flex-col md:flex-row items-start gap-8 md:gap-12"
               >
@@ -243,7 +240,7 @@
 
                 <!-- Content -->
                 <div class="flex-1 space-y-8 pt-2 h-[270px] flex flex-col">
-                                    <!-- Title and Description -->
+                  <!-- Title and Description -->
                   <div class="flex-1 flex flex-col">
                     <h2
                       class="font-bold text-white mb-4 tracking-tight pr-12 md:pr-0"
@@ -294,8 +291,13 @@
                         class="flex items-center gap-3 px-4 py-3 bg-white/20 backdrop-blur-md rounded-full border border-white/30 text-white font-medium transition-all duration-300 hover:bg-white/30 hover:scale-105 hover:shadow-lg hover:shadow-white/20 group"
                         title="Watch Video"
                       >
-                        <div class="flex items-center justify-center transition-all duration-300">
-                          <font-awesome-icon :icon="['fas', 'play']" class="text-sm" />
+                        <div
+                          class="flex items-center justify-center transition-all duration-300"
+                        >
+                          <font-awesome-icon
+                            :icon="['fas', 'play']"
+                            class="text-sm"
+                          />
                         </div>
                         <span>Watch</span>
                       </button>
@@ -404,7 +406,9 @@
           @click="rewindVideo"
           title="Rewind Video"
         >
-          <div class="flex items-center justify-center transition-all duration-300">
+          <div
+            class="flex items-center justify-center transition-all duration-300"
+          >
             <font-awesome-icon :icon="['fas', 'backward']" class="text-sm" />
           </div>
         </button>
@@ -416,7 +420,9 @@
           @click="stopPreview"
           title="Close Video"
         >
-          <div class="flex items-center justify-center transition-all duration-300">
+          <div
+            class="flex items-center justify-center transition-all duration-300"
+          >
             <font-awesome-icon :icon="['fas', 'xmark']" class="text-sm" />
           </div>
           <span>Close</span>
@@ -1063,7 +1069,7 @@ export default {
         // this.resetAutoPlay()
       }
     },
-        handleIndicatorClick(index) {
+    handleIndicatorClick(index) {
       // Navigate to the clicked slide
       this.currentIndex = index
       // Close the preview when clicking
@@ -1216,8 +1222,6 @@ export default {
   );
 }
 
-
-
 /* Slide Indicators */
 .slide-indicators {
   z-index: 150 !important;
@@ -1229,8 +1233,6 @@ export default {
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
     0 2px 4px -1px rgba(0, 0, 0, 0.06);
 }
-
-
 
 .slide-indicators button {
   position: relative;

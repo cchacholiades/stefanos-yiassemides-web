@@ -1,4 +1,8 @@
-# stefanos-yiassemides-music
+# Stefanos Yiassemides - Music Composer & Sound Designer
+
+Official website for Stefanos Yiassemides. Music Composer for Film, TV, Games & Animation.
+
+**Website:** https://stefanosyiassemides.com
 
 ## Build Setup
 
