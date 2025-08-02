@@ -1,6 +1,7 @@
 <template>
   <div class="pb-10">
     <div class="relative max-w-screen-lg pl-4 pr-4 m-auto">
+      <div>make another full screen section here</div>
       <WorksSlideshow ref="worksSlideshow" class="min-h-screen" />
     </div>
   </div>

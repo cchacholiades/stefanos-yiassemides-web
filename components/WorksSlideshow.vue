@@ -8,20 +8,21 @@
         'opacity-0': isPreviewPlaying, // Hide navigation when playing video
       }"
     >
-      <div class="relative container mx-auto px-6 py-4">
+      <div class="relative w-full mx-auto px-4 md:px-6 py-4">
         <div class="flex items-center justify-between">
           <div class="text-white flex flex-col">
             <h1
               class="text-2xl font-bold tracking-tight bg-gradient-to-r from-white to-white/80 bg-clip-text text-transparent"
             >
-              Stefanos Yiassemides
+              <span class="block sm:inline">Stefanos</span>
+              <span class="block sm:inline">Yiassemides</span>
             </h1>
             <p class="text-sm text-white/70 font-medium tracking-wide mt-0.5">
               Music Composer
             </p>
           </div>
           <div
-            class="desktop-socials-bar hidden md:flex flex-wrap items-center gap-2 md:gap-4 mt-3 md:mt-0"
+            class="flex items-center gap-2 md:gap-4 socials-container"
             @mouseenter="isSocialsBarHovered = true"
             @mouseleave="isSocialsBarHovered = false"
           >
@@ -59,55 +60,6 @@
             /></a>
             <a
               class="social-icon-link"
-              href="https://twitter.com/Stef_Yia_Music"
-              title="Stefanos Yiassemides on Twitter"
-              target="_blank"
-              rel="noopener"
-              ><font-awesome-icon :icon="['fab', 'twitter']"
-            /></a>
-          </div>
-          <!-- Floating socials bar for mobile -->
-        </div>
-        <div
-          class="mobile-socials-bar md:hidden"
-          @mouseenter="isSocialsBarHovered = true"
-          @mouseleave="isSocialsBarHovered = false"
-        >
-          <div class="flex items-center justify-center gap-2">
-            <a
-              class="social-icon-link social-icon-mobile"
-              href="https://soundcloud.com/stefanos-yiassemides"
-              title="Stefanos Yiassemides on Soundcloud"
-              target="_blank"
-              rel="noopener"
-              ><font-awesome-icon :icon="['fab', 'soundcloud']"
-            /></a>
-            <a
-              class="social-icon-link social-icon-mobile"
-              href="https://www.linkedin.com/in/stefanos-yiassemides-99870579"
-              title="Stefanos Yiassemides on LinkedIn"
-              target="_blank"
-              rel="noopener"
-              ><font-awesome-icon :icon="['fab', 'linkedin']"
-            /></a>
-            <a
-              class="social-icon-link social-icon-mobile"
-              href="https://www.instagram.com/stefyiassemidesmusic"
-              title="Stefanos Yiassemides on Instagram"
-              target="_blank"
-              rel="noopener"
-              ><font-awesome-icon :icon="['fab', 'instagram']"
-            /></a>
-            <a
-              class="social-icon-link social-icon-mobile"
-              href="https://www.imdb.com/name/nm9390509/"
-              title="Stefanos Yiassemides on IMDB"
-              target="_blank"
-              rel="noopener"
-              ><font-awesome-icon :icon="['fab', 'imdb']"
-            /></a>
-            <a
-              class="social-icon-link social-icon-mobile"
               href="https://twitter.com/Stef_Yia_Music"
               title="Stefanos Yiassemides on Twitter"
               target="_blank"
@@ -397,7 +349,7 @@
       <!-- Video Control Buttons -->
       <div
         v-if="isPreviewPlaying"
-        class="fixed top-8 right-8 flex items-center gap-4 z-[300]"
+        class="fixed top-8 right-4 md:right-8 flex items-center gap-4 z-[300]"
       >
         <!-- Rewind Video Button -->
         <button
@@ -433,7 +385,7 @@
       <div class="hidden md:block">
         <button
           aria-label="Previous Slide"
-          class="fixed left-4 top-1/2 -translate-y-1/2 text-white/90 hover:text-white text-6xl transition-all duration-500 z-[200] nav-arrow nav-arrow-left group"
+          class="fixed left-4 md:left-6 top-1/2 -translate-y-1/2 text-white/90 hover:text-white text-6xl transition-all duration-500 z-[200] nav-arrow nav-arrow-left group"
           :class="{
             'opacity-100': previewIndex === null,
             'opacity-0': previewIndex !== null,
@@ -451,7 +403,7 @@
         </button>
         <button
           aria-label="Next Slide"
-          class="fixed right-4 top-1/2 -translate-y-1/2 text-white/90 hover:text-white text-6xl transition-all duration-500 z-[200] nav-arrow nav-arrow-right group"
+          class="fixed right-4 md:right-6 top-1/2 -translate-y-1/2 text-white/90 hover:text-white text-6xl transition-all duration-500 z-[200] nav-arrow nav-arrow-right group"
           :class="{
             'opacity-100': previewIndex === null,
             'opacity-0': previewIndex !== null,
@@ -1384,16 +1336,14 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 2rem;
   color: #fff;
   border-radius: 9999px;
   transition: background 0.22s, color 0.22s, box-shadow 0.22s, transform 0.22s,
     border-radius 0.22s;
-  padding: 0.25rem;
   position: relative;
-  width: 4.5rem;
-  height: 2.5rem;
+  z-index: 2;
 }
+
 .social-icon-link:hover {
   background: rgba(255, 255, 255, 0.18);
   color: #fff;
@@ -1401,22 +1351,17 @@ export default {
     0 1.5px 12px 0 rgba(120, 180, 255, 0.13);
   filter: brightness(1.18) drop-shadow(0 0 8px #e0e7ef);
   transform: scale(1.13);
-  z-index: 2;
   border-radius: 9999px;
   backdrop-filter: blur(8px) saturate(1.3);
   -webkit-backdrop-filter: blur(8px) saturate(1.3);
 }
+
 .social-icon-link:active {
   transform: scale(0.97);
   background: rgba(255, 255, 255, 0.18);
 }
 
-.social-icon-mobile {
-  width: 2.5rem;
-  height: 2rem;
-  font-size: 1.2rem;
-  padding: 0.15rem;
-}
+/* Mobile styles */
 @media (max-width: 767px) {
   .social-icon-link {
     width: 2.5rem;
@@ -1426,34 +1371,9 @@ export default {
   }
 }
 
-.mobile-socials-bar {
-  display: none;
-}
-@media (max-width: 767px) {
-  .mobile-socials-bar {
-    display: flex;
-    width: max-content;
-    background: rgba(255, 255, 255, 0.18);
-    border-radius: 9999px;
-    box-shadow: 0 2px 24px 0 rgba(255, 255, 255, 0.22),
-      0 1.5px 12px 0 rgba(120, 180, 255, 0.13);
-    backdrop-filter: blur(8px) saturate(1.3);
-    -webkit-backdrop-filter: blur(8px) saturate(1.3);
-    padding: 0.25rem 0.3rem;
-    z-index: 210;
-    align-items: center;
-    margin-top: 0.5rem;
-  }
-  .social-icon-link {
-    width: 2.5rem;
-    height: 2rem;
-    font-size: 1.2rem;
-    padding: 0.15rem;
-  }
-}
-
+/* Desktop styles */
 @media (min-width: 768px) {
-  .desktop-socials-bar {
+  .socials-container {
     background: rgba(255, 255, 255, 0.13);
     border-radius: 9999px;
     box-shadow: 0 2px 24px 0 rgba(255, 255, 255, 0.13),
@@ -1462,14 +1382,27 @@ export default {
     -webkit-backdrop-filter: blur(8px) saturate(1.2);
     padding: 0.3rem 0.5rem;
     border: 1.5px solid rgba(255, 255, 255, 0.18);
-    align-items: center;
     transition: background 0.22s, box-shadow 0.22s, border 0.22s;
   }
+
   .social-icon-link {
     width: 4.5rem;
     height: 2.5rem;
     font-size: 2rem;
     padding: 0.25rem;
+  }
+}
+
+/* Mobile styles */
+@media (max-width: 767px) {
+  .socials-container {
+    background: rgba(255, 255, 255, 0.18);
+    border-radius: 9999px;
+    box-shadow: 0 2px 24px 0 rgba(255, 255, 255, 0.22),
+      0 1.5px 12px 0 rgba(120, 180, 255, 0.13);
+    backdrop-filter: blur(8px) saturate(1.3);
+    -webkit-backdrop-filter: blur(8px) saturate(1.3);
+    padding: 0.25rem 0.3rem;
   }
 }
 </style>
