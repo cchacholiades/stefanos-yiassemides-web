@@ -20,7 +20,14 @@
         <NuxtImg
           v-if="works && works[activeIndexForBackground]"
           :src="`/${works[activeIndexForBackground].img}`"
-          class="w-full h-full object-cover transition-opacity duration-500 blur-2xl"
+          class="w-full h-full object-cover blur-2xl"
+          :class="{
+            'opacity-100 scale-100': currentIndex === index,
+            'opacity-0 scale-105': currentIndex !== index,
+            'transition-all duration-500 ease-out': isNavigatingWithArrows,
+            'transition-all duration-400 ease-in-out': !isNavigatingWithArrows,
+            'background-fade-in': isNavigatingWithArrows && currentIndex === index,
+          }"
           loading="lazy"
           :alt="works[activeIndexForBackground].name"
         />
@@ -462,6 +469,7 @@ export default {
       TITLE_LENGTH_THRESHOLD: 30,
       hoveredIndicatorIndex: null,
       isPreviewPlaying: false,
+      isNavigatingWithArrows: false,
     }
   },
 
@@ -921,14 +929,24 @@ export default {
     nextSlide() {
       this.stopAllVideos()
       this.isPreviewPlaying = false // Stop preview when navigating
+      this.isNavigatingWithArrows = true
       this.currentIndex = (this.currentIndex + 1) % this.works.length
+      // Reset the flag after a short delay
+      setTimeout(() => {
+        this.isNavigatingWithArrows = false
+      }, 600)
       // this.resetAutoPlay()
     },
     prevSlide() {
       this.stopAllVideos()
       this.isPreviewPlaying = false // Stop preview when navigating
+      this.isNavigatingWithArrows = true
       this.currentIndex =
         (this.currentIndex - 1 + this.works.length) % this.works.length
+      // Reset the flag after a short delay
+      setTimeout(() => {
+        this.isNavigatingWithArrows = false
+      }, 600)
       // this.resetAutoPlay()
     },
     handleTouchStart(event) {
@@ -1264,6 +1282,26 @@ export default {
     width: 1.7rem !important;
     height: 1.7rem !important;
   }
+}
+
+/* Background Image Navigation Animation */
+@keyframes backgroundFadeIn {
+  0% {
+    opacity: 0;
+    transform: scale(1.1);
+  }
+  50% {
+    opacity: 0.7;
+    transform: scale(1.05);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.background-fade-in {
+  animation: backgroundFadeIn 0.6s ease-out;
 }
 
 
