@@ -4,8 +4,8 @@
     <div
       class="fixed top-0 left-0 right-0 z-[200] transition-all duration-500"
       :class="{
-        'opacity-0': !isHovered && isAutoPlaying,
-        'opacity-100': isHovered || !isAutoPlaying,
+        // 'opacity-0': !isHovered && isAutoPlaying,
+        'opacity-100': true, // Always show navigation when autoplay is disabled
       }"
     >
       <div class="relative container mx-auto px-6 py-4">
@@ -146,11 +146,28 @@
           v-if="hasVideo(work)"
           class="absolute inset-0 transition-opacity duration-500 video-container"
           :class="{
-            'opacity-0': isHovered || !isAutoPlaying,
-            'opacity-100': !isHovered && isAutoPlaying,
+            'opacity-0': !isPreviewPlaying, // Show video when preview is playing
+            'opacity-100': isPreviewPlaying,
           }"
           style="width: 100vw; height: 100vh"
         >
+          <!-- Stop Preview Button -->
+          <div
+            v-if="isPreviewPlaying"
+            class="absolute top-8 right-8 z-20"
+          >
+            <button
+              @click="stopPreview"
+              class="relative group/stop bg-black/60 backdrop-blur-md rounded-full p-3 hover:bg-black/80 transition-all duration-300 hover:scale-110 shadow-2xl border border-white/20"
+            >
+              <div class="absolute inset-0 bg-gradient-to-br from-white/10 to-white/5 rounded-full"></div>
+              <font-awesome-icon
+                :icon="['fas', 'times']"
+                class="relative text-white text-lg"
+              />
+              <div class="absolute inset-0 rounded-full bg-white/10 opacity-0 group-hover/stop:opacity-100 transition-opacity duration-300"></div>
+            </button>
+          </div>
           <!-- YouTube Player -->
           <youtube
             v-if="work.youtube && work.youtube[0]"
@@ -198,27 +215,25 @@
         <div
           class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent transition-all duration-500"
           :class="{
-            'opacity-100': isHovered || !hasVideo(work) || !isAutoPlaying,
-            'opacity-0': !isHovered && hasVideo(work) && isAutoPlaying,
+            'opacity-100': !isPreviewPlaying, // Hide overlay when preview is playing
+            'opacity-0': isPreviewPlaying,
           }"
           @mouseenter="handleHover(true)"
           @mouseleave="handleHover(false)"
-          @mousemove="handleMouseMove"
+          @mousemove="() => {}"
         >
           <!-- Work Details Container -->
           <div
             class="absolute inset-0 flex items-center justify-center transition-all duration-500"
             :class="{
-              'opacity-100':
-                (isHovered || !hasVideo(work) || !isAutoPlaying) &&
-                previewIndex === null,
-              'opacity-0':
-                (!isHovered && hasVideo(work) && isAutoPlaying) ||
-                previewIndex !== null,
+              'opacity-100': previewIndex === null, // Always show work details when autoplay is disabled
+              'opacity-0': previewIndex !== null, // Hide main content when preview is active
             }"
           >
             <!-- Content Wrapper -->
-            <div class="w-full flex justify-center items-center min-h-[50vh]">
+            <div
+              class="w-full flex justify-center items-center min-h-[50vh]"
+            >
               <div
                 class="w-full max-w-4xl mx-auto px-8 md:px-16 relative flex flex-col md:flex-row items-start gap-8 md:gap-12"
               >
@@ -243,7 +258,7 @@
 
                 <!-- Content -->
                 <div class="flex-1 space-y-8 pt-2 h-[270px] flex flex-col">
-                  <!-- Title and Description -->
+                                    <!-- Title and Description -->
                   <div class="flex-1 flex flex-col">
                     <h2
                       class="font-bold text-white mb-4 tracking-tight pr-12 md:pr-0"
@@ -285,6 +300,21 @@
                         </div>
                       </div>
                     </div>
+
+                    <!-- Play Preview Button - Outside scrollable area -->
+                    <div class="mt-6 flex justify-start">
+                      <button
+                        v-if="hasVideo(work)"
+                        @click="playPreview"
+                        class="flex items-center gap-3 px-4 py-3 bg-white/20 backdrop-blur-md rounded-full border border-white/30 text-white font-medium transition-all duration-300 hover:bg-white/30 hover:scale-105 hover:shadow-lg hover:shadow-white/20 group"
+                        title="Watch Video"
+                      >
+                        <div class="flex items-center justify-center transition-all duration-300">
+                          <font-awesome-icon :icon="['fas', 'play']" class="text-sm" />
+                        </div>
+                        <span>Watch</span>
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -293,7 +323,7 @@
 
           <!-- Preview Content -->
           <div
-            class="absolute inset-0 flex items-center justify-center transition-all duration-500"
+            class="absolute inset-0 flex items-center justify-center transition-all duration-500 z-10 bg-black/80"
             :class="{
               'opacity-100': previewIndex !== null,
               'opacity-0 pointer-events-none': previewIndex === null,
@@ -422,7 +452,7 @@
         class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4 z-[150] hidden md:flex"
       >
         <!-- Countdown Label -->
-        <div
+        <!-- <div
           v-if="
             isHovered &&
             hasVideo(works[currentIndex]) &&
@@ -432,7 +462,7 @@
           class="bg-black/80 text-white px-4 py-2 rounded-full text-sm font-medium backdrop-blur-sm"
         >
           Autoplay in {{ countdown }} seconds
-        </div>
+        </div> -->
 
         <!-- Indicators Container -->
         <div
@@ -459,7 +489,7 @@
                 'w-3 h-3 rounded-full transition-all duration-150 ease-out',
               ]"
               class="focus:outline-none backdrop-blur-sm"
-              @click="currentIndex = index"
+              @click="handleIndicatorClick(index)"
             >
               <!-- Hover Circle -->
               <div
@@ -482,7 +512,7 @@
       </div>
 
       <!-- Mobile Autoplay Label -->
-      <div class="fixed bottom-24 left-1/2 -translate-x-1/2 z-[200] md:hidden">
+      <!-- <div class="fixed bottom-24 left-1/2 -translate-x-1/2 z-[200] md:hidden">
         <div
           v-if="
             hasVideo(works[currentIndex]) && countdown > 0 && countdown <= 3
@@ -491,7 +521,7 @@
         >
           Autoplay in {{ countdown }} seconds
         </div>
-      </div>
+      </div> -->
     </div>
   </div>
 </template>
@@ -523,6 +553,7 @@ export default {
       isSocialsBarHovered: false,
       TITLE_LENGTH_THRESHOLD: 30,
       hoveredIndicatorIndex: null,
+      isPreviewPlaying: false,
     }
   },
 
@@ -535,12 +566,12 @@ export default {
     },
   },
 
-  watch: {
-    currentIndex() {
-      // Reset auto-play when changing slides
-      this.resetAutoPlay()
-    },
-  },
+  // watch: {
+  //   currentIndex() {
+  //     // Reset auto-play when changing slides
+  //     this.resetAutoPlay()
+  //   },
+  // },
 
   async mounted() {
     // Check if device is iOS
@@ -570,7 +601,7 @@ export default {
 
     // Add window blur/focus listeners
     window.addEventListener('blur', this.handleWindowBlur)
-    window.addEventListener('focus', this.handleWindowFocus)
+    // window.addEventListener('focus', this.handleWindowFocus)
 
     // Add touch event listeners with passive option
     const overlay = document.querySelector('.overlay-content')
@@ -587,26 +618,26 @@ export default {
     }
 
     // Start inactivity timer for first slide
-    this.$nextTick(() => {
-      const currentWork = this.works[this.currentIndex]
-      if (this.hasVideo(currentWork)) {
-        // console.log('Starting inactivity timer for first slide')
-        this.inactivityTimer = setTimeout(() => {
-          if (!document.hidden && document.hasFocus()) {
-            // console.log('Inactivity timer completed, starting video')
-            this.isAutoPlaying = true
-            this.hasStartedAutoplay = true
-            this.isHovered = false
-            // Try to play the video multiple times to ensure it starts
-            this.playCurrentVideo()
-            // Add additional retry attempts with increasing delays
-            setTimeout(() => this.playCurrentVideo(), 1000)
-            setTimeout(() => this.playCurrentVideo(), 2000)
-            setTimeout(() => this.playCurrentVideo(), 3000)
-          }
-        }, 3000)
-      }
-    })
+    // this.$nextTick(() => {
+    //   const currentWork = this.works[this.currentIndex]
+    //   if (this.hasVideo(currentWork)) {
+    //     // console.log('Starting inactivity timer for first slide')
+    //     this.inactivityTimer = setTimeout(() => {
+    //       if (!document.hidden && document.hasFocus()) {
+    //         // console.log('Inactivity timer completed, starting video')
+    //         this.isAutoPlaying = true
+    //         this.hasStartedAutoplay = true
+    //         this.isHovered = false
+    //         // Try to play the video multiple times to ensure it starts
+    //         this.playCurrentVideo()
+    //         // Add additional retry attempts with increasing delays
+    //         setTimeout(() => this.playCurrentVideo(), 1000)
+    //         setTimeout(() => this.playCurrentVideo(), 2000)
+    //         setTimeout(() => this.playCurrentVideo(), 3000)
+    //       }
+    //     }, 3000)
+    //   }
+    // })
   },
 
   beforeDestroy() {
@@ -621,7 +652,7 @@ export default {
 
     // Remove window blur/focus listeners
     window.removeEventListener('blur', this.handleWindowBlur)
-    window.removeEventListener('focus', this.handleWindowFocus)
+    // window.removeEventListener('focus', this.handleWindowFocus)
 
     // Remove touch event listeners
     const overlay = document.querySelector('.overlay-content')
@@ -632,18 +663,18 @@ export default {
     }
 
     // Clear all timers
-    if (this.autoPlayTimer) {
-      clearTimeout(this.autoPlayTimer)
-    }
-    if (this.inactivityTimer) {
-      clearTimeout(this.inactivityTimer)
-    }
+    // if (this.autoPlayTimer) {
+    //   clearTimeout(this.autoPlayTimer)
+    // }
+    // if (this.inactivityTimer) {
+    //   clearTimeout(this.inactivityTimer)
+    // }
     if (this.countdownTimer) {
       clearInterval(this.countdownTimer)
     }
-    if (this.mouseMoveTimer) {
-      clearTimeout(this.mouseMoveTimer)
-    }
+    // if (this.mouseMoveTimer) {
+    //   clearTimeout(this.mouseMoveTimer)
+    // }
     if (this.previewTimer) {
       clearTimeout(this.previewTimer)
     }
@@ -664,129 +695,129 @@ export default {
         (work.vimeo && work.vimeo.length > 0)
       )
     },
-    resetAutoPlay() {
-      // Clear existing timers
-      if (this.autoPlayTimer) {
-        clearTimeout(this.autoPlayTimer)
-        this.autoPlayTimer = null
-      }
-      if (this.inactivityTimer) {
-        clearTimeout(this.inactivityTimer)
-        this.inactivityTimer = null
-      }
-      if (this.countdownTimer) {
-        clearInterval(this.countdownTimer)
-        this.countdownTimer = null
-      }
-      if (this.mouseMoveTimer) {
-        clearTimeout(this.mouseMoveTimer)
-        this.mouseMoveTimer = null
-      }
-      if (this.previewTimer) {
-        clearTimeout(this.previewTimer)
-        this.previewTimer = null
-      }
+    // resetAutoPlay() {
+    //   // Clear existing timers
+    //   if (this.autoPlayTimer) {
+    //     clearTimeout(this.autoPlayTimer)
+    //     this.autoPlayTimer = null
+    //   }
+    //   if (this.inactivityTimer) {
+    //     clearTimeout(this.inactivityTimer)
+    //     this.inactivityTimer = null
+    //   }
+    //   if (this.countdownTimer) {
+    //     clearInterval(this.countdownTimer)
+    //     this.countdownTimer = null
+    //   }
+    //   if (this.mouseMoveTimer) {
+    //     clearTimeout(this.mouseMoveTimer)
+    //     this.mouseMoveTimer = null
+    //   }
+    //   if (this.previewTimer) {
+    //     clearTimeout(this.previewTimer)
+    //     this.previewTimer = null
+    //   }
 
-      // Reset states
-      this.isAutoPlaying = false
-      this.isHovered = true
-      this.hasStartedAutoplay = false
-      this.countdown = 0
-      this.previewIndex = null
-      this.isCountingDown = false
+    //   // Reset states
+    //   this.isAutoPlaying = false
+    //   this.isHovered = true
+    //   this.hasStartedAutoplay = false
+    //   this.countdown = 0
+    //   this.previewIndex = null
+    //   this.isCountingDown = false
 
-      // Start new timer if current work has video
-      const currentWork = this.works[this.currentIndex]
-      if (this.hasVideo(currentWork)) {
-        this.startInactivityTimer()
-      } else {
-        // Keep overlay visible for slides without video
-        this.isHovered = true
-      }
-    },
-    startInactivityTimer() {
-      // Clear any existing timer
-      if (this.inactivityTimer) {
-        clearTimeout(this.inactivityTimer)
-      }
+    //   // Start new timer if current work has video
+    //   const currentWork = this.works[this.currentIndex]
+    //   if (this.hasVideo(currentWork)) {
+    //     this.startInactivityTimer()
+    //   } else {
+    //     // Keep overlay visible for slides without video
+    //     this.isHovered = true
+    //   }
+    // },
+    // startInactivityTimer() {
+    //   // Clear any existing timer
+    //   if (this.inactivityTimer) {
+    //     clearTimeout(this.inactivityTimer)
+    //   }
 
-      const currentWork = this.works[this.currentIndex]
-      if (this.hasVideo(currentWork)) {
-        this.inactivityTimer = setTimeout(() => {
-          // Only start if tab is visible and window is focused
-          if (!document.hidden && document.hasFocus()) {
-            this.isAutoPlaying = true
-            this.hasStartedAutoplay = true
-            this.isHovered = false
-            this.playCurrentVideo()
-          }
-        }, 3000) // Start after 3 seconds of inactivity
-      }
-    },
-    handleMouseMove() {
-      this.lastMouseMove = Date.now()
+    //   const currentWork = this.works[this.currentIndex]
+    //   if (this.hasVideo(currentWork)) {
+    //     this.inactivityTimer = setTimeout(() => {
+    //       // Only start if tab is visible and window is focused
+    //       if (!document.hidden && document.hasFocus()) {
+    //         this.isAutoPlaying = true
+    //         this.hasStartedAutoplay = true
+    //         this.isHovered = false
+    //         this.playCurrentVideo()
+    //       }
+    //     }, 3000) // Start after 3 seconds of inactivity
+    //   }
+    // },
+    // handleMouseMove() {
+    //   this.lastMouseMove = Date.now()
 
-      // Clear existing mouse move timer
-      if (this.mouseMoveTimer) {
-        clearTimeout(this.mouseMoveTimer)
-      }
+    //   // Clear existing mouse move timer
+    //   if (this.mouseMoveTimer) {
+    //     clearTimeout(this.mouseMoveTimer)
+    //   }
 
-      // If video is playing, pause it and show image
-      if (this.isAutoPlaying) {
-        this.stopCurrentVideo()
-        this.isAutoPlaying = false
-      }
+    //   // If video is playing, pause it and show image
+    //   if (this.isAutoPlaying) {
+    //     this.stopCurrentVideo()
+    //     this.isAutoPlaying = false
+    //   }
 
-      // Start new timer for mouse inactivity
-      this.mouseMoveTimer = setTimeout(() => {
-        if (this.isHovered && this.hasVideo(this.works[this.currentIndex])) {
-          this.startCountdown()
-        }
-      }, 1000) // Wait 1 second of mouse inactivity before starting countdown
-    },
+    //   // Start new timer for mouse inactivity
+    //   this.mouseMoveTimer = setTimeout(() => {
+    //     if (this.isHovered && this.hasVideo(this.works[this.currentIndex])) {
+    //       this.startCountdown()
+    //     }
+    //   }, 1000) // Wait 1 second of mouse inactivity before starting countdown
+    // },
 
-    startCountdown() {
-      // Don't start countdown if window is not visible, focused, already counting down, slider is hovered, or socials bar is hovered
-      if (
-        document.hidden ||
-        !document.hasFocus() ||
-        this.isCountingDown ||
-        this.previewIndex !== null ||
-        this.isSocialsBarHovered
-      ) {
-        return
-      }
+    // startCountdown() {
+    //   // Don't start countdown if window is not visible, focused, already counting down, slider is hovered, or socials bar is hovered
+    //   if (
+    //     document.hidden ||
+    //     !document.hasFocus() ||
+    //     this.isCountingDown ||
+    //     this.previewIndex !== null ||
+    //     this.isSocialsBarHovered
+    //   ) {
+    //     return
+    //   }
 
-      // Clear any existing countdown
-      if (this.countdownTimer) {
-        clearInterval(this.countdownTimer)
-        this.countdownTimer = null
-      }
+    //   // Clear any existing countdown
+    //   if (this.countdownTimer) {
+    //       clearInterval(this.countdownTimer)
+    //       this.countdownTimer = null
+    //     }
 
-      this.isCountingDown = true
-      this.countdown = 3
-      this.countdownTimer = setInterval(() => {
-        // Check window state before continuing countdown
-        if (document.hidden || !document.hasFocus()) {
-          clearInterval(this.countdownTimer)
-          this.countdownTimer = null
-          this.countdown = 0
-          this.isCountingDown = false
-          return
-        }
+    //   this.isCountingDown = true
+    //   this.countdown = 3
+    //   this.countdownTimer = setInterval(() => {
+    //     // Check window state before continuing countdown
+    //     if (document.hidden || !document.hasFocus()) {
+    //       clearInterval(this.countdownTimer)
+    //       this.countdownTimer = null
+    //       this.countdown = 0
+    //       this.isCountingDown = false
+    //       return
+    //     }
 
-        this.countdown--
+    //     this.countdown--
 
-        if (this.countdown <= 0) {
-          clearInterval(this.countdownTimer)
-          this.countdownTimer = null
-          this.isCountingDown = false
-          this.isHovered = false
-          this.isAutoPlaying = true
-          this.playCurrentVideo()
-        }
-      }, 1000)
-    },
+    //     if (this.countdown <= 0) {
+    //       clearInterval(this.countdownTimer)
+    //       this.countdownTimer = null
+    //       this.isCountingDown = false
+    //       this.isHovered = false
+    //       this.isAutoPlaying = true
+    //       this.playCurrentVideo()
+    //     }
+    //   }, 1000)
+    // },
 
     handleNavHover(isHovered) {
       this.isNavHovered = isHovered
@@ -798,92 +829,92 @@ export default {
       if (this.isNavHovered || this.previewIndex !== null) return
 
       this.isHovered = isHovered
-      const currentWork = this.works[this.currentIndex]
+      // const currentWork = this.works[this.currentIndex]
 
-      if (isHovered && this.hasVideo(currentWork)) {
-        // Pause video when hovering and show image
-        this.stopCurrentVideo()
-        this.isAutoPlaying = false
+      // if (isHovered && this.hasVideo(currentWork)) {
+      //   // Pause video when hovering and show image
+      //   this.stopCurrentVideo()
+      //   this.isAutoPlaying = false
 
-        // Clear any existing timers
-        if (this.inactivityTimer) {
-          clearTimeout(this.inactivityTimer)
-        }
-        if (this.countdownTimer) {
-          clearInterval(this.countdownTimer)
-          this.countdownTimer = null
-        }
+      //   // Clear any existing timers
+      //   if (this.inactivityTimer) {
+      //     clearTimeout(this.inactivityTimer)
+      //   }
+      //   if (this.countdownTimer) {
+      //     clearInterval(this.countdownTimer)
+      //     this.countdownTimer = null
+      //   }
 
-        // Reset countdown state
-        this.isCountingDown = false
-        this.countdown = 0
+      //   // Reset countdown state
+      //   this.isCountingDown = false
+      //   this.countdown = 0
 
-        // Start countdown immediately
-        this.startCountdown()
-      } else if (!isHovered && this.hasVideo(currentWork)) {
-        // Clear countdown when mouse leaves
-        if (this.countdownTimer) {
-          clearInterval(this.countdownTimer)
-          this.countdownTimer = null
-        }
-        this.isCountingDown = false
-        this.countdown = 0
-      }
+      //   // Start countdown immediately
+      //   this.startCountdown()
+      // } else if (!isHovered && this.hasVideo(currentWork)) {
+      //   // Clear countdown when mouse leaves
+      //   if (this.countdownTimer) {
+      //     clearInterval(this.countdownTimer)
+      //     this.countdownTimer = null
+      //   }
+      //   this.isCountingDown = false
+      //   this.countdown = 0
+      // }
     },
     onPlayerReady(event, index) {
       this.youtubePlayers[index] = event.target
 
       // If this is the current slide and we're ready to play, start the video
-      if (index === this.currentIndex && this.isAutoPlaying) {
-        const player = event.target
-        if (this.isIOS && !this.hasUserInteracted) {
-          player.mute()
-        } else if (this.isIOS && this.hasUserInteracted) {
-          player.unMute()
-        }
-        player.playVideo()
-        setTimeout(() => {
-          if (player.getPlayerState() !== 1) {
-            if (this.isIOS && !this.hasUserInteracted) {
-              player.mute()
-            } else if (this.isIOS && this.hasUserInteracted) {
-              player.unMute()
-            }
-            player.playVideo()
-          }
-        }, 1000)
-        setTimeout(() => {
-          if (player.getPlayerState() !== 1) {
-            if (this.isIOS && !this.hasUserInteracted) {
-              player.mute()
-            } else if (this.isIOS && this.hasUserInteracted) {
-              player.unMute()
-            }
-            player.playVideo()
-          }
-        }, 2000)
-        setTimeout(() => {
-          if (player.getPlayerState() !== 1) {
-            if (this.isIOS && !this.hasUserInteracted) {
-              player.mute()
-            } else if (this.isIOS && this.hasUserInteracted) {
-              player.unMute()
-            }
-            player.playVideo()
-          }
-        }, 3000)
-      }
+      // if (index === this.currentIndex && this.isAutoPlaying) {
+      //   const player = event.target
+      //   if (this.isIOS && !this.hasUserInteracted) {
+      //     player.mute()
+      //   } else if (this.isIOS && this.hasUserInteracted) {
+      //     player.unMute()
+      //   }
+      //   player.playVideo()
+      //   setTimeout(() => {
+      //     if (player.getPlayerState() !== 1) {
+      //       if (this.isIOS && !this.hasUserInteracted) {
+      //         player.mute()
+      //       } else if (this.isIOS && this.hasUserInteracted) {
+      //         player.unMute()
+      //       }
+      //       player.playVideo()
+      //     }
+      //   }, 1000)
+      //   setTimeout(() => {
+      //     if (player.getPlayerState() !== 1) {
+      //       if (this.isIOS && !this.hasUserInteracted) {
+      //         player.mute()
+      //       } else if (this.isIOS && this.hasUserInteracted) {
+      //         player.unMute()
+      //       }
+      //       player.playVideo()
+      //     }
+      //   }, 2000)
+      //   setTimeout(() => {
+      //     if (player.getPlayerState() !== 1) {
+      //       if (this.isIOS && !this.hasUserInteracted) {
+      //         player.mute()
+      //       } else if (this.isIOS && this.hasUserInteracted) {
+      //         player.unMute()
+      //       }
+      //       player.playVideo()
+      //     }
+      //   }, 3000)
+      // }
     },
     onVimeoReady(player, index) {
       this.vimeoPlayers[index] = player
-      if (index === 0 && this.isAutoPlaying) {
-        if (this.isIOS && !this.hasUserInteracted) {
-          player.setVolume(0)
-        } else if (this.isIOS && this.hasUserInteracted) {
-          player.setVolume(1)
-        }
-        this.playCurrentVideo()
-      }
+      // if (index === 0 && this.isAutoPlaying) {
+      //   if (this.isIOS && !this.hasUserInteracted) {
+      //     player.setVolume(0)
+      //   } else if (this.isIOS && this.hasUserInteracted) {
+      //     player.setVolume(1)
+      //   }
+      //   this.playCurrentVideo()
+      // }
     },
     playCurrentVideo() {
       const currentWork = this.works[this.currentIndex]
@@ -946,27 +977,29 @@ export default {
       // Pause video and show overlay when window loses focus
       this.stopCurrentVideo()
       this.isHovered = true
-      this.isAutoPlaying = false
+      // this.isAutoPlaying = false
       // Reset autoplay when window loses focus
-      this.resetAutoPlay()
+      // this.resetAutoPlay()
     },
-    handleWindowFocus() {
-      const currentWork = this.works[this.currentIndex]
-      if (this.hasVideo(currentWork)) {
-        // Start new inactivity timer when window gains focus
-        this.startInactivityTimer()
-      }
-    },
+    // handleWindowFocus() {
+    //   const currentWork = this.works[this.currentIndex]
+    //   if (this.hasVideo(currentWork)) {
+    //     // Start new inactivity timer when window gains focus
+    //     this.startInactivityTimer()
+    //   }
+    // },
     nextSlide() {
       this.stopCurrentVideo()
+      this.isPreviewPlaying = false // Stop preview when navigating
       this.currentIndex = (this.currentIndex + 1) % this.works.length
-      this.resetAutoPlay()
+      // this.resetAutoPlay()
     },
     prevSlide() {
       this.stopCurrentVideo()
+      this.isPreviewPlaying = false // Stop preview when navigating
       this.currentIndex =
         (this.currentIndex - 1 + this.works.length) % this.works.length
-      this.resetAutoPlay()
+      // this.resetAutoPlay()
     },
     handleTouchStart(event) {
       // Handle touch start
@@ -987,10 +1020,20 @@ export default {
         // Pause video and show overlay when tab is hidden
         this.stopCurrentVideo()
         this.isHovered = true
-        this.isAutoPlaying = false
+        // this.isAutoPlaying = false
         // Reset autoplay when tab is hidden
-        this.resetAutoPlay()
+        // this.resetAutoPlay()
       }
+    },
+        handleIndicatorClick(index) {
+      // Navigate to the clicked slide
+      this.currentIndex = index
+      // Close the preview when clicking
+      this.previewIndex = null
+      this.hoveredIndicatorIndex = null
+      // Stop any playing preview
+      this.isPreviewPlaying = false
+      this.stopCurrentVideo()
     },
     showPreview(index) {
       this.previewIndex = index
@@ -1004,18 +1047,31 @@ export default {
         this.previewIndex = this.hoveredIndicatorIndex
       }
       // Pause or reset autoplay/countdown when slider is hovered
-      if (this.countdownTimer) {
-        clearInterval(this.countdownTimer)
-        this.countdownTimer = null
-      }
-      this.isCountingDown = false
-      this.countdown = 0
-      this.isAutoPlaying = false
-      this.hasStartedAutoplay = false
+      // if (this.countdownTimer) {
+      //   clearInterval(this.countdownTimer)
+      //   this.countdownTimer = null
+      // }
+      // this.isCountingDown = false
+      // this.countdown = 0
+      // this.isAutoPlaying = false
+      // this.hasStartedAutoplay = false
     },
     handleIndicatorsLeave() {
       this.previewIndex = null
       this.hoveredIndicatorIndex = null
+    },
+    playPreview() {
+      const currentWork = this.works[this.currentIndex]
+      if (this.hasVideo(currentWork)) {
+        this.isPreviewPlaying = true
+        this.isHovered = false // Hide the overlay to show the video
+        this.playCurrentVideo()
+      }
+    },
+    stopPreview() {
+      this.isPreviewPlaying = false
+      this.isHovered = true // Show the overlay again
+      this.stopCurrentVideo()
     },
   },
 }
@@ -1107,6 +1163,8 @@ export default {
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
     0 2px 4px -1px rgba(0, 0, 0, 0.06);
 }
+
+
 
 .slide-indicators button {
   position: relative;
