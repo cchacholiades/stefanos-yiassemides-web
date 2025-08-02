@@ -4,8 +4,8 @@
     <div
       class="fixed top-0 left-0 right-0 z-[200] transition-all duration-500"
       :class="{
-        // 'opacity-0': !isHovered && isAutoPlaying,
-        'opacity-100': true, // Always show navigation when autoplay is disabled
+        'opacity-100': !isPreviewPlaying, // Show navigation when not playing video
+        'opacity-0': isPreviewPlaying, // Hide navigation when playing video
       }"
     >
       <div class="relative container mx-auto px-6 py-4">
@@ -150,24 +150,9 @@
             'opacity-100': isPreviewPlaying,
           }"
           style="width: 100vw; height: 100vh"
+          @click="stopPreview"
         >
-          <!-- Stop Preview Button -->
-          <div
-            v-if="isPreviewPlaying"
-            class="absolute top-8 right-8 z-20"
-          >
-            <button
-              @click="stopPreview"
-              class="relative group/stop bg-black/60 backdrop-blur-md rounded-full p-3 hover:bg-black/80 transition-all duration-300 hover:scale-110 shadow-2xl border border-white/20"
-            >
-              <div class="absolute inset-0 bg-gradient-to-br from-white/10 to-white/5 rounded-full"></div>
-              <font-awesome-icon
-                :icon="['fas', 'times']"
-                class="relative text-white text-lg"
-              />
-              <div class="absolute inset-0 rounded-full bg-white/10 opacity-0 group-hover/stop:opacity-100 transition-opacity duration-300"></div>
-            </button>
-          </div>
+
           <!-- YouTube Player -->
           <youtube
             v-if="work.youtube && work.youtube[0]"
@@ -407,6 +392,37 @@
         </button>
       </div>
 
+      <!-- Video Control Buttons -->
+      <div
+        v-if="isPreviewPlaying"
+        class="fixed top-8 right-8 flex items-center gap-4 z-[300]"
+      >
+        <!-- Rewind Video Button -->
+        <button
+          aria-label="Rewind Video"
+          class="flex items-center justify-center w-12 h-12 bg-white/20 backdrop-blur-md rounded-full border border-white/30 text-white font-medium transition-all duration-300 hover:bg-white/30 hover:scale-105 hover:shadow-lg hover:shadow-white/20"
+          @click="rewindVideo"
+          title="Rewind Video"
+        >
+          <div class="flex items-center justify-center transition-all duration-300">
+            <font-awesome-icon :icon="['fas', 'backward']" class="text-sm" />
+          </div>
+        </button>
+
+        <!-- Close Video Button -->
+        <button
+          aria-label="Close Video"
+          class="flex items-center gap-3 px-4 py-3 bg-white/20 backdrop-blur-md rounded-full border border-white/30 text-white font-medium transition-all duration-300 hover:bg-white/30 hover:scale-105 hover:shadow-lg hover:shadow-white/20"
+          @click="stopPreview"
+          title="Close Video"
+        >
+          <div class="flex items-center justify-center transition-all duration-300">
+            <font-awesome-icon :icon="['fas', 'xmark']" class="text-sm" />
+          </div>
+          <span>Close</span>
+        </button>
+      </div>
+
       <!-- Desktop Navigation Arrows -->
       <div class="hidden md:block">
         <button
@@ -600,7 +616,7 @@ export default {
     document.addEventListener('visibilitychange', this.handleVisibilityChange)
 
     // Add window blur/focus listeners
-    window.addEventListener('blur', this.handleWindowBlur)
+    // window.addEventListener('blur', this.handleWindowBlur)
     // window.addEventListener('focus', this.handleWindowFocus)
 
     // Add touch event listeners with passive option
@@ -651,7 +667,7 @@ export default {
     )
 
     // Remove window blur/focus listeners
-    window.removeEventListener('blur', this.handleWindowBlur)
+    // window.removeEventListener('blur', this.handleWindowBlur)
     // window.removeEventListener('focus', this.handleWindowFocus)
 
     // Remove touch event listeners
@@ -917,6 +933,9 @@ export default {
       // }
     },
     playCurrentVideo() {
+      // Stop all videos first to ensure only one plays at a time
+      this.stopAllVideos()
+
       const currentWork = this.works[this.currentIndex]
       if (
         currentWork.youtube &&
@@ -959,6 +978,25 @@ export default {
         } catch (error) {}
       }
     },
+    stopAllVideos() {
+      // Stop all YouTube players
+      this.youtubePlayers.forEach((player, index) => {
+        if (player) {
+          try {
+            player.pauseVideo()
+          } catch (error) {}
+        }
+      })
+
+      // Stop all Vimeo players
+      this.vimeoPlayers.forEach((player, index) => {
+        if (player) {
+          try {
+            player.pause()
+          } catch (error) {}
+        }
+      })
+    },
     stopCurrentVideo() {
       if (this.youtubePlayers[this.currentIndex]) {
         this.youtubePlayers[this.currentIndex].pauseVideo()
@@ -973,14 +1011,14 @@ export default {
         this.youtubePlayers[index].playVideo()
       }
     },
-    handleWindowBlur() {
-      // Pause video and show overlay when window loses focus
-      this.stopCurrentVideo()
-      this.isHovered = true
-      // this.isAutoPlaying = false
-      // Reset autoplay when window loses focus
-      // this.resetAutoPlay()
-    },
+    // handleWindowBlur() {
+    //   // Pause video and show overlay when window loses focus
+    //   this.stopCurrentVideo()
+    //   this.isHovered = true
+    //   // this.isAutoPlaying = false
+    //   // Reset autoplay when window loses focus
+    //   // this.resetAutoPlay()
+    // },
     // handleWindowFocus() {
     //   const currentWork = this.works[this.currentIndex]
     //   if (this.hasVideo(currentWork)) {
@@ -989,13 +1027,13 @@ export default {
     //   }
     // },
     nextSlide() {
-      this.stopCurrentVideo()
+      this.stopAllVideos()
       this.isPreviewPlaying = false // Stop preview when navigating
       this.currentIndex = (this.currentIndex + 1) % this.works.length
       // this.resetAutoPlay()
     },
     prevSlide() {
-      this.stopCurrentVideo()
+      this.stopAllVideos()
       this.isPreviewPlaying = false // Stop preview when navigating
       this.currentIndex =
         (this.currentIndex - 1 + this.works.length) % this.works.length
@@ -1018,7 +1056,7 @@ export default {
     handleVisibilityChange() {
       if (document.hidden) {
         // Pause video and show overlay when tab is hidden
-        this.stopCurrentVideo()
+        this.stopAllVideos()
         this.isHovered = true
         // this.isAutoPlaying = false
         // Reset autoplay when tab is hidden
@@ -1033,7 +1071,7 @@ export default {
       this.hoveredIndicatorIndex = null
       // Stop any playing preview
       this.isPreviewPlaying = false
-      this.stopCurrentVideo()
+      this.stopAllVideos()
     },
     showPreview(index) {
       this.previewIndex = index
@@ -1068,10 +1106,34 @@ export default {
         this.playCurrentVideo()
       }
     },
+    rewindVideo() {
+      const currentWork = this.works[this.currentIndex]
+      if (
+        currentWork.youtube &&
+        currentWork.youtube[0] &&
+        this.youtubePlayers[this.currentIndex]
+      ) {
+        try {
+          const player = this.youtubePlayers[this.currentIndex]
+          player.seekTo(0)
+          player.playVideo()
+        } catch (error) {}
+      } else if (
+        currentWork.vimeo &&
+        currentWork.vimeo[0] &&
+        this.vimeoPlayers[this.currentIndex]
+      ) {
+        try {
+          const player = this.vimeoPlayers[this.currentIndex]
+          player.setCurrentTime(0)
+          player.play()
+        } catch (error) {}
+      }
+    },
     stopPreview() {
       this.isPreviewPlaying = false
       this.isHovered = true // Show the overlay again
-      this.stopCurrentVideo()
+      this.stopAllVideos()
     },
   },
 }
@@ -1095,6 +1157,8 @@ export default {
   height: 100vh !important;
   overflow: hidden;
   z-index: 1;
+  cursor: pointer;
+  pointer-events: auto;
 }
 
 /* YouTube Player */
@@ -1151,6 +1215,8 @@ export default {
     rgba(0, 0, 0, 0) 100%
   );
 }
+
+
 
 /* Slide Indicators */
 .slide-indicators {

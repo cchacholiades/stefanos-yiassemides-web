@@ -182,7 +182,7 @@ export default {
         'faXbox',
         'faYoutube',
       ],
-      solid: ['faXmark', 'faBars', 'faChevronLeft', 'faChevronRight', 'faPlay'],
+      solid: ['faXmark', 'faBars', 'faChevronLeft', 'faChevronRight', 'faPlay', 'faBackward'],
     },
   },
 
