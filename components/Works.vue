@@ -43,6 +43,9 @@
                         <!-- eslint-disable vue/no-v-html -->
                         <p class="mt-4 break-words" v-html="selected.description"></p>
                         <!--eslint-enable-->
+                        <div v-if="selected.website" class="mt-4">
+                            <a class="font-semibold text-yellow hover:underline" :href="selected.website">Official website</a>
+                        </div>
 
                         <div v-if="selected.platforms" class="text-white flex flex-row items-center mt-2">
                             <p class="font-semibold">Available on: </p>
@@ -335,6 +338,33 @@ export default {
                     audible: "",
                     audible_trailer: "",
                     order: 3
+                },
+                {
+                    id: 21,
+                    img: "works/21.jpg",
+                    name: "PAW Patrol: To the Rescue",
+                    genre: ["TV Show"],
+                    description: "When trouble strikes in Adventure Bay, PAW Patrol is there to save the day. No job is too big, no pup too small. They always find a way to help. Don't miss the fun with PAW Patrol Official and Friends.",
+                    youtube: ["Oe25oeCVV3g"],
+                    youtube_channel: "",
+                    youtube_playlist: "",
+                    audible: "",
+                    audible_trailer: "",
+                    order: 0
+                },
+                {
+                    id: 22,
+                    img: "works/22.jpg",
+                    name: "Pocoyo (Season 6)",
+                    genre: ["Animation"],
+                    description: "Pocoyo follows the adventures of a curious little boy dressed all in blue, who along with his sister Bea, his best friends Pato and Elly is always exploring, learning and most importantly having fun.",
+                    youtube: ["mSlDlam7zOI"],
+                    youtube_channel: "",
+                    youtube_playlist: "",
+                    audible: "",
+                    audible_trailer: "",
+                    website: "https://www.pocoyo.com/",
+                    order: -1
                 }
             ],
             selected: null,
