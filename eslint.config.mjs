@@ -19,7 +19,10 @@ export default withNuxt()
     },
   })
   .append({
-    files: ['app/components/WorksSlideshow.vue'],
+    files: [
+      'app/components/WorksGallery.vue',
+      'app/components/slideshow/SlideDetails.vue',
+    ],
     rules: {
       // Descriptions include links from static public/works.json (author-controlled)
       'vue/no-v-html': 'off',

@@ -30,7 +30,7 @@ useHead({
 <template>
   <div class="pb-10">
     <div class="relative max-w-screen-lg pl-4 pr-4 m-auto">
-      <WorksSlideshow class="min-h-screen" />
+      <WorksGallery class="min-h-screen" />
     </div>
   </div>
 </template>

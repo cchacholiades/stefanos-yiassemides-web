@@ -236,4 +236,8 @@ export default defineNuxtConfig({
     configPath: 'tailwind.config.js',
     exposeConfig: false,
   },
+
+  imports: {
+    dirs: ['composables', 'composables/**'],
+  },
 })

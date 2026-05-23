@@ -1,7 +1,7 @@
 import type { Ref } from 'vue'
-import type { Work } from './types'
+import type { Work } from '~/types/work'
 
-export function useSlideshowNav(works: Ref<Work[] | null>) {
+export function useSlideNav(works: Ref<Work[] | null>) {
   const currentIndex = ref(0)
   const previewIndex = ref<number | null>(null)
   const hoveredIndicatorIndex = ref<number | null>(null)

@@ -10,15 +10,3 @@ export interface Work {
   platforms?: string[]
   order: number
 }
-
-export type PlatformIcon =
-  | 'youtube'
-  | 'linkedin'
-  | 'twitter'
-  | 'instagram'
-  | 'imdb'
-  | 'playstation'
-  | 'steam'
-  | 'windows'
-  | 'xbox'
-  | 'netflix'

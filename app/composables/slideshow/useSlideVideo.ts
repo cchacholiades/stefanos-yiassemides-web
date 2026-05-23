@@ -1,8 +1,8 @@
 import type Player from '@vimeo/player'
 import type { Ref } from 'vue'
-import type { Work } from './types'
+import type { Work } from '~/types/work'
 
-export function useVideoPlayers(
+export function useSlideVideo(
   works: Ref<Work[] | null>,
   currentIndex: Ref<number>,
 ) {
@@ -18,9 +18,9 @@ export function useVideoPlayers(
   )
 
   function hasVideo(work: Work) {
-    return (
+    return Boolean(
       (work.youtube && work.youtube.length > 0) ||
-      (work.vimeo && work.vimeo.length > 0)
+      (work.vimeo && work.vimeo.length > 0),
     )
   }
 

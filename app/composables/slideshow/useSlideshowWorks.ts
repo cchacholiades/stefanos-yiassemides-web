@@ -1,6 +1,6 @@
-import type { Work } from './types'
+import type { Work } from '~/types/work'
 
-export function useWorksData() {
+export function useSlideshowWorks() {
   const works = ref<Work[] | null>(null)
   const pending = ref(true)
   const error = ref<Error | null>(null)
