@@ -8,7 +8,24 @@ export default defineNuxtConfig({
 
   devtools: { enabled: true },
 
+  // Avoid dev-only SPA loading SSE route hitting Vue Router (/_loading/sse warnings)
+  spaLoadingTemplate: false,
+
   css: ['~/assets/css/main.css'],
+
+  vite: {
+    optimizeDeps: {
+      include: [
+        '@fortawesome/fontawesome-svg-core',
+        '@fortawesome/free-brands-svg-icons',
+        '@fortawesome/free-solid-svg-icons',
+        '@fortawesome/vue-fontawesome',
+        '@vimeo/player',
+        '@vue/devtools-core',
+        '@vue/devtools-kit',
+      ],
+    },
+  },
 
   site: {
     url: 'https://stefanosyiassemides.com',
@@ -63,14 +80,14 @@ export default defineNuxtConfig({
           content:
             'Stefanos Yiassemides is a Music Composer and Sound Designer for Film & Media.',
         },
-        { name: 'twitter:image', content: '/about-2.jpeg' },
+        { name: 'twitter:image', content: '/about.jpeg' },
         {
           name: 'twitter:image:alt',
           content: 'Stefanos Yiassemides - Music Composer & Sound Designer',
         },
         { property: 'og:type', content: 'website' },
         { property: 'og:url', content: 'https://stefanosyiassemides.com/' },
-        { property: 'og:image', content: '/about-2.jpeg' },
+        { property: 'og:image', content: '/about.jpeg' },
         { property: 'og:image:width', content: '1200' },
         { property: 'og:image:height', content: '630' },
         {
@@ -93,11 +110,9 @@ export default defineNuxtConfig({
       link: [
         { rel: 'canonical', href: 'https://stefanosyiassemides.com' },
         { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-        { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
         {
-          rel: 'preconnect',
-          href: 'https://fonts.gstatic.com',
-          crossorigin: '',
+          rel: 'stylesheet',
+          href: '/css/nuxt-google-fonts.css',
         },
       ],
       script: [
@@ -155,12 +170,13 @@ export default defineNuxtConfig({
 
   googleFonts: {
     families: {
-      Roboto: true,
-      'Source+Code+Pro': true,
-      Montserrat: true,
-      Lora: true,
-      Inter: true,
+      Montserrat: [400, 500, 600, 700],
     },
+    display: 'swap',
+    download: true,
+    inject: true,
+    prefetch: true,
+    preconnect: true,
   },
 
   sitemap: {

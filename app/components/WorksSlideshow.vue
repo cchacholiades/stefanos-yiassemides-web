@@ -185,9 +185,9 @@
                       <div class="mt-6 flex justify-start">
                         <button
                           v-if="hasVideo(work)"
-                          @click="playPreview"
                           class="flex items-center gap-3 px-4 py-3 bg-white/20 backdrop-blur-md rounded-full border border-white/30 text-white font-medium transition-all duration-300 hover:bg-white/30 hover:scale-105 hover:shadow-lg hover:shadow-white/20 group"
                           title="Watch Video"
+                          @click="playPreview"
                         >
                           <div
                             class="flex items-center justify-center transition-all duration-300"
@@ -305,9 +305,9 @@
                     <div class="mt-6 flex justify-start">
                       <button
                         v-if="hasVideo(work)"
-                        @click="playPreview"
                         class="flex items-center gap-3 px-4 py-3 bg-white/20 backdrop-blur-md rounded-full border border-white/30 text-white font-medium transition-all duration-300 hover:bg-white/30 hover:scale-105 hover:shadow-lg hover:shadow-white/20 group"
                         title="Watch Video"
+                        @click="playPreview"
                       >
                         <div
                           class="flex items-center justify-center transition-all duration-300"
@@ -421,8 +421,8 @@
         <button
           aria-label="Rewind Video"
           class="flex items-center justify-center w-12 h-12 bg-white/20 backdrop-blur-md rounded-full border border-white/30 text-white font-medium transition-all duration-300 hover:bg-white/30 hover:scale-105 hover:shadow-lg hover:shadow-white/20"
-          @click="rewindVideo"
           title="Rewind Video"
+          @click="rewindVideo"
         >
           <div
             class="flex items-center justify-center transition-all duration-300"
@@ -435,8 +435,8 @@
         <button
           aria-label="Close Video"
           class="flex items-center gap-3 px-4 py-3 bg-white/20 backdrop-blur-md rounded-full border border-white/30 text-white font-medium transition-all duration-300 hover:bg-white/30 hover:scale-105 hover:shadow-lg hover:shadow-white/20"
-          @click="stopPreview"
           title="Close Video"
+          @click="stopPreview"
         >
           <div
             class="flex items-center justify-center transition-all duration-300"

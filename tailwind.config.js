@@ -45,17 +45,8 @@ module.exports = {
     },
     extend: {
       fontFamily: {
-        montserrat: ['Montserrat', 'sans-serif'],
-        roboto: [
-          'Roboto',
-          '-apple-system',
-          'BlinkMacSystemFont',
-          'Tahoma',
-          'sans‑serif',
-        ],
-        sourceCodePro: ['Source Code Pro', 'monospace'],
-        lora: ['Lora', 'serif'],
-        inter: ['Inter', 'sans-serif'],
+        montserrat: ['Montserrat', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        sans: ['Montserrat', 'ui-sans-serif', 'system-ui', 'sans-serif'],
       },
       keyframes: {
         fadeInOpacity: {

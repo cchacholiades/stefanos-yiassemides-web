@@ -38,5 +38,5 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <div ref="container" class="vimeo-player" />
+  <div ref="container" class="vimeo-player"></div>
 </template>

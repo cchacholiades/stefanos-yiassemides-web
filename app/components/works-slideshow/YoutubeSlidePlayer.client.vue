@@ -78,5 +78,5 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <div ref="container" class="youtube-player" />
+  <div ref="container" class="youtube-player"></div>
 </template>

@@ -22,8 +22,7 @@ const isSocialsBarHovered = ref(false)
           <h1
             class="text-2xl font-bold tracking-tight bg-gradient-to-r from-white to-white/80 bg-clip-text text-transparent"
           >
-            <span class="block sm:inline">Stefanos</span>
-            <span class="block sm:inline">Yiassemides</span>
+            Stefanos Yiassemides
           </h1>
           <p class="text-sm text-white/70 font-medium tracking-wide mt-0.5">
             Music Composer
