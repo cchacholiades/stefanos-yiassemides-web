@@ -1,15 +1,14 @@
 const defaultTheme = require('tailwindcss/defaultTheme')
 
 module.exports = {
-  mode: 'jit',
   content: [
-    './components/**/*.{vue,js}',
-    './layouts/**/*.vue',
-    './pages/**/*.vue',
-    './plugins/**/*.{js,ts}',
+    './app/components/**/*.{vue,js,ts}',
+    './app/layouts/**/*.vue',
+    './app/pages/**/*.vue',
+    './app/app.vue',
     './nuxt.config.{js,ts}',
   ],
-  darkMode: 'media', // or "media" or "class"
+  darkMode: 'media',
   theme: {
     colors: {
       transparent: 'transparent',
@@ -67,17 +66,7 @@ module.exports = {
       animation: {
         fadeInOpacity: 'fadeInOpacity 0.3s ease-in 1',
       },
-      textShadow: {
-        text: '0px 5px 15px rgba(0, 0, 0, 0.5)',
-      },
     },
   },
-  variants: {
-    extend: {},
-  },
-  plugins: [
-    require('@tailwindcss/aspect-ratio'),
-    require('tailwind-scrollbar-hide'),
-    require('tailwindcss-textshadow'),
-  ],
+  plugins: [require('tailwind-scrollbar-hide')],
 }
