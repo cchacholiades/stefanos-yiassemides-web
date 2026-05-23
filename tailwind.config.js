@@ -45,8 +45,7 @@ module.exports = {
     },
     extend: {
       fontFamily: {
-        montserrat: ['Montserrat', 'ui-sans-serif', 'system-ui', 'sans-serif'],
-        sans: ['Montserrat', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
       },
       keyframes: {
         fadeInOpacity: {

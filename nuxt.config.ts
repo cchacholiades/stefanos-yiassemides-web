@@ -37,10 +37,10 @@ export default defineNuxtConfig({
       title:
         'Music Composer & Sound Designer for Film & Media | Stefanos Yiassemides',
       htmlAttrs: {
-        class: 'antialiased bg-black text-white scrollbar-hide font-montserrat',
+        class: 'antialiased bg-black text-white scrollbar-hide font-sans',
       },
       bodyAttrs: {
-        class: 'antialiased bg-black text-white scrollbar-hide font-montserrat',
+        class: 'antialiased bg-black text-white scrollbar-hide font-sans',
       },
       meta: [
         { charset: 'utf-8' },
@@ -170,7 +170,7 @@ export default defineNuxtConfig({
 
   googleFonts: {
     families: {
-      Montserrat: [400, 500, 600, 700],
+      Inter: [400, 500, 600, 700],
     },
     display: 'swap',
     download: true,

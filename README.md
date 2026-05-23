@@ -6,7 +6,15 @@ Official website for Stefanos Yiassemides. Music Composer for Film, TV, Games & 
 
 ## Requirements
 
-- Node.js 20+ (see [.nvmrc](.nvmrc))
+- Node.js **20.19+**, **22.13+**, or **24+** recommended (see [.nvmrc](.nvmrc))
+- **22.12.x:** `npm install` still works; you may see `EBADENGINE` warnings from ESLint. Upgrade one patch to clear them:
+
+```bash
+nvm install 22.13 && nvm use    # or: nvm install && nvm use
+node -v                         # should be v22.13.0+
+```
+
+- To silence engine warnings without upgrading, uncomment `ignore-engines=true` in [.npmrc](.npmrc)
 
 ## Build setup
 
