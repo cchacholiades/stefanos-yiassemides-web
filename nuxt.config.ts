@@ -14,6 +14,10 @@ export default defineNuxtConfig({
   css: ['~/assets/css/main.css'],
 
   vite: {
+    build: {
+      // Skips nuxt:module-preload-polyfill transform (and its sourcemap WARN on generate)
+      modulePreload: { polyfill: false },
+    },
     optimizeDeps: {
       include: [
         '@fortawesome/fontawesome-svg-core',
