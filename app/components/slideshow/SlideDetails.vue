@@ -59,15 +59,12 @@
         <div class="mt-6 flex justify-start">
           <button
             v-if="showWatchButton"
-            class="flex items-center gap-3 px-4 py-3 bg-white/20 backdrop-blur-md rounded-full border border-white/30 text-white font-medium transition-all duration-300 hover:bg-white/30 hover:scale-105 hover:shadow-lg hover:shadow-white/20 group"
+            type="button"
+            class="watch-button"
             title="Watch Video"
             @click="emit('play-preview')"
           >
-            <div
-              class="flex items-center justify-center transition-all duration-300"
-            >
-              <font-awesome-icon :icon="['fas', 'play']" class="text-sm" />
-            </div>
+            <font-awesome-icon :icon="['fas', 'play']" class="text-sm" />
             <span>Watch</span>
           </button>
         </div>
@@ -93,6 +90,33 @@ const emit = defineEmits<{
 </script>
 
 <style scoped>
+/* Match Indicators.vue / Navigation.vue .nav-glass */
+.watch-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  border: none;
+  border-radius: 9999px;
+  background: rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  box-shadow:
+    0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  color: #fff;
+  font-weight: 500;
+  transition: background 0.15s ease;
+}
+
+.watch-button:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.watch-button:active {
+  background: rgba(255, 255, 255, 0.15);
+}
+
 .work-poster {
   aspect-ratio: 2/3;
 }

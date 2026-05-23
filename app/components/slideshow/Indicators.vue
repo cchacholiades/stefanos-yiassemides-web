@@ -1,6 +1,6 @@
 <template>
   <div
-    class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4 z-[150] hidden md:flex"
+    class="absolute bottom-8 left-1/2 -translate-x-1/2 flex-col items-center gap-4 z-[150] hidden md:flex"
   >
     <div
       class="flex gap-3 slide-indicators"

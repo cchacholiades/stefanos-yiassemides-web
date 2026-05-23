@@ -29,7 +29,7 @@ const isSocialsBarHovered = ref(false)
           </p>
         </div>
         <div
-          class="flex items-center gap-2 md:gap-4 socials-container"
+          class="flex items-center gap-2 md:gap-4 nav-glass socials-container"
           @mouseenter="isSocialsBarHovered = true"
           @mouseleave="isSocialsBarHovered = false"
         >
@@ -85,20 +85,23 @@ const isSocialsBarHovered = ref(false)
 </template>
 
 <style scoped>
-.socials-container {
-  background: rgba(255, 255, 255, 0.13);
+/* Match slideshow/Indicators.vue .slide-indicators */
+.nav-glass {
   border-radius: 9999px;
+  background: rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   box-shadow:
-    0 2px 24px 0 rgba(255, 255, 255, 0.13),
-    0 1.5px 12px 0 rgba(120, 180, 255, 0.08);
-  backdrop-filter: blur(8px) saturate(1.2);
-  -webkit-backdrop-filter: blur(8px) saturate(1.2);
-  padding: 0.3rem 0.5rem;
-  border: 1.5px solid rgba(255, 255, 255, 0.18);
-  transition:
-    background 0.22s,
-    box-shadow 0.22s,
-    border 0.22s;
+    0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.brand-panel {
+  padding: 0.5rem 1rem;
+}
+
+.socials-container {
+  padding: 0.4rem 0.4rem;
   align-items: center;
   z-index: 2;
 }
@@ -110,31 +113,22 @@ const isSocialsBarHovered = ref(false)
   color: #fff;
   border-radius: 9999px;
   transition:
-    background 0.22s,
-    color 0.22s,
-    box-shadow 0.22s,
-    transform 0.22s,
-    border-radius 0.22s;
+    background 0.15s ease,
+    color 0.15s ease,
+    transform 0.15s ease;
   position: relative;
   z-index: 2;
 }
 
 .social-icon-link:hover {
-  background: rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.1);
   color: #fff;
-  box-shadow:
-    0 2px 24px 0 rgba(255, 255, 255, 0.22),
-    0 1.5px 12px 0 rgba(120, 180, 255, 0.13);
-  filter: brightness(1.18) drop-shadow(0 0 8px #e0e7ef);
-  transform: scale(1.13);
-  border-radius: 9999px;
-  backdrop-filter: blur(8px) saturate(1.3);
-  -webkit-backdrop-filter: blur(8px) saturate(1.3);
+  transform: scale(1.1);
 }
 
 .social-icon-link:active {
   transform: scale(0.97);
-  background: rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.15);
 }
 
 .social-icon-link :deep(svg),
@@ -157,22 +151,6 @@ const isSocialsBarHovered = ref(false)
 }
 
 @media (min-width: 768px) {
-  .socials-container {
-    background: rgba(255, 255, 255, 0.13);
-    border-radius: 9999px;
-    box-shadow:
-      0 2px 24px 0 rgba(255, 255, 255, 0.13),
-      0 1.5px 12px 0 rgba(120, 180, 255, 0.08);
-    backdrop-filter: blur(8px) saturate(1.2);
-    -webkit-backdrop-filter: blur(8px) saturate(1.2);
-    padding: 0.3rem 0.5rem;
-    border: 1.5px solid rgba(255, 255, 255, 0.18);
-    transition:
-      background 0.22s,
-      box-shadow 0.22s,
-      border 0.22s;
-  }
-
   .social-icon-link {
     width: 4.5rem;
     height: 2.5rem;
@@ -182,14 +160,11 @@ const isSocialsBarHovered = ref(false)
 }
 
 @media (max-width: 767px) {
+  .brand-panel {
+    padding: 0.4rem 0.75rem;
+  }
+
   .socials-container {
-    background: rgba(255, 255, 255, 0.18);
-    border-radius: 9999px;
-    box-shadow:
-      0 2px 24px 0 rgba(255, 255, 255, 0.22),
-      0 1.5px 12px 0 rgba(120, 180, 255, 0.13);
-    backdrop-filter: blur(8px) saturate(1.3);
-    -webkit-backdrop-filter: blur(8px) saturate(1.3);
     padding: 0.25rem 0.3rem;
   }
 }
