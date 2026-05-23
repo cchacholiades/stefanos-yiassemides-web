@@ -184,6 +184,7 @@ export default defineNuxtConfig({
   },
 
   sitemap: {
+    zeroRuntime: true,
     urls: [
       {
         loc: '/',
