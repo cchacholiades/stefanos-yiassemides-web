@@ -66,13 +66,12 @@ export function useVideoPlayers(
     const yt = youtubePlayers.value[currentIndex.value]
     if (currentWork.youtube?.[0] && yt) {
       try {
-        if (isIOS.value && !hasUserInteracted.value) yt.mute()
-        else if (isIOS.value && hasUserInteracted.value) yt.unMute()
+        // Embed is created with mute: 1; user clicked "Watch video" so enable audio
+        yt.unMute()
         yt.playVideo()
         setTimeout(() => {
           if (yt.getPlayerState() !== 1) {
-            if (isIOS.value && !hasUserInteracted.value) yt.mute()
-            else if (isIOS.value && hasUserInteracted.value) yt.unMute()
+            yt.unMute()
             yt.playVideo()
           }
         }, 1000)
@@ -84,11 +83,7 @@ export function useVideoPlayers(
     const vimeo = vimeoPlayers.value[currentIndex.value]
     if (currentWork.vimeo?.[0] && vimeo) {
       try {
-        if (isIOS.value && !hasUserInteracted.value) {
-          vimeo.setVolume(0)
-        } else if (isIOS.value && hasUserInteracted.value) {
-          vimeo.setVolume(1)
-        }
+        vimeo.setVolume(1)
         vimeo.play()
       } catch {
         /* ignore */
@@ -131,6 +126,7 @@ export function useVideoPlayers(
     if (!currentWork) return
 
     if (hasVideo(currentWork)) {
+      hasUserInteracted.value = true
       isPreviewPlaying.value = true
       isHovered.value = false
       playCurrentVideo()
