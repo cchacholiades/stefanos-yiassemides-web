@@ -3,7 +3,7 @@
     class="w-full max-w-4xl mx-auto relative flex flex-col md:flex-row items-start gap-8 md:gap-12"
     :class="compact ? 'px-8 md:px-16' : ''"
   >
-    <div class="w-[180px] flex-shrink-0">
+    <div class="w-[180px] lg:w-[260px] flex-shrink-0">
       <div
         class="relative aspect-[2/3] rounded-lg overflow-hidden shadow-2xl work-poster"
       >

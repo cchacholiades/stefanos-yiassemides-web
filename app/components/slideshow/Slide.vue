@@ -26,8 +26,10 @@
       v-if="showWatchButton"
       class="absolute inset-0 transition-opacity duration-500 video-container"
       :class="{
-        'opacity-0 pointer-events-none': !isPreviewPlaying,
-        'opacity-100 pointer-events-auto': isPreviewPlaying,
+        'opacity-0 pointer-events-none':
+          !isPreviewPlaying || previewIndex !== null,
+        'opacity-100 pointer-events-auto':
+          isPreviewPlaying && previewIndex === null,
       }"
       @click="emit('toggle-playback')"
     >
@@ -55,8 +57,9 @@
     <div
       class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent transition-all duration-500 slide-overlay"
       :class="{
-        'opacity-100': !isPreviewPlaying,
-        'opacity-0 pointer-events-none': isPreviewPlaying,
+        'opacity-100': !isPreviewPlaying || previewIndex !== null,
+        'opacity-0 pointer-events-none':
+          isPreviewPlaying && previewIndex === null,
       }"
       @mouseenter="emit('hover', true)"
       @mouseleave="emit('hover', false)"
