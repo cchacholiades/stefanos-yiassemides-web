@@ -30,6 +30,8 @@ const scrollRoot = ref<HTMLElement | null>(null)
 const worksSection = ref<HTMLElement | null>(null)
 const isPreviewPlaying = ref(false)
 
+const { exitProgress, worksEnterProgress } = useLandingExitProgress(scrollRoot)
+
 function scrollToWorks() {
   const root = scrollRoot.value
   if (!root) return
@@ -37,6 +39,10 @@ function scrollToWorks() {
   const top = worksSection.value?.offsetTop ?? root.clientHeight
   root.scrollTo({ top, behavior: 'smooth' })
 }
+
+const worksSectionStyle = computed(() => ({
+  opacity: 0.15 + worksEnterProgress.value * 0.85,
+}))
 </script>
 
 <template>
@@ -44,15 +50,22 @@ function scrollToWorks() {
     ref="scrollRoot"
     class="home h-[100dvh] overflow-y-auto overflow-x-hidden snap-y snap-mandatory scroll-smooth bg-black"
   >
-    <Navigation :is-preview-playing="isPreviewPlaying" />
+    <Navigation
+      :is-preview-playing="isPreviewPlaying"
+      :light="exitProgress < 0.85"
+    />
 
-    <HomeLanding @scroll-to-works="scrollToWorks" />
+    <HomeLanding
+      :exit-progress="exitProgress"
+      @scroll-to-works="scrollToWorks"
+    />
 
     <section
       id="works"
       ref="worksSection"
       class="home__works relative min-h-[100dvh] h-[100dvh] shrink-0 snap-start snap-always"
       aria-label="Works gallery"
+      :style="worksSectionStyle"
     >
       <WorksGallery @preview-playing="isPreviewPlaying = $event" />
     </section>

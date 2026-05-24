@@ -1,67 +1,201 @@
 <template>
   <section
-    class="landing relative z-10 flex h-[100dvh] min-h-[100dvh] shrink-0 flex-col items-center justify-center bg-black px-6 snap-start snap-always"
+    class="landing relative z-10 h-[100dvh] min-h-[100dvh] shrink-0 overflow-hidden snap-start snap-always"
+    :class="{ 'landing--exiting': progress > 0 }"
     aria-label="Introduction"
   >
-    <div
-      class="landing__content flex max-w-2xl flex-col items-center text-center"
-    >
-      <p class="text-sm font-medium uppercase tracking-[0.2em] text-white/50">
-        Stefanos Yiassemides
-      </p>
-      <h2
-        class="mt-4 font-bold tracking-tight text-white bg-gradient-to-r from-white to-white/80 bg-clip-text text-transparent text-3xl sm:text-4xl md:text-5xl"
-      >
-        Music Composer &amp; Sound Designer
-      </h2>
-      <p class="mt-3 text-lg text-white/70 md:text-xl">for Film &amp; Media</p>
+    <div class="landing__media absolute inset-0" :style="mediaStyle">
+      <img
+        src="/about.png"
+        alt="Stefanos Yiassemides"
+        class="landing__photo"
+        width="1200"
+        height="1600"
+        fetchpriority="high"
+        decoding="async"
+      />
+    </div>
 
-      <button
-        type="button"
-        class="landing__cta relative z-10 mt-10"
-        @click="emit('scroll-to-works')"
-      >
-        <span>View works</span>
-        <font-awesome-icon
-          :icon="['fas', 'chevron-down']"
-          class="text-sm"
-          aria-hidden="true"
-        />
-      </button>
+    <div
+      class="landing__inner relative z-10 flex h-full w-full flex-col justify-end px-6 pb-14 pt-28 md:px-12 md:pb-20 lg:px-16"
+      :style="contentStyle"
+    >
+      <div class="landing__copy w-full max-w-xl">
+        <p class="landing__eyebrow brand-name">Stefanos Yiassemides</p>
+        <h2 class="landing__headline">
+          Music Composer
+          <span class="landing__headline-accent">&amp; Sound Designer</span>
+        </h2>
+        <p class="landing__tagline">for Film &amp; Media</p>
+
+        <button
+          type="button"
+          class="landing__cta mt-8"
+          @click="emit('scroll-to-works')"
+        >
+          <span>View works</span>
+          <font-awesome-icon
+            :icon="['fas', 'chevron-down']"
+            class="text-sm landing__cta-icon"
+            aria-hidden="true"
+          />
+        </button>
+      </div>
     </div>
   </section>
 </template>
 
 <script setup lang="ts">
+const props = withDefaults(
+  defineProps<{
+    exitProgress?: number
+  }>(),
+  { exitProgress: 0 },
+)
+
 const emit = defineEmits<{
   'scroll-to-works': []
 }>()
+
+const prefersReducedMotion = ref(false)
+
+onMounted(() => {
+  prefersReducedMotion.value = window.matchMedia(
+    '(prefers-reduced-motion: reduce)',
+  ).matches
+})
+
+const progress = computed(() =>
+  prefersReducedMotion.value ? 0 : props.exitProgress,
+)
+
+const mediaStyle = computed(() => {
+  const p = progress.value
+  if (p <= 0) return {}
+  return {
+    transform: `translate3d(0, ${-p * 6}%, 0) scale(${1 + p * 0.03})`,
+    opacity: 1 - p * 0.95,
+  }
+})
+
+const contentStyle = computed(() => {
+  const p = progress.value
+  if (p <= 0) return {}
+  return {
+    opacity: Math.max(0, 1 - p * 2),
+    transform: `translate3d(0, ${-p * 16}px, 0)`,
+  }
+})
 </script>
 
 <style scoped>
+.landing {
+  --landing-ink: #0d1011;
+  --landing-ink-muted: rgba(13, 16, 17, 0.58);
+}
+
+.landing__media {
+  /* Matches the portrait’s warm grey/beige backdrop */
+  background: #e4e2de;
+}
+
+.landing__photo {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: 100%;
+  object-fit: cover;
+  object-position: 72% 38%;
+}
+
+.landing__eyebrow {
+  color: var(--landing-ink-muted);
+}
+
+.landing__headline {
+  margin-top: 0.75rem;
+  font-size: clamp(2rem, 5vw, 3.35rem);
+  font-weight: 700;
+  line-height: 1.08;
+  letter-spacing: -0.025em;
+  color: var(--landing-ink);
+}
+
+.landing__headline-accent {
+  display: block;
+  margin-top: 0.12em;
+  color: rgba(13, 16, 17, 0.78);
+}
+
+.landing__tagline {
+  margin-top: 0.75rem;
+  font-size: 1.125rem;
+  color: rgba(13, 16, 17, 0.68);
+}
+
 .landing__cta {
   display: inline-flex;
   align-items: center;
   gap: 0.625rem;
   padding: 0.75rem 1.25rem;
-  border: none;
+  border: 1px solid rgba(13, 16, 17, 0.12);
   border-radius: 9999px;
-  background: rgba(0, 0, 0, 0.2);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  box-shadow:
-    0 4px 6px -1px rgba(0, 0, 0, 0.1),
-    0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  background: var(--landing-ink);
   color: #fff;
   font-weight: 500;
-  transition: background 0.15s ease;
+  transition:
+    background 0.15s ease,
+    transform 0.15s ease;
 }
 
 .landing__cta:hover {
-  background: rgba(255, 255, 255, 0.1);
+  background: #1a1f21;
 }
 
 .landing__cta:active {
-  background: rgba(255, 255, 255, 0.15);
+  transform: scale(0.98);
+}
+
+.landing__cta-icon {
+  animation: landingBounce 2.4s ease-in-out infinite;
+}
+
+.landing__media {
+  will-change: transform, opacity;
+}
+
+.landing__inner {
+  will-change: opacity, transform;
+}
+
+@media (min-width: 768px) {
+  .landing__photo {
+    object-position: 78% 36%;
+  }
+
+  .landing__tagline {
+    font-size: 1.25rem;
+  }
+}
+
+@keyframes landingBounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(3px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .landing__cta-icon {
+    animation: none;
+  }
+
+  .landing__media,
+  .landing__inner {
+    will-change: auto;
+  }
 }
 </style>

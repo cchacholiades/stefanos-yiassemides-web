@@ -1,35 +1,48 @@
 <script setup lang="ts">
 defineOptions({ name: 'SiteNavigation' })
 
-defineProps<{
-  isPreviewPlaying?: boolean
-}>()
+const props = withDefaults(
+  defineProps<{
+    isPreviewPlaying?: boolean
+    /** Light portrait backdrop — dark text & light social pill */
+    light?: boolean
+  }>(),
+  { light: false },
+)
 
 const isSocialsBarHovered = ref(false)
 </script>
 
 <template>
   <div
-    class="fixed top-0 left-0 right-0 z-[200] transition-all duration-500"
-    :class="{
-      'opacity-100': !isPreviewPlaying,
-      'opacity-0': isPreviewPlaying,
-    }"
+    class="site-nav fixed top-0 left-0 right-0 z-[200] transition-all duration-500"
+    :class="[
+      props.light ? 'site-nav--light' : 'site-nav--dark',
+      {
+        'opacity-100': !props.isPreviewPlaying,
+        'opacity-0': props.isPreviewPlaying,
+      },
+    ]"
   >
     <div class="relative w-full mx-auto px-4 md:px-6 py-4">
-      <div class="flex items-center justify-between">
-        <div class="text-white flex flex-col">
-          <h1
-            class="text-2xl font-bold tracking-tight bg-gradient-to-r from-white to-white/80 bg-clip-text text-transparent"
+      <div
+        class="flex items-center"
+        :class="props.light ? 'justify-end' : 'justify-between'"
+      >
+        <div
+          v-show="!props.light"
+          class="site-nav__brand flex flex-col min-w-0"
+        >
+          <h1 class="site-nav__title brand-name">Stefanos Yiassemides</h1>
+          <p
+            class="site-nav__subtitle text-sm tracking-wide mt-0.5 leading-snug"
           >
-            Stefanos Yiassemides
-          </h1>
-          <p class="text-sm text-white/70 font-medium tracking-wide mt-0.5">
             Music Composer
+            <span class="site-nav__subtitle-accent">&amp; Sound Designer</span>
           </p>
         </div>
         <div
-          class="flex items-center gap-2 md:gap-4 nav-glass socials-container"
+          class="flex shrink-0 items-center gap-2 md:gap-4 nav-glass socials-container"
           @mouseenter="isSocialsBarHovered = true"
           @mouseleave="isSocialsBarHovered = false"
         >
@@ -85,19 +98,48 @@ const isSocialsBarHovered = ref(false)
 </template>
 
 <style scoped>
-/* Match slideshow/Indicators.vue .slide-indicators */
 .nav-glass {
   border-radius: 9999px;
-  background: rgba(0, 0, 0, 0.2);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
+}
+
+.site-nav--dark .nav-glass {
+  background: rgba(0, 0, 0, 0.2);
   box-shadow:
     0 4px 6px -1px rgba(0, 0, 0, 0.1),
     0 2px 4px -1px rgba(0, 0, 0, 0.06);
 }
 
-.brand-panel {
-  padding: 0.5rem 1rem;
+.site-nav--light .nav-glass {
+  background: rgba(255, 255, 255, 0.55);
+  border: 1px solid rgba(13, 16, 17, 0.08);
+  box-shadow: 0 4px 20px rgba(13, 16, 17, 0.06);
+}
+
+.site-nav__brand .brand-name {
+  font-weight: 600;
+}
+
+.site-nav__subtitle {
+  font-weight: 600;
+}
+
+.site-nav--dark .site-nav__title {
+  color: rgba(255, 255, 255, 0.95);
+}
+
+.site-nav--dark .site-nav__subtitle {
+  color: rgba(255, 255, 255, 0.88);
+}
+
+.site-nav--light .site-nav__title,
+.site-nav--light .site-nav__subtitle {
+  color: #0d1011;
+}
+
+.site-nav--light .site-nav__subtitle {
+  color: rgba(13, 16, 17, 0.72);
 }
 
 .socials-container {
@@ -110,7 +152,6 @@ const isSocialsBarHovered = ref(false)
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #fff;
   border-radius: 9999px;
   transition:
     background 0.15s ease,
@@ -120,15 +161,32 @@ const isSocialsBarHovered = ref(false)
   z-index: 2;
 }
 
-.social-icon-link:hover {
-  background: rgba(255, 255, 255, 0.1);
+.site-nav--dark .social-icon-link {
   color: #fff;
+}
+
+.site-nav--dark .social-icon-link:hover {
+  background: rgba(255, 255, 255, 0.1);
   transform: scale(1.1);
 }
 
-.social-icon-link:active {
+.site-nav--dark .social-icon-link:active {
   transform: scale(0.97);
   background: rgba(255, 255, 255, 0.15);
+}
+
+.site-nav--light .social-icon-link {
+  color: #0d1011;
+}
+
+.site-nav--light .social-icon-link:hover {
+  background: rgba(13, 16, 17, 0.06);
+  transform: scale(1.08);
+}
+
+.site-nav--light .social-icon-link:active {
+  transform: scale(0.97);
+  background: rgba(13, 16, 17, 0.1);
 }
 
 .social-icon-link :deep(svg),
@@ -156,16 +214,6 @@ const isSocialsBarHovered = ref(false)
     height: 2.5rem;
     font-size: 2rem;
     padding: 0.25rem;
-  }
-}
-
-@media (max-width: 767px) {
-  .brand-panel {
-    padding: 0.4rem 0.75rem;
-  }
-
-  .socials-container {
-    padding: 0.25rem 0.3rem;
   }
 }
 </style>

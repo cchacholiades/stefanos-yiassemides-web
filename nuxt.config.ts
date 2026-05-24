@@ -86,14 +86,14 @@ export default defineNuxtConfig({
           content:
             'Stefanos Yiassemides is a Music Composer and Sound Designer for Film & Media.',
         },
-        { name: 'twitter:image', content: '/about.jpeg' },
+        { name: 'twitter:image', content: '/about.png' },
         {
           name: 'twitter:image:alt',
           content: 'Stefanos Yiassemides - Music Composer & Sound Designer',
         },
         { property: 'og:type', content: 'website' },
         { property: 'og:url', content: 'https://stefanosyiassemides.com/' },
-        { property: 'og:image', content: '/about.jpeg' },
+        { property: 'og:image', content: '/about.png' },
         { property: 'og:image:width', content: '1200' },
         { property: 'og:image:height', content: '630' },
         {
