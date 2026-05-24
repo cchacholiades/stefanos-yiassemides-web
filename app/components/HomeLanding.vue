@@ -33,12 +33,7 @@
           class="landing__cta mt-8"
           @click="emit('scroll-to-works')"
         >
-          <span>View works</span>
-          <font-awesome-icon
-            :icon="['fas', 'chevron-down']"
-            class="text-sm landing__cta-icon"
-            aria-hidden="true"
-          />
+          View works
         </button>
       </div>
     </div>
@@ -156,10 +151,6 @@ const contentStyle = computed(() => {
   transform: scale(0.98);
 }
 
-.landing__cta-icon {
-  animation: landingBounce 2.4s ease-in-out infinite;
-}
-
 .landing__media {
   will-change: transform, opacity;
 }
@@ -178,21 +169,7 @@ const contentStyle = computed(() => {
   }
 }
 
-@keyframes landingBounce {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(3px);
-  }
-}
-
 @media (prefers-reduced-motion: reduce) {
-  .landing__cta-icon {
-    animation: none;
-  }
-
   .landing__media,
   .landing__inner {
     will-change: auto;
