@@ -40,6 +40,20 @@ function scrollToWorks() {
   root.scrollTo({ top, behavior: 'smooth' })
 }
 
+function scrollToLanding() {
+  scrollRoot.value?.scrollTo({ top: 0, behavior: 'smooth' })
+}
+
+const canScrollToLanding = computed(() => exitProgress.value > 0.02)
+
+useHomeScrollProvide(scrollRoot, scrollToLanding)
+
+const worksGalleryDesktopView = ref<'grid' | 'slideshow' | null>(null)
+
+const showGridNavScrim = computed(
+  () => exitProgress.value >= 0.85 && worksGalleryDesktopView.value === 'grid',
+)
+
 const worksSectionStyle = computed(() => ({
   opacity: 0.15 + worksEnterProgress.value * 0.85,
 }))
@@ -53,6 +67,9 @@ const worksSectionStyle = computed(() => ({
     <Navigation
       :is-preview-playing="isPreviewPlaying"
       :light="exitProgress < 0.85"
+      :can-scroll-to-landing="canScrollToLanding"
+      :show-grid-nav-scrim="showGridNavScrim"
+      @scroll-to-landing="scrollToLanding"
     />
 
     <HomeLanding
@@ -67,7 +84,10 @@ const worksSectionStyle = computed(() => ({
       aria-label="Works gallery"
       :style="worksSectionStyle"
     >
-      <WorksGallery @preview-playing="isPreviewPlaying = $event" />
+      <WorksGallery
+        @preview-playing="isPreviewPlaying = $event"
+        @desktop-view-change="worksGalleryDesktopView = $event"
+      />
     </section>
   </div>
 </template>

@@ -1,28 +1,34 @@
 <template>
   <nav class="slide-indicators-root" aria-label="Works slides">
-    <div
-      class="slide-indicators"
-      @mouseenter="emit('indicators-enter')"
-      @mouseleave="emit('indicators-leave')"
-    >
-      <button
-        v-for="(work, index) in works"
-        :key="work.id"
-        type="button"
-        class="indicator"
-        :class="{
-          'indicator--active': currentIndex === index,
-          'indicator--previewing':
-            hoveredIndicatorIndex === index && previewIndex !== null,
-        }"
-        :aria-label="`Go to ${work.name}`"
-        :aria-current="currentIndex === index ? 'true' : undefined"
-        @mouseenter="emit('show-preview', index)"
-        @mouseleave="emit('set-hovered-indicator', index)"
-        @click="emit('indicator-click', index)"
+    <div class="slide-indicators-bar">
+      <div v-if="$slots.leading" class="slide-indicators-bar__leading">
+        <slot name="leading" />
+      </div>
+
+      <div
+        class="slide-indicators"
+        @mouseenter="emit('indicators-enter')"
+        @mouseleave="emit('indicators-leave')"
       >
-        <span class="indicator__mark" aria-hidden="true"></span>
-      </button>
+        <button
+          v-for="(work, index) in works"
+          :key="work.id"
+          type="button"
+          class="indicator"
+          :class="{
+            'indicator--active': currentIndex === index,
+            'indicator--previewing':
+              hoveredIndicatorIndex === index && previewIndex !== null,
+          }"
+          :aria-label="`Go to ${work.name}`"
+          :aria-current="currentIndex === index ? 'true' : undefined"
+          @mouseenter="emit('show-preview', index)"
+          @mouseleave="emit('set-hovered-indicator', index)"
+          @click="emit('indicator-click', index)"
+        >
+          <span class="indicator__mark" aria-hidden="true"></span>
+        </button>
+      </div>
     </div>
   </nav>
 </template>
@@ -60,6 +66,16 @@ const emit = defineEmits<{
   .slide-indicators-root {
     display: flex;
   }
+}
+
+.slide-indicators-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.slide-indicators-bar__leading {
+  flex-shrink: 0;
 }
 
 .slide-indicators {

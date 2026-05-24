@@ -7,6 +7,7 @@ import {
   faChevronRight,
   faPause,
   faPlay,
+  faTableCells,
   faXmark,
 } from '@fortawesome/free-solid-svg-icons'
 import {
@@ -41,4 +42,5 @@ library.add(
   faPlay,
   faPause,
   faBackward,
+  faTableCells,
 )

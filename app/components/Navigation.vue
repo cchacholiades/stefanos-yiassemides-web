@@ -6,11 +6,23 @@ const props = withDefaults(
     isPreviewPlaying?: boolean
     /** Light portrait backdrop — dark text & light social pill */
     light?: boolean
+    canScrollToLanding?: boolean
+    showGridNavScrim?: boolean
   }>(),
-  { light: false },
+  { light: false, canScrollToLanding: false, showGridNavScrim: false },
 )
 
+const emit = defineEmits<{
+  'scroll-to-landing': []
+}>()
+
 const isSocialsBarHovered = ref(false)
+
+function handleBrandClick() {
+  if (props.canScrollToLanding) {
+    emit('scroll-to-landing')
+  }
+}
 </script>
 
 <template>
@@ -24,23 +36,36 @@ const isSocialsBarHovered = ref(false)
       },
     ]"
   >
-    <div class="relative w-full mx-auto px-4 md:px-6 py-4">
+    <div
+      v-if="props.showGridNavScrim"
+      class="site-nav__scrim"
+      aria-hidden="true"
+    />
+
+    <div class="site-nav__inner relative w-full mx-auto px-4 md:px-6 py-4">
       <div
         class="flex items-center"
         :class="props.light ? 'justify-end' : 'justify-end md:justify-between'"
       >
-        <div
+        <button
           v-show="!props.light"
-          class="site-nav__brand hidden md:flex flex-col min-w-0"
+          type="button"
+          class="site-nav__brand hidden md:flex flex-col min-w-0 text-left"
+          :class="{ 'site-nav__brand--clickable': props.canScrollToLanding }"
+          :title="props.canScrollToLanding ? 'Back to introduction' : undefined"
+          :aria-label="
+            props.canScrollToLanding ? 'Back to introduction' : undefined
+          "
+          @click="handleBrandClick"
         >
-          <h1 class="site-nav__title brand-name">Stefanos Yiassemides</h1>
-          <p
+          <span class="site-nav__title brand-name">Stefanos Yiassemides</span>
+          <span
             class="site-nav__subtitle text-sm tracking-wide mt-0.5 leading-snug"
           >
             Music Composer
             <span class="site-nav__subtitle-accent">&amp; Sound Designer</span>
-          </p>
-        </div>
+          </span>
+        </button>
         <div
           class="flex shrink-0 items-center gap-2 md:gap-4 nav-glass socials-container"
           @mouseenter="isSocialsBarHovered = true"
@@ -98,6 +123,33 @@ const isSocialsBarHovered = ref(false)
 </template>
 
 <style scoped>
+.site-nav__scrim {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 9rem;
+  pointer-events: none;
+  z-index: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.95) 0%,
+    rgba(0, 0, 0, 0.72) 42%,
+    rgba(0, 0, 0, 0.28) 72%,
+    transparent 100%
+  );
+}
+
+@media (min-width: 768px) {
+  .site-nav__scrim {
+    height: 10.5rem;
+  }
+}
+
+.site-nav__inner {
+  z-index: 1;
+}
+
 .nav-glass {
   border-radius: 9999px;
   backdrop-filter: blur(8px);
@@ -115,6 +167,32 @@ const isSocialsBarHovered = ref(false)
   background: rgba(255, 255, 255, 0.55);
   border: 1px solid rgba(13, 16, 17, 0.08);
   box-shadow: 0 4px 20px rgba(13, 16, 17, 0.06);
+}
+
+.site-nav__brand {
+  padding: 0;
+  border: none;
+  background: transparent;
+  cursor: default;
+}
+
+.site-nav__brand--clickable {
+  cursor: pointer;
+  border-radius: 0.375rem;
+  transition: opacity 0.15s ease;
+}
+
+.site-nav__brand--clickable:hover {
+  opacity: 0.85;
+}
+
+.site-nav__brand--clickable:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.85);
+  outline-offset: 4px;
+}
+
+.site-nav--light .site-nav__brand--clickable:focus-visible {
+  outline-color: rgba(13, 16, 17, 0.65);
 }
 
 .site-nav__brand .brand-name {
