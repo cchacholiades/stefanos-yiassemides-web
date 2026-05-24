@@ -20,9 +20,32 @@
     </div>
 
     <div class="flex-1 space-y-8 pt-2 h-[270px] flex flex-col">
-      <div class="flex-1 flex flex-col">
+      <div class="flex-1 flex flex-col min-h-0">
+        <ul
+          v-if="work.platforms?.length"
+          class="platforms flex flex-wrap items-center gap-3 mb-2"
+          aria-label="Platforms"
+        >
+          <li
+            v-for="platform in work.platforms"
+            :key="platform"
+            class="text-white/70 hover:text-white transition-colors"
+          >
+            <font-awesome-icon
+              v-if="platform !== 'netflix'"
+              :icon="['fab', platform]"
+            />
+            <img
+              v-else
+              src="/icons/netflix.svg"
+              alt="Netflix"
+              class="platforms__netflix"
+            />
+          </li>
+        </ul>
+
         <h2
-          class="font-bold text-white mb-4 tracking-tight pr-12 md:pr-0"
+          class="font-bold text-white mb-3 tracking-tight pr-12 md:pr-0 shrink-0"
           :class="{
             'text-2xl md:text-4xl': work.name.length > TITLE_LENGTH_THRESHOLD,
             'text-3xl md:text-5xl': work.name.length <= TITLE_LENGTH_THRESHOLD,
@@ -30,30 +53,12 @@
         >
           {{ work.name }}
         </h2>
-        <div class="overflow-y-auto pr-4 space-y-8">
+
+        <div class="overflow-y-auto pr-4 flex-1 min-h-0">
           <p
             class="text-base md:text-lg text-white/90 max-w-2xl leading-relaxed"
             v-html="work.description"
           ></p>
-
-          <div v-if="work.platforms" class="flex gap-6 items-center">
-            <div
-              v-for="platform in work.platforms"
-              :key="platform"
-              class="text-xl md:text-2xl text-white/90 hover:text-white transition-colors"
-            >
-              <font-awesome-icon
-                v-if="platform !== 'netflix'"
-                :icon="['fab', platform]"
-              />
-              <img
-                v-else
-                src="/icons/netflix.svg"
-                alt="Netflix"
-                class="w-5 h-5 md:w-6 md:h-6"
-              />
-            </div>
-          </div>
         </div>
 
         <div class="mt-6 flex justify-start">
@@ -115,6 +120,23 @@ const emit = defineEmits<{
 
 .watch-button:active {
   background: rgba(255, 255, 255, 0.15);
+}
+
+.platforms {
+  font-size: 0.875rem;
+  line-height: 1;
+}
+
+.platforms :deep(svg),
+.platforms :deep(.fa-icon) {
+  width: 0.875rem;
+  height: 0.875rem;
+}
+
+.platforms__netflix {
+  width: 0.875rem;
+  height: 0.875rem;
+  display: block;
 }
 
 .work-poster {
