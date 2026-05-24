@@ -63,7 +63,7 @@ const worksSectionStyle = computed(() => ({
     <section
       id="works"
       ref="worksSection"
-      class="home__works relative min-h-[100dvh] h-[100dvh] shrink-0 snap-start snap-always"
+      class="home__works relative min-h-[100dvh] h-[100dvh] max-md:h-auto shrink-0 snap-start snap-always"
       aria-label="Works gallery"
       :style="worksSectionStyle"
     >

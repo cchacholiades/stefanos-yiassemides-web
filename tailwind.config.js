@@ -41,7 +41,7 @@ module.exports = {
     screens: {
       ...defaultTheme.screens,
       xs: '475px',
-      md: '960px',
+      md: '768px',
     },
     extend: {
       fontFamily: {

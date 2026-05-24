@@ -1,6 +1,10 @@
 <template>
-  <div v-if="works" class="absolute inset-0 bg-black">
-    <div class="relative w-full h-full">
+  <div
+    v-if="works"
+    class="absolute inset-0 bg-black max-md:relative max-md:inset-auto max-md:min-h-[100dvh]"
+  >
+    <!-- Desktop slideshow (disabled below md / 768px) -->
+    <div class="relative hidden h-full w-full md:block">
       <SlideshowSlide
         v-for="(work, index) in works"
         :key="work.id"
@@ -26,33 +30,6 @@
         @player-ended="onPlayerEnded"
       />
 
-      <div
-        class="absolute bottom-8 left-0 right-0 flex justify-center items-center gap-4 z-[200] md:hidden"
-      >
-        <SlideshowNavArrow
-          direction="prev"
-          size="mobile"
-          :visible="previewIndex === null"
-          @click="prevSlide"
-          @nav-hover="handleNavHover"
-        />
-        <SlideshowNavArrow
-          direction="next"
-          size="mobile"
-          :visible="previewIndex === null"
-          @click="nextSlide"
-          @nav-hover="handleNavHover"
-        />
-      </div>
-
-      <SlideshowPlaybackControls
-        v-if="isPreviewPlaying"
-        :is-paused="isPlaybackPaused"
-        @rewind="rewindVideo"
-        @toggle="togglePlayback"
-        @close="stopPreview"
-      />
-
       <SlideshowIndicators
         :works="works"
         :current-index="currentIndex"
@@ -65,6 +42,35 @@
         @indicators-leave="handleIndicatorsLeave"
       />
     </div>
+
+    <!-- Mobile: vertical compact cards (hidden at md+ where slideshow shows) -->
+    <WorksGalleryMobile
+      v-if="works.length"
+      v-show="!isPreviewPlaying"
+      :works="works"
+      :has-video="hasVideo"
+      @play-preview="handleMobilePlayPreview"
+    />
+
+    <WorksGalleryMobileVideo
+      v-if="isPreviewPlaying"
+      :work="works[currentIndex]"
+      :slide-index="currentIndex"
+      :origin="origin"
+      @toggle-playback="togglePlayback"
+      @youtube-ready="(player, i) => registerYoutubePlayer(i, player)"
+      @vimeo-ready="(player, i) => registerVimeoPlayer(i, player)"
+      @vimeo-destroy="unregisterVimeoPlayer"
+      @player-ended="onPlayerEnded"
+    />
+
+    <SlideshowPlaybackControls
+      v-if="isPreviewPlaying"
+      :is-paused="isPlaybackPaused"
+      @rewind="rewindVideo"
+      @toggle="togglePlayback"
+      @close="stopPreview"
+    />
   </div>
 </template>
 
@@ -81,6 +87,7 @@ const {
   hoveredIndicatorIndex,
   isNavigatingWithArrows,
   activeIndexForBackground,
+  goToSlide,
   nextSlide: navNext,
   prevSlide: navPrev,
   showPreview,
@@ -147,20 +154,12 @@ function handleHover(isHoveredValue: boolean) {
   if (isNavHovered.value || previewIndex.value !== null) return
   isHovered.value = isHoveredValue
 }
+
+function handleMobilePlayPreview(index: number) {
+  if (currentIndex.value !== index) {
+    onNavigate()
+    goToSlide(index)
+  }
+  playPreview()
+}
 </script>
-
-<style scoped>
-@media (hover: none) {
-  .overlay-content {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@media (max-width: 640px) {
-  :deep(.max-w-4xl) {
-    padding-left: 2rem;
-    padding-right: 2rem;
-  }
-}
-</style>
