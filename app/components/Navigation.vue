@@ -27,11 +27,11 @@ const isSocialsBarHovered = ref(false)
     <div class="relative w-full mx-auto px-4 md:px-6 py-4">
       <div
         class="flex items-center"
-        :class="props.light ? 'justify-end' : 'justify-between'"
+        :class="props.light ? 'justify-end' : 'justify-end md:justify-between'"
       >
         <div
           v-show="!props.light"
-          class="site-nav__brand flex flex-col min-w-0"
+          class="site-nav__brand hidden md:flex flex-col min-w-0"
         >
           <h1 class="site-nav__title brand-name">Stefanos Yiassemides</h1>
           <p

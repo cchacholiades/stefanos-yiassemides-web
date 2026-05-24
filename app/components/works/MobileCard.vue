@@ -89,7 +89,7 @@ const emit = defineEmits<{
 .work-mobile-card__poster {
   position: relative;
   flex-shrink: 0;
-  width: 4.5rem;
+  width: 5.5rem;
   aspect-ratio: 2 / 3;
   border-radius: 0.5rem;
   overflow: hidden;
