@@ -44,6 +44,7 @@ export function useSlideNav(works: Ref<Work[] | null>) {
     options?: {
       onNavigate?: () => void
       onEscapePreview?: () => void
+      onTogglePlayback?: () => void
       isPreviewPlaying?: Ref<boolean>
     },
   ) {
@@ -55,7 +56,13 @@ export function useSlideNav(works: Ref<Work[] | null>) {
       return
     }
 
-    if (options?.isPreviewPlaying?.value) return
+    if (options?.isPreviewPlaying?.value) {
+      if (event.code === 'Space' && options.onTogglePlayback) {
+        event.preventDefault()
+        options.onTogglePlayback()
+      }
+      return
+    }
 
     if (event.key === 'ArrowLeft') {
       prevSlide(options.onNavigate)
@@ -96,6 +103,7 @@ export function useSlideNav(works: Ref<Work[] | null>) {
   function setupKeyboardListener(options?: {
     onNavigate?: () => void
     onEscapePreview?: () => void
+    onTogglePlayback?: () => void
     isPreviewPlaying?: Ref<boolean>
   }) {
     const handler = (e: KeyboardEvent) => handleKeyDown(e, options)

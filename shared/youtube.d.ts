@@ -8,9 +8,27 @@ declare namespace YT {
     CUED = 5,
   }
 
+  interface PlayerVars {
+    autoplay?: 0 | 1
+    controls?: 0 | 1
+    modestbranding?: 0 | 1
+    rel?: 0 | 1
+    iv_load_policy?: 1 | 3
+    playsinline?: 0 | 1
+    mute?: 0 | 1
+    enablejsapi?: 0 | 1
+    origin?: string
+    fs?: 0 | 1
+    disablekb?: 0 | 1
+    cc_load_policy?: 0 | 1
+    color?: 'red' | 'white'
+    loop?: 0 | 1
+    playlist?: string
+  }
+
   interface PlayerOptions {
     videoId?: string
-    playerVars?: Record<string, string | number>
+    playerVars?: PlayerVars
     events?: {
       onReady?: (event: { target: Player }) => void
       onStateChange?: (event: OnStateChangeEvent) => void

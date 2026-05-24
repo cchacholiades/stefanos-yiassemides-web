@@ -8,6 +8,7 @@ const props = defineProps<{
 
 const emit = defineEmits<{
   ready: [player: Player, index: number]
+  destroy: [index: number]
 }>()
 
 const container = ref<HTMLDivElement | null>(null)
@@ -33,7 +34,9 @@ onMounted(async () => {
 })
 
 onBeforeUnmount(() => {
-  playerInstance?.destroy().catch(() => {})
+  emit('destroy', props.playerIndex)
+  void playerInstance?.destroy().catch(() => {})
+  playerInstance = null
 })
 </script>
 

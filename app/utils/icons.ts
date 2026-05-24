@@ -5,6 +5,7 @@ import {
   faChevronDown,
   faChevronLeft,
   faChevronRight,
+  faPause,
   faPlay,
   faXmark,
 } from '@fortawesome/free-solid-svg-icons'
@@ -38,5 +39,6 @@ library.add(
   faChevronLeft,
   faChevronRight,
   faPlay,
+  faPause,
   faBackward,
 )

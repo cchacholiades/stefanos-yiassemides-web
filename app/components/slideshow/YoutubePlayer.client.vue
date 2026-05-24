@@ -1,8 +1,12 @@
 <script setup lang="ts">
+import type { YoutubeEmbedOptions } from '~/types/youtube-embed'
+import { buildYoutubePlayerVars } from '~/utils/youtubeEmbed'
+
 const props = defineProps<{
   videoId: string
   playerIndex: number
   origin: string
+  embedOptions?: YoutubeEmbedOptions
 }>()
 
 const emit = defineEmits<{
@@ -45,18 +49,11 @@ onMounted(async () => {
 
   playerInstance = new YT.Player(container.value, {
     videoId: props.videoId,
-    playerVars: {
-      autoplay: 0,
-      controls: 0,
-      modestbranding: 1,
-      rel: 0,
-      iv_load_policy: 3,
-      playsinline: 1,
-      mute: 1,
-      enablejsapi: 1,
-      origin: props.origin,
-      fs: 0,
-    },
+    playerVars: buildYoutubePlayerVars(
+      props.videoId,
+      props.origin,
+      props.embedOptions,
+    ),
     events: {
       onReady: () => {
         if (playerInstance) {

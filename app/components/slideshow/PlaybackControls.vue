@@ -14,6 +14,19 @@
 
     <button
       type="button"
+      class="glass-control glass-control--icon"
+      :aria-label="isPaused ? 'Play Video' : 'Pause Video'"
+      :title="isPaused ? 'Play Video' : 'Pause Video'"
+      @click="emit('toggle')"
+    >
+      <font-awesome-icon
+        :icon="['fas', isPaused ? 'play' : 'pause']"
+        class="text-sm"
+      />
+    </button>
+
+    <button
+      type="button"
       aria-label="Close Video"
       class="glass-control"
       title="Close Video"
@@ -26,8 +39,13 @@
 </template>
 
 <script setup lang="ts">
+defineProps<{
+  isPaused?: boolean
+}>()
+
 const emit = defineEmits<{
   rewind: []
+  toggle: []
   close: []
 }>()
 </script>

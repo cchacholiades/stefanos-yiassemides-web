@@ -29,13 +29,14 @@
         'opacity-0 pointer-events-none': !isPreviewPlaying,
         'opacity-100 pointer-events-auto': isPreviewPlaying,
       }"
-      @click="emit('stop-preview')"
+      @click="emit('toggle-playback')"
     >
       <SlideshowYoutubePlayer
         v-if="work.youtube && work.youtube[0]"
         :video-id="work.youtube[0]"
         :player-index="slideIndex"
         :origin="origin"
+        :embed-options="slideshowYoutubeEmbedOptions"
         class="youtube-player"
         @ready="(player, i) => emit('youtube-ready', player, i)"
         @ended="(i) => emit('player-ended', i)"
@@ -47,6 +48,7 @@
         :player-index="slideIndex"
         class="vimeo-player"
         @ready="(player, i) => emit('vimeo-ready', player, i)"
+        @destroy="(i) => emit('vimeo-destroy', i)"
       />
     </div>
 
@@ -121,7 +123,13 @@
 
 <script setup lang="ts">
 import type Player from '@vimeo/player'
+import type { YoutubeEmbedOptions } from '~/types/youtube-embed'
+import { DEFAULT_YOUTUBE_EMBED_OPTIONS } from '~/types/youtube-embed'
 import type { Work } from '~/types/work'
+
+/** Slideshow preview: minimal chrome, no cross-channel related videos. */
+const slideshowYoutubeEmbedOptions: YoutubeEmbedOptions =
+  DEFAULT_YOUTUBE_EMBED_OPTIONS
 
 defineProps<{
   work: Work
@@ -138,13 +146,14 @@ defineProps<{
 
 const emit = defineEmits<{
   'play-preview': []
-  'stop-preview': []
+  'toggle-playback': []
   hover: [isHovered: boolean]
   prev: []
   next: []
   'nav-hover': [isHovered: boolean]
   'youtube-ready': [player: YT.Player, index: number]
   'vimeo-ready': [player: Player, index: number]
+  'vimeo-destroy': [index: number]
   'player-ended': [index: number]
 }>()
 </script>
@@ -153,7 +162,7 @@ const emit = defineEmits<{
 .video-container {
   overflow: hidden;
   z-index: 1;
-  cursor: pointer;
+  cursor: default;
 }
 
 :deep(.youtube-player),

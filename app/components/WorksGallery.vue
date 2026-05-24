@@ -15,13 +15,14 @@
         :show-watch-button="hasVideo(work)"
         :origin="origin"
         @play-preview="playPreview"
-        @stop-preview="stopPreview"
+        @toggle-playback="togglePlayback"
         @hover="handleHover"
         @prev="prevSlide"
         @next="nextSlide"
         @nav-hover="handleNavHover"
         @youtube-ready="(player, i) => registerYoutubePlayer(i, player)"
         @vimeo-ready="(player, i) => registerVimeoPlayer(i, player)"
+        @vimeo-destroy="unregisterVimeoPlayer"
         @player-ended="onPlayerEnded"
       />
 
@@ -46,7 +47,9 @@
 
       <SlideshowPlaybackControls
         v-if="isPreviewPlaying"
+        :is-paused="isPlaybackPaused"
         @rewind="rewindVideo"
+        @toggle="togglePlayback"
         @close="stopPreview"
       />
 
@@ -102,12 +105,15 @@ const previewWork = computed(() => {
 
 const {
   isPreviewPlaying,
+  isPlaybackPaused,
   isHovered,
   origin,
   hasVideo,
   registerYoutubePlayer,
   registerVimeoPlayer,
+  unregisterVimeoPlayer,
   playPreview,
+  togglePlayback,
   stopPreview,
   rewindVideo,
   onPlayerEnded,
@@ -117,6 +123,7 @@ const {
 setupKeyboardListener({
   onNavigate,
   onEscapePreview: stopPreview,
+  onTogglePlayback: togglePlayback,
   isPreviewPlaying,
 })
 

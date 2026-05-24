@@ -9,9 +9,11 @@ export function useSlideVideo(
   const youtubePlayers = ref<(YT.Player | null)[]>([])
   const vimeoPlayers = ref<(Player | null)[]>([])
   const isPreviewPlaying = ref(false)
+  const isPlaybackPaused = ref(false)
   const isHovered = ref(true)
   const isIOS = ref(false)
   const hasUserInteracted = ref(false)
+  const pendingVimeoPlayIndex = ref<number | null>(null)
 
   const origin = computed(() =>
     import.meta.client ? window.location.origin : '',
@@ -36,6 +38,40 @@ export function useSlideVideo(
       vimeoPlayers.value.push(null)
     }
     vimeoPlayers.value[index] = player
+
+    if (pendingVimeoPlayIndex.value === index && isPreviewPlaying.value) {
+      pendingVimeoPlayIndex.value = null
+      playVimeo(player)
+    }
+  }
+
+  function unregisterVimeoPlayer(index: number) {
+    if (index < vimeoPlayers.value.length) {
+      vimeoPlayers.value[index] = null
+    }
+  }
+
+  /** Fire-and-forget — matches original sync setVolume/play; catches async rejections */
+  function playVimeo(player: Player) {
+    void player.setVolume(1).catch(() => {})
+    void player.play().catch(() => {})
+  }
+
+  function pauseVimeo(player: Player | null | undefined) {
+    if (!player) return
+    void player.pause().catch(() => {})
+  }
+
+  async function runVimeoAsync<T>(
+    player: Player | null | undefined,
+    action: (p: Player) => Promise<T>,
+  ): Promise<T | undefined> {
+    if (!player) return undefined
+    try {
+      return await action(player)
+    } catch {
+      return undefined
+    }
   }
 
   function stopAllVideos() {
@@ -47,16 +83,13 @@ export function useSlideVideo(
       }
     })
     vimeoPlayers.value.forEach((player) => {
-      try {
-        player?.pause()
-      } catch {
-        /* player not ready */
-      }
+      pauseVimeo(player)
     })
   }
 
   function playCurrentVideo() {
     stopAllVideos()
+
     const list = works.value
     if (!list) return
 
@@ -66,7 +99,6 @@ export function useSlideVideo(
     const yt = youtubePlayers.value[currentIndex.value]
     if (currentWork.youtube?.[0] && yt) {
       try {
-        // Embed is created with mute: 1; user clicked "Watch video" so enable audio
         yt.unMute()
         yt.playVideo()
         setTimeout(() => {
@@ -80,13 +112,14 @@ export function useSlideVideo(
       }
     }
 
-    const vimeo = vimeoPlayers.value[currentIndex.value]
-    if (currentWork.vimeo?.[0] && vimeo) {
-      try {
-        vimeo.setVolume(1)
-        vimeo.play()
-      } catch {
-        /* ignore */
+    const index = currentIndex.value
+    const vimeo = vimeoPlayers.value[index]
+    if (currentWork.vimeo?.[0]) {
+      if (vimeo) {
+        pendingVimeoPlayIndex.value = null
+        playVimeo(vimeo)
+      } else {
+        pendingVimeoPlayIndex.value = index
       }
     }
   }
@@ -97,6 +130,8 @@ export function useSlideVideo(
 
     const currentWork = list[currentIndex.value]
     if (!currentWork) return
+
+    isPlaybackPaused.value = false
 
     const yt = youtubePlayers.value[currentIndex.value]
     if (currentWork.youtube?.[0] && yt) {
@@ -110,11 +145,50 @@ export function useSlideVideo(
 
     const vimeo = vimeoPlayers.value[currentIndex.value]
     if (currentWork.vimeo?.[0] && vimeo) {
+      void vimeo.setCurrentTime(0).catch(() => {})
+      void vimeo.play().catch(() => {})
+    }
+  }
+
+  async function togglePlayback() {
+    if (!isPreviewPlaying.value) return
+
+    const list = works.value
+    if (!list) return
+
+    const currentWork = list[currentIndex.value]
+    if (!currentWork) return
+
+    const yt = youtubePlayers.value[currentIndex.value]
+    if (currentWork.youtube?.[0] && yt) {
       try {
-        vimeo.setCurrentTime(0)
-        vimeo.play()
+        const state = yt.getPlayerState()
+        if (
+          state === YT.PlayerState.PLAYING ||
+          state === YT.PlayerState.BUFFERING
+        ) {
+          yt.pauseVideo()
+          isPlaybackPaused.value = true
+        } else {
+          yt.playVideo()
+          isPlaybackPaused.value = false
+        }
       } catch {
-        /* ignore */
+        /* player not ready */
+      }
+      return
+    }
+
+    const vimeo = vimeoPlayers.value[currentIndex.value]
+    if (currentWork.vimeo?.[0] && vimeo) {
+      const paused = await runVimeoAsync(vimeo, (p) => p.getPaused())
+      if (paused === undefined) return
+      if (paused) {
+        await runVimeoAsync(vimeo, (p) => p.play())
+        isPlaybackPaused.value = false
+      } else {
+        await runVimeoAsync(vimeo, (p) => p.pause())
+        isPlaybackPaused.value = true
       }
     }
   }
@@ -128,6 +202,7 @@ export function useSlideVideo(
     if (hasVideo(currentWork)) {
       hasUserInteracted.value = true
       isPreviewPlaying.value = true
+      isPlaybackPaused.value = false
       isHovered.value = false
       playCurrentVideo()
     }
@@ -135,6 +210,8 @@ export function useSlideVideo(
 
   function stopPreview() {
     isPreviewPlaying.value = false
+    isPlaybackPaused.value = false
+    pendingVimeoPlayIndex.value = null
     isHovered.value = true
     stopAllVideos()
   }
@@ -157,6 +234,8 @@ export function useSlideVideo(
   function onNavigate() {
     stopAllVideos()
     isPreviewPlaying.value = false
+    isPlaybackPaused.value = false
+    pendingVimeoPlayIndex.value = null
   }
 
   onMounted(() => {
@@ -174,6 +253,7 @@ export function useSlideVideo(
     youtubePlayers,
     vimeoPlayers,
     isPreviewPlaying,
+    isPlaybackPaused,
     isHovered,
     isIOS,
     hasUserInteracted,
@@ -181,10 +261,12 @@ export function useSlideVideo(
     hasVideo,
     registerYoutubePlayer,
     registerVimeoPlayer,
+    unregisterVimeoPlayer,
     stopAllVideos,
     playCurrentVideo,
     rewindVideo,
     playPreview,
+    togglePlayback,
     stopPreview,
     onPlayerEnded,
     onNavigate,
