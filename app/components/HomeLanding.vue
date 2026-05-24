@@ -100,7 +100,8 @@ const contentStyle = computed(() => {
   height: 100%;
   min-height: 100%;
   object-fit: cover;
-  object-position: 72% 38%;
+  /* Source 1672×941 — subject sits ~right 40%; anchor on face, not frame center */
+  object-position: 75% 38%;
 }
 
 .landing__eyebrow {
@@ -160,12 +161,60 @@ const contentStyle = computed(() => {
 }
 
 @media (min-width: 768px) {
+  .landing__tagline {
+    font-size: 1.25rem;
+  }
+}
+
+@media (min-width: 1241px) {
   .landing__photo {
     object-position: 78% 36%;
   }
+}
+
+@media (min-width: 768px) and (max-width: 1240px) {
+  .landing__photo {
+    object-position: 74% 30%;
+  }
+}
+
+/* Copy sits over the dark shirt — light type (1240px+ uses dark ink) */
+@media (max-width: 1239px) {
+  .landing__copy {
+    text-shadow: 0 2px 20px rgba(0, 0, 0, 0.45);
+  }
+
+  .landing__eyebrow {
+    color: rgba(255, 255, 255, 0.65);
+  }
+
+  .landing__headline {
+    color: #fff;
+  }
+
+  .landing__headline-accent {
+    color: rgba(255, 255, 255, 0.92);
+  }
 
   .landing__tagline {
-    font-size: 1.25rem;
+    color: rgba(255, 255, 255, 0.8);
+  }
+
+  .landing__cta {
+    background: rgba(0, 0, 0, 0.25);
+    border-color: rgba(255, 255, 255, 0.22);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+
+  .landing__cta:hover {
+    background: rgba(255, 255, 255, 0.12);
+  }
+}
+
+@media (max-width: 767px) {
+  .landing__photo {
+    object-position: 81% 38%;
   }
 }
 
