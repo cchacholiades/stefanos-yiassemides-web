@@ -1,7 +1,5 @@
 <template>
-  <div v-if="works" class="fixed inset-0 bg-black">
-    <Navigation :is-preview-playing="isPreviewPlaying" />
-
+  <div v-if="works" class="absolute inset-0 bg-black">
     <div class="relative w-full h-full">
       <SlideshowSlide
         v-for="(work, index) in works"
@@ -28,7 +26,7 @@
       />
 
       <div
-        class="fixed bottom-8 left-0 right-0 flex justify-center items-center gap-4 z-[200] md:hidden"
+        class="absolute bottom-8 left-0 right-0 flex justify-center items-center gap-4 z-[200] md:hidden"
       >
         <SlideshowNavArrow
           direction="prev"
@@ -68,6 +66,10 @@
 </template>
 
 <script setup lang="ts">
+const emit = defineEmits<{
+  'preview-playing': [value: boolean]
+}>()
+
 const { works } = useSlideshowWorks()
 
 const {
@@ -113,6 +115,10 @@ const {
 } = useSlideVideo(works, currentIndex)
 
 setupKeyboardListener(onNavigate)
+
+watch(isPreviewPlaying, (playing) => emit('preview-playing', playing), {
+  immediate: true,
+})
 
 function nextSlide() {
   navNext(onNavigate)

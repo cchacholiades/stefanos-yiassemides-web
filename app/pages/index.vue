@@ -25,12 +25,42 @@ useHead({
     },
   ],
 })
+
+const scrollRoot = ref<HTMLElement | null>(null)
+const worksSection = ref<HTMLElement | null>(null)
+const isPreviewPlaying = ref(false)
+
+function scrollToWorks() {
+  const root = scrollRoot.value
+  if (!root) return
+
+  const top = worksSection.value?.offsetTop ?? root.clientHeight
+  root.scrollTo({ top, behavior: 'smooth' })
+}
 </script>
 
 <template>
-  <div class="pb-10">
-    <div class="relative max-w-screen-lg pl-4 pr-4 m-auto">
-      <WorksGallery class="min-h-screen" />
-    </div>
+  <div
+    ref="scrollRoot"
+    class="home h-[100dvh] overflow-y-auto overflow-x-hidden snap-y snap-mandatory scroll-smooth bg-black"
+  >
+    <Navigation :is-preview-playing="isPreviewPlaying" />
+
+    <HomeLanding @scroll-to-works="scrollToWorks" />
+
+    <section
+      id="works"
+      ref="worksSection"
+      class="home__works relative min-h-[100dvh] h-[100dvh] shrink-0 snap-start snap-always"
+      aria-label="Works gallery"
+    >
+      <WorksGallery @preview-playing="isPreviewPlaying = $event" />
+    </section>
   </div>
 </template>
+
+<style scoped>
+.home__works {
+  isolation: isolate;
+}
+</style>

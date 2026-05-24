@@ -26,10 +26,9 @@
       v-if="showWatchButton"
       class="absolute inset-0 transition-opacity duration-500 video-container"
       :class="{
-        'opacity-0': !isPreviewPlaying,
-        'opacity-100': isPreviewPlaying,
+        'opacity-0 pointer-events-none': !isPreviewPlaying,
+        'opacity-100 pointer-events-auto': isPreviewPlaying,
       }"
-      style="width: 100vw; height: 100vh"
       @click="emit('stop-preview')"
     >
       <SlideshowYoutubePlayer
@@ -152,55 +151,29 @@ const emit = defineEmits<{
 
 <style scoped>
 .video-container {
-  position: fixed !important;
-  top: 0 !important;
-  left: 0 !important;
-  width: 100vw !important;
-  height: 100vh !important;
   overflow: hidden;
   z-index: 1;
   cursor: pointer;
-  pointer-events: auto;
 }
 
-:deep(.youtube-player) {
-  position: fixed !important;
-  top: 0 !important;
-  left: 0 !important;
-  width: 100vw !important;
-  height: 100vh !important;
-  pointer-events: none;
-  z-index: 1;
-}
-
-:deep(.youtube-player iframe) {
-  position: fixed !important;
-  top: 50% !important;
-  left: 50% !important;
-  transform: translate(-50%, -50%) !important;
-  width: 100vw !important;
-  height: 100vh !important;
-  pointer-events: none;
-  z-index: 1;
-}
-
+:deep(.youtube-player),
 :deep(.vimeo-player) {
-  position: fixed !important;
-  top: 0 !important;
-  left: 0 !important;
-  width: 100vw !important;
-  height: 100vh !important;
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
   pointer-events: none;
   z-index: 1;
 }
 
+:deep(.youtube-player iframe),
 :deep(.vimeo-player iframe) {
-  position: fixed !important;
+  position: absolute !important;
   top: 50% !important;
   left: 50% !important;
   transform: translate(-50%, -50%) !important;
-  width: 100vw !important;
-  height: 100vh !important;
+  width: 100% !important;
+  height: 100% !important;
   pointer-events: none;
   z-index: 1;
 }

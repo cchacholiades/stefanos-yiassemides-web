@@ -3,7 +3,17 @@
 @tailwind utilities;
 
 @layer base {
+  html,
+  body,
+  #__nuxt {
+    height: 100%;
+  }
+
   html {
     font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+  }
+
+  body {
+    overflow: hidden;
   }
 }

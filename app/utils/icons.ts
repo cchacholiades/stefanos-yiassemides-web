@@ -2,6 +2,7 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import {
   faBackward,
   faBars,
+  faChevronDown,
   faChevronLeft,
   faChevronRight,
   faPlay,
@@ -33,6 +34,7 @@ library.add(
   faYoutube,
   faXmark,
   faBars,
+  faChevronDown,
   faChevronLeft,
   faChevronRight,
   faPlay,
