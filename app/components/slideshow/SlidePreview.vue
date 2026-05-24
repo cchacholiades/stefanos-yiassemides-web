@@ -1,10 +1,13 @@
 <template>
   <div
-    class="absolute inset-0 flex items-center justify-center transition-all duration-500 z-10 bg-black/80"
-    :class="{
-      'opacity-100': isVisible,
-      'opacity-0 pointer-events-none': !isVisible,
-    }"
+    class="absolute inset-0 flex items-center justify-center transition-all duration-500 z-10"
+    :class="[
+      videoPlayingBehind ? 'bg-black/45' : 'bg-black/80',
+      {
+        'opacity-100': isVisible,
+        'opacity-0 pointer-events-none': !isVisible,
+      },
+    ]"
   >
     <div class="w-full max-w-4xl mx-auto px-8 md:px-16">
       <div
@@ -43,6 +46,8 @@ import type { Work } from '~/types/work'
 defineProps<{
   work: Work | undefined
   isVisible: boolean
+  /** Lighter scrim so playback continues visibly underneath */
+  videoPlayingBehind?: boolean
 }>()
 </script>
 

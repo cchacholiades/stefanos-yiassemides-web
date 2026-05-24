@@ -1,49 +1,30 @@
 <template>
-  <div
-    class="absolute bottom-8 left-1/2 -translate-x-1/2 flex-col items-center gap-4 z-[150] hidden md:flex"
-  >
+  <nav class="slide-indicators-root" aria-label="Works slides">
     <div
-      class="flex gap-3 slide-indicators"
+      class="slide-indicators"
       @mouseenter="emit('indicators-enter')"
       @mouseleave="emit('indicators-leave')"
     >
-      <div
+      <button
         v-for="(work, index) in works"
         :key="work.id"
-        class="relative group flex items-center"
+        type="button"
+        class="indicator"
+        :class="{
+          'indicator--active': currentIndex === index,
+          'indicator--previewing':
+            hoveredIndicatorIndex === index && previewIndex !== null,
+        }"
+        :aria-label="`Go to ${work.name}`"
+        :aria-current="currentIndex === index ? 'true' : undefined"
         @mouseenter="emit('show-preview', index)"
         @mouseleave="emit('set-hovered-indicator', index)"
+        @click="emit('indicator-click', index)"
       >
-        <button
-          :class="[
-            currentIndex === index
-              ? 'bg-white scale-110 ring-4 ring-white/20'
-              : 'bg-white/30 hover:bg-white/50',
-            hoveredIndicatorIndex === index && previewIndex !== null
-              ? 'scale-150 ring-4 ring-white/40'
-              : '',
-            'w-3 h-3 rounded-full transition-all duration-150 ease-out',
-          ]"
-          class="focus:outline-none backdrop-blur-sm"
-          @click="emit('indicator-click', index)"
-        >
-          <div
-            :class="[
-              'absolute inset-0 rounded-full bg-white/10 transition-transform duration-150 ease-out',
-              hoveredIndicatorIndex === index && previewIndex !== null
-                ? 'scale-150 opacity-100'
-                : 'scale-0 opacity-0',
-            ]"
-          ></div>
-        </button>
-
-        <div
-          v-if="currentIndex === index"
-          class="absolute inset-0 rounded-full ring-2 ring-white/30 indicator-pulse"
-        ></div>
-      </div>
+        <span class="indicator__mark" aria-hidden="true"></span>
+      </button>
     </div>
-  </div>
+  </nav>
 </template>
 
 <script setup lang="ts">
@@ -66,56 +47,108 @@ const emit = defineEmits<{
 </script>
 
 <style scoped>
+.slide-indicators-root {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  z-index: 150;
+  display: none;
+  transform: translateX(-50%);
+}
+
+@media (min-width: 768px) {
+  .slide-indicators-root {
+    display: flex;
+  }
+}
+
 .slide-indicators {
-  z-index: 150 !important;
-  margin-bottom: 1rem;
-  padding: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.375rem 0.5rem;
   border-radius: 9999px;
   background: rgba(0, 0, 0, 0.2);
   backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   box-shadow:
     0 4px 6px -1px rgba(0, 0, 0, 0.1),
     0 2px 4px -1px rgba(0, 0, 0, 0.06);
 }
 
-.slide-indicators button {
+.indicator {
   position: relative;
-  overflow: hidden;
-  transform-origin: center;
-  will-change: transform, background-color;
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.5rem;
+  height: 2rem;
+  padding: 0 0.375rem;
+  border: none;
+  border-radius: 0.375rem;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
 }
 
-.slide-indicators button::before {
-  content: '';
-  position: absolute;
-  inset: -2px;
+.indicator--active {
+  min-width: 1.75rem;
+  padding-inline: 0.3125rem;
+  cursor: default;
+}
+
+.indicator:hover,
+.indicator:focus-visible {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.indicator:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.85);
+  outline-offset: 2px;
+}
+
+.indicator--previewing:not(.indicator--active) {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.indicator__mark {
+  display: block;
+  width: 0.4375rem;
+  height: 0.4375rem;
   border-radius: 9999px;
-  background: linear-gradient(
-    45deg,
-    rgba(255, 255, 255, 0.1),
-    rgba(255, 255, 255, 0.2)
-  );
-  opacity: 0;
-  transition: opacity 0.15s ease;
+  background: rgba(255, 255, 255, 0.35);
+  transition:
+    width 0.2s ease,
+    height 0.2s ease,
+    background-color 0.15s ease,
+    transform 0.2s ease;
+  transform-origin: center;
 }
 
-.slide-indicators button:hover::before {
-  opacity: 1;
+.indicator:hover .indicator__mark,
+.indicator--previewing .indicator__mark {
+  background: rgba(255, 255, 255, 0.65);
 }
 
-@keyframes indicatorPulse {
-  0%,
-  100% {
-    opacity: 0.5;
-    transform: scale(1);
-  }
-  50% {
-    opacity: 0.8;
-    transform: scale(1.1);
-  }
+.indicator--previewing .indicator__mark {
+  transform: scale(1.2);
 }
 
-.indicator-pulse {
-  animation: indicatorPulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+.indicator--active .indicator__mark {
+  width: 1.25rem;
+  height: 0.4375rem;
+  background: #fff;
+  transform: none;
+}
+
+.indicator--active:hover .indicator__mark {
+  background: #fff;
+}
+
+.indicator--active.indicator--previewing .indicator__mark {
+  width: 1.375rem;
+  transform: none;
 }
 </style>

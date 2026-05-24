@@ -26,10 +26,8 @@
       v-if="showWatchButton"
       class="absolute inset-0 transition-opacity duration-500 video-container"
       :class="{
-        'opacity-0 pointer-events-none':
-          !isPreviewPlaying || previewIndex !== null,
-        'opacity-100 pointer-events-auto':
-          isPreviewPlaying && previewIndex === null,
+        'opacity-0 pointer-events-none': !isPreviewPlaying,
+        'opacity-100 pointer-events-auto': isPreviewPlaying,
       }"
       @click="emit('toggle-playback')"
     >
@@ -119,6 +117,7 @@
       <SlideshowSlidePreview
         :work="previewWork"
         :is-visible="previewIndex !== null"
+        :video-playing-behind="isPreviewPlaying"
       />
     </div>
   </div>

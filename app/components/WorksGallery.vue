@@ -59,10 +59,10 @@
         :preview-index="previewIndex"
         :hovered-indicator-index="hoveredIndicatorIndex"
         @indicator-click="onIndicatorClick"
-        @show-preview="onShowPreview"
+        @show-preview="showPreview"
         @set-hovered-indicator="setHoveredIndicator"
-        @indicators-enter="onIndicatorsEnter"
-        @indicators-leave="onIndicatorsLeave"
+        @indicators-enter="handleIndicatorsEnter"
+        @indicators-leave="handleIndicatorsLeave"
       />
     </div>
   </div>
@@ -113,16 +113,12 @@ const {
   registerVimeoPlayer,
   unregisterVimeoPlayer,
   playPreview,
-  pauseCurrentVideo,
-  playCurrentVideo,
   togglePlayback,
   stopPreview,
   rewindVideo,
   onPlayerEnded,
   onNavigate,
 } = useSlideVideo(works, currentIndex)
-
-const pausedForIndicatorPreview = ref(false)
 
 setupKeyboardListener({
   onNavigate,
@@ -131,16 +127,9 @@ setupKeyboardListener({
   isPreviewPlaying,
 })
 
-watch(
-  isPreviewPlaying,
-  (playing) => {
-    emit('preview-playing', playing)
-    if (!playing) pausedForIndicatorPreview.value = false
-  },
-  {
-    immediate: true,
-  },
-)
+watch(isPreviewPlaying, (playing) => emit('preview-playing', playing), {
+  immediate: true,
+})
 
 function nextSlide() {
   navNext(onNavigate)
@@ -152,31 +141,6 @@ function prevSlide() {
 
 function onIndicatorClick(index: number) {
   handleIndicatorClick(index, onNavigate)
-}
-
-function pauseVideoForIndicatorPreview() {
-  if (isPreviewPlaying.value && !isPlaybackPaused.value) {
-    pauseCurrentVideo()
-    pausedForIndicatorPreview.value = true
-  }
-}
-
-function onShowPreview(index: number) {
-  pauseVideoForIndicatorPreview()
-  showPreview(index)
-}
-
-function onIndicatorsEnter() {
-  pauseVideoForIndicatorPreview()
-  handleIndicatorsEnter()
-}
-
-function onIndicatorsLeave() {
-  handleIndicatorsLeave()
-  if (pausedForIndicatorPreview.value) {
-    playCurrentVideo()
-    pausedForIndicatorPreview.value = false
-  }
 }
 
 function handleHover(isHoveredValue: boolean) {

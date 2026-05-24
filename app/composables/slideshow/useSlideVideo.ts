@@ -74,26 +74,6 @@ export function useSlideVideo(
     }
   }
 
-  function pauseCurrentVideo() {
-    const list = works.value
-    if (!list) return
-
-    const currentWork = list[currentIndex.value]
-    if (!currentWork) return
-
-    const yt = youtubePlayers.value[currentIndex.value]
-    if (currentWork.youtube?.[0] && yt) {
-      try {
-        yt.pauseVideo()
-      } catch {
-        /* ignore */
-      }
-      return
-    }
-
-    pauseVimeo(vimeoPlayers.value[currentIndex.value])
-  }
-
   function stopAllVideos() {
     youtubePlayers.value.forEach((player) => {
       try {
@@ -283,7 +263,6 @@ export function useSlideVideo(
     registerVimeoPlayer,
     unregisterVimeoPlayer,
     stopAllVideos,
-    pauseCurrentVideo,
     playCurrentVideo,
     rewindVideo,
     playPreview,
