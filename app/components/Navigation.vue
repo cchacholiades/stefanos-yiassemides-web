@@ -20,7 +20,7 @@ const isSocialsBarHovered = ref(false)
       props.light ? 'site-nav--light' : 'site-nav--dark',
       {
         'opacity-100': !props.isPreviewPlaying,
-        'opacity-0': props.isPreviewPlaying,
+        'opacity-0 pointer-events-none': props.isPreviewPlaying,
       },
     ]"
   >

@@ -39,11 +39,28 @@ export function useSlideNav(works: Ref<Work[] | null>) {
     }, 600)
   }
 
-  function handleKeyDown(event: KeyboardEvent, onNavigate?: () => void) {
+  function handleKeyDown(
+    event: KeyboardEvent,
+    options?: {
+      onNavigate?: () => void
+      onEscapePreview?: () => void
+      isPreviewPlaying?: Ref<boolean>
+    },
+  ) {
+    if (event.key === 'Escape') {
+      if (options?.isPreviewPlaying?.value && options.onEscapePreview) {
+        event.preventDefault()
+        options.onEscapePreview()
+      }
+      return
+    }
+
+    if (options?.isPreviewPlaying?.value) return
+
     if (event.key === 'ArrowLeft') {
-      prevSlide(onNavigate)
+      prevSlide(options.onNavigate)
     } else if (event.key === 'ArrowRight') {
-      nextSlide(onNavigate)
+      nextSlide(options.onNavigate)
     }
   }
 
@@ -76,8 +93,12 @@ export function useSlideNav(works: Ref<Work[] | null>) {
     isNavHovered.value = isHovered
   }
 
-  function setupKeyboardListener(onNavigate?: () => void) {
-    const handler = (e: KeyboardEvent) => handleKeyDown(e, onNavigate)
+  function setupKeyboardListener(options?: {
+    onNavigate?: () => void
+    onEscapePreview?: () => void
+    isPreviewPlaying?: Ref<boolean>
+  }) {
+    const handler = (e: KeyboardEvent) => handleKeyDown(e, options)
     onMounted(() => window.addEventListener('keydown', handler))
     onBeforeUnmount(() => window.removeEventListener('keydown', handler))
   }

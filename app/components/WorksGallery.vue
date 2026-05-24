@@ -114,7 +114,11 @@ const {
   onNavigate,
 } = useSlideVideo(works, currentIndex)
 
-setupKeyboardListener(onNavigate)
+setupKeyboardListener({
+  onNavigate,
+  onEscapePreview: stopPreview,
+  isPreviewPlaying,
+})
 
 watch(isPreviewPlaying, (playing) => emit('preview-playing', playing), {
   immediate: true,
