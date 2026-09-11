@@ -17,7 +17,7 @@ onMounted(() => {
     >
       <div class="cookie-banner__inner">
         <p class="cookie-banner__text">
-          Analytics help understand how visitors find and explore this portfolio.
+          This site uses analytics cookies to understand how visitors use the site.
         </p>
         <div class="cookie-banner__actions">
           <button
