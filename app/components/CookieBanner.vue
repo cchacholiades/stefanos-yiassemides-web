@@ -17,7 +17,7 @@ onMounted(() => {
     >
       <div class="cookie-banner__inner">
         <p class="cookie-banner__text">
-          We use analytics cookies to understand how visitors use this site.
+          I use analytics to understand how people find and explore my work.
         </p>
         <div class="cookie-banner__actions">
           <button
