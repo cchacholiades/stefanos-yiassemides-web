@@ -1,6 +1,24 @@
 <template>
   <div
-    v-if="works"
+    v-if="pending"
+    class="absolute inset-0 flex items-center justify-center bg-black"
+    aria-label="Loading works"
+  >
+    <span class="text-white/50 text-sm tracking-wide">Loading&hellip;</span>
+  </div>
+
+  <div
+    v-else-if="error"
+    class="absolute inset-0 flex items-center justify-center bg-black"
+    role="alert"
+  >
+    <span class="text-white/50 text-sm tracking-wide">
+      Could not load works. Please refresh the page.
+    </span>
+  </div>
+
+  <div
+    v-else
     class="absolute inset-0 bg-black max-md:relative max-md:inset-auto max-md:min-h-[100dvh]"
   >
     <!-- Desktop: grid first, slideshow after selecting a work -->
@@ -95,7 +113,7 @@ const emit = defineEmits<{
   'desktop-view-change': [view: 'grid' | 'slideshow' | null]
 }>()
 
-const { works } = useSlideshowWorks()
+const { works, pending, error } = useSlideshowWorks()
 
 const isDesktopSlideshowOpen = ref(false)
 const homeScrollRoot = useHomeScrollRoot()
