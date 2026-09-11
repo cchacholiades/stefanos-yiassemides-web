@@ -43,6 +43,7 @@ export default defineNuxtConfig({
       title:
         'Music Composer & Sound Designer for Film & Media | Stefanos Yiassemides',
       htmlAttrs: {
+        lang: 'en',
         class: 'antialiased bg-black text-white scrollbar-hide font-sans',
       },
       bodyAttrs: {
