@@ -231,6 +231,21 @@ export function useSlideVideo(
     }
   }
 
+  function handlePageHide() {
+    stopAllVideos()
+    isHovered.value = true
+  }
+
+  function handlePageShow(event: PageTransitionEvent) {
+    if (event.persisted) {
+      // Restored from bfcache — reset playback state so UI is consistent
+      isPreviewPlaying.value = false
+      isPlaybackPaused.value = false
+      pendingVimeoPlayIndex.value = null
+      isHovered.value = true
+    }
+  }
+
   function onNavigate() {
     stopAllVideos()
     isPreviewPlaying.value = false
@@ -243,10 +258,14 @@ export function useSlideVideo(
       /iPad|iPhone|iPod/.test(navigator.userAgent) &&
       !(window as Window & { MSStream?: unknown }).MSStream
     document.addEventListener('visibilitychange', handleVisibilityChange)
+    window.addEventListener('pagehide', handlePageHide)
+    window.addEventListener('pageshow', handlePageShow)
   })
 
   onBeforeUnmount(() => {
     document.removeEventListener('visibilitychange', handleVisibilityChange)
+    window.removeEventListener('pagehide', handlePageHide)
+    window.removeEventListener('pageshow', handlePageShow)
   })
 
   return {
