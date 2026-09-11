@@ -23,7 +23,7 @@
     />
 
     <div
-      v-if="showWatchButton"
+      v-if="showWatchButton && hasBeenActive"
       class="absolute inset-0 transition-opacity duration-500 video-container"
       :class="{
         'opacity-0 pointer-events-none': !isPreviewPlaying,
@@ -133,7 +133,7 @@ import type { Work } from '~/types/work'
 const slideshowYoutubeEmbedOptions: YoutubeEmbedOptions =
   DEFAULT_YOUTUBE_EMBED_OPTIONS
 
-defineProps<{
+const props = defineProps<{
   work: Work
   slideIndex: number
   isActive: boolean
@@ -145,6 +145,13 @@ defineProps<{
   showWatchButton: boolean
   origin: string
 }>()
+
+const hasBeenActive = ref(false)
+watch(
+  () => props.isActive,
+  (active) => { if (active) hasBeenActive.value = true },
+  { immediate: true },
+)
 
 const emit = defineEmits<{
   'play-preview': []
