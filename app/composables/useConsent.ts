@@ -2,7 +2,11 @@ type ConsentStatus = 'granted' | 'denied' | null
 
 const STORAGE_KEY = 'cookie-consent'
 
-const consentStatus = ref<ConsentStatus>(null)
+const consentStatus = ref<ConsentStatus>(
+  import.meta.client
+    ? (localStorage.getItem(STORAGE_KEY) as ConsentStatus)
+    : null,
+)
 
 function updateGtag(status: 'granted' | 'denied') {
   window.dataLayer?.push({
@@ -18,14 +22,6 @@ function updateGtag(status: 'granted' | 'denied') {
 }
 
 export function useConsent() {
-  function init() {
-    const stored = localStorage.getItem(STORAGE_KEY) as ConsentStatus
-    consentStatus.value = stored
-    if (stored === 'granted' || stored === 'denied') {
-      updateGtag(stored)
-    }
-  }
-
   function accept() {
     consentStatus.value = 'granted'
     localStorage.setItem(STORAGE_KEY, 'granted')
@@ -38,5 +34,5 @@ export function useConsent() {
     updateGtag('denied')
   }
 
-  return { consentStatus, init, accept, decline }
+  return { consentStatus, accept, decline }
 }

@@ -1,9 +1,5 @@
 <script setup lang="ts">
-const { consentStatus, init, accept, decline } = useConsent()
-
-onMounted(() => {
-  init()
-})
+const { consentStatus, accept, decline } = useConsent()
 </script>
 
 <template>

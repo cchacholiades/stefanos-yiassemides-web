@@ -3,15 +3,17 @@ const GTM_ID = 'GTM-TS9GHDL'
 export default defineNuxtPlugin(() => {
   if (!import.meta.client) return
 
-  // Google Consent Mode v2 — default all to denied before GTM loads
   window.dataLayer = window.dataLayer || []
+
+  // Consent Mode v2 — default denied; restore prior decision immediately if available
+  const storedConsent = localStorage.getItem('cookie-consent') as 'granted' | 'denied' | null
   window.dataLayer.push('consent', 'default', {
-    analytics_storage: 'denied',
-    ad_storage: 'denied',
-    functionality_storage: 'denied',
-    personalization_storage: 'denied',
+    analytics_storage: storedConsent ?? 'denied',
+    ad_storage: storedConsent ?? 'denied',
+    functionality_storage: storedConsent ?? 'denied',
+    personalization_storage: storedConsent ?? 'denied',
     security_storage: 'granted',
-    wait_for_update: 500,
+    ...(!storedConsent && { wait_for_update: 500 }),
   })
 
   window.dataLayer.push({

@@ -1,4 +1,6 @@
 <template>
   <NuxtPage />
-  <CookieBanner />
+  <ClientOnly>
+    <CookieBanner />
+  </ClientOnly>
 </template>
