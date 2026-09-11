@@ -87,45 +87,44 @@ onMounted(() => {
   flex-shrink: 0;
 }
 
-/* Mirrors .landing__cta (mobile dark-bg variant) exactly */
+/* Same shape/weight/transitions as .landing__cta */
 .cookie-banner__btn {
   display: inline-flex;
   align-items: center;
+  gap: 0.625rem;
   padding: 0.75rem 1.25rem;
   border: 1px solid transparent;
   border-radius: 9999px;
   font-weight: 500;
   cursor: pointer;
   transition: background 0.15s ease, transform 0.15s ease;
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
 }
 
 .cookie-banner__btn:active {
   transform: scale(0.98);
 }
 
-/* Secondary — subdued glass */
+/* Primary — inverted landing__cta for dark background: white fill, dark text */
+.cookie-banner__btn--accept {
+  background: #fff;
+  border-color: rgba(255, 255, 255, 0.12);
+  color: #0d1011;
+}
+
+.cookie-banner__btn--accept:hover {
+  background: rgba(255, 255, 255, 0.88);
+}
+
+/* Secondary — ghost outline */
 .cookie-banner__btn--decline {
   background: transparent;
-  border-color: rgba(255, 255, 255, 0.12);
-  color: rgba(255, 255, 255, 0.65);
+  border-color: rgba(255, 255, 255, 0.22);
+  color: rgba(255, 255, 255, 0.72);
 }
 
 .cookie-banner__btn--decline:hover {
   background: rgba(255, 255, 255, 0.06);
-  color: rgba(255, 255, 255, 0.9);
-}
-
-/* Primary — matches mobile landing CTA: rgba dark glass + visible border */
-.cookie-banner__btn--accept {
-  background: rgba(0, 0, 0, 0.25);
-  border-color: rgba(255, 255, 255, 0.22);
   color: #fff;
-}
-
-.cookie-banner__btn--accept:hover {
-  background: rgba(255, 255, 255, 0.12);
 }
 
 .banner-enter-active,
