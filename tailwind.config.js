@@ -58,5 +58,6 @@ module.exports = {
       },
     },
   },
+  safelist: ['text-yellow', 'font-semibold', 'hover:underline'],
   plugins: [require('tailwind-scrollbar-hide')],
 }
