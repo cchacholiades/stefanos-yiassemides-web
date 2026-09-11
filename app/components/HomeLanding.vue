@@ -6,7 +6,7 @@
   >
     <div class="landing__media absolute inset-0" :style="mediaStyle">
       <img
-        src="/about.png"
+        src="/about.webp"
         alt="Stefanos Yiassemides"
         class="landing__photo"
         width="1200"
