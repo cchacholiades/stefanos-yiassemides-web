@@ -62,7 +62,7 @@ onMounted(() => {
   width: 100%;
   max-width: 1280px;
   margin: 0 auto;
-  padding: 1rem 1.5rem;
+  padding: 0.625rem 1.5rem;
 }
 
 @media (max-width: 640px) {
@@ -92,7 +92,7 @@ onMounted(() => {
   display: inline-flex;
   align-items: center;
   gap: 0.625rem;
-  padding: 0.75rem 1.25rem;
+  padding: 0.4rem 1rem;
   border: 1px solid transparent;
   border-radius: 9999px;
   font-weight: 500;
