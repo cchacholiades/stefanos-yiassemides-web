@@ -10,6 +10,8 @@
       class="works-gallery-mobile-video__bg"
       loading="lazy"
       :alt="work.name"
+      format="webp"
+      quality="50"
     />
 
     <div class="works-gallery-mobile-video__player">

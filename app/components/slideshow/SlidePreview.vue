@@ -26,6 +26,10 @@
             class="w-full h-full object-cover"
             loading="eager"
             :alt="work.name"
+            width="256"
+            height="384"
+            format="webp"
+            quality="80"
           />
           <div class="absolute inset-0 border border-white/10 rounded-lg"></div>
         </div>

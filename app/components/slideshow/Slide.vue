@@ -20,6 +20,8 @@
       }"
       loading="lazy"
       :alt="backgroundWork.name"
+      format="webp"
+      quality="50"
     />
 
     <div
