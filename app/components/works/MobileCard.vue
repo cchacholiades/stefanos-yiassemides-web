@@ -1,7 +1,7 @@
 <template>
   <article class="work-mobile-card" :aria-label="work.name">
     <div class="work-mobile-card__poster">
-      <NuxtImg
+      <img
         :src="`/${work.img}`"
         class="work-mobile-card__img"
         loading="lazy"

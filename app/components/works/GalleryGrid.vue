@@ -13,7 +13,7 @@
           @click="emit('select', index)"
         >
           <div class="works-gallery-grid__poster">
-            <NuxtImg
+            <img
               :src="`/${work.img}`"
               class="works-gallery-grid__img"
               loading="lazy"

@@ -170,9 +170,7 @@ export default defineNuxtConfig({
     preset: 'static',
   },
 
-  image: {
-    provider: 'none',
-  },
+  image: {},
 
   googleFonts: {
     families: {

@@ -7,7 +7,7 @@
       <div
         class="relative aspect-[2/3] rounded-lg overflow-hidden shadow-2xl work-poster"
       >
-        <NuxtImg
+        <img
           :src="`/${work.img}`"
           class="w-full h-full object-cover"
           loading="lazy"

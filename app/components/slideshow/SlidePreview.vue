@@ -20,7 +20,7 @@
         <div
           class="relative w-full aspect-[2/3] rounded-lg overflow-hidden shadow-2xl preview-poster"
         >
-          <NuxtImg
+          <img
             v-if="work"
             :src="`/${work.img}`"
             class="w-full h-full object-cover"

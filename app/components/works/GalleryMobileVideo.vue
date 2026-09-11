@@ -4,7 +4,7 @@
     class="works-gallery-mobile-video absolute inset-0 z-50 hidden max-md:block overflow-hidden"
     @click="emit('toggle-playback')"
   >
-    <NuxtImg
+    <img
       v-if="work"
       :src="`/${work.img}`"
       class="works-gallery-mobile-video__bg"

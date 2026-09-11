@@ -7,7 +7,7 @@
       'opacity-0': !isActive,
     }"
   >
-    <NuxtImg
+    <img
       v-if="backgroundWork"
       :src="`/${backgroundWork.img}`"
       class="w-full h-full object-cover blur-2xl"
