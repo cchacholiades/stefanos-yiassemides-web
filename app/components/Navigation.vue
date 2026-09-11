@@ -76,7 +76,7 @@ function handleBrandClick() {
             href="https://soundcloud.com/stefanos-yiassemides"
             title="Stefanos Yiassemides on Soundcloud"
             target="_blank"
-            rel="noopener"
+            rel="noopener noreferrer"
           >
             <FontAwesomeIcon :icon="['fab', 'soundcloud']" />
           </a>
@@ -85,7 +85,7 @@ function handleBrandClick() {
             href="https://www.linkedin.com/in/stefanos-yiassemides-99870579"
             title="Stefanos Yiassemides on LinkedIn"
             target="_blank"
-            rel="noopener"
+            rel="noopener noreferrer"
           >
             <FontAwesomeIcon :icon="['fab', 'linkedin']" />
           </a>
@@ -94,7 +94,7 @@ function handleBrandClick() {
             href="https://www.instagram.com/stefyiassemidesmusic"
             title="Stefanos Yiassemides on Instagram"
             target="_blank"
-            rel="noopener"
+            rel="noopener noreferrer"
           >
             <FontAwesomeIcon :icon="['fab', 'instagram']" />
           </a>
@@ -103,7 +103,7 @@ function handleBrandClick() {
             href="https://www.imdb.com/name/nm9390509/"
             title="Stefanos Yiassemides on IMDB"
             target="_blank"
-            rel="noopener"
+            rel="noopener noreferrer"
           >
             <FontAwesomeIcon :icon="['fab', 'imdb']" />
           </a>
@@ -112,7 +112,7 @@ function handleBrandClick() {
             href="https://twitter.com/Stef_Yia_Music"
             title="Stefanos Yiassemides on Twitter"
             target="_blank"
-            rel="noopener"
+            rel="noopener noreferrer"
           >
             <FontAwesomeIcon :icon="['fab', 'twitter']" />
           </a>
