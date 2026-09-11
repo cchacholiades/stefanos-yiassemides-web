@@ -5,14 +5,13 @@
     aria-label="Introduction"
   >
     <div class="landing__media absolute inset-0" :style="mediaStyle">
-      <img
+      <NuxtImg
         src="/about.webp"
         alt="Stefanos Yiassemides"
         class="landing__photo"
-        width="1200"
-        height="1600"
-        fetchpriority="high"
+        loading="eager"
         decoding="async"
+        fetchpriority="high"
       />
     </div>
 
