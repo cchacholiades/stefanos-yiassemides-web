@@ -83,7 +83,7 @@
     "img": "works/8.jpeg",
     "name": "Mega Bloks (3 Seasons)",
     "genre": ["Animation"],
-    "description": "Animated series for kids based on the Mega Bloks&reg; line of construction set toys. Produced by <a class=\"font-semibold text-yellow hover:underline\" href=\"https://www.moonbug.com/\" rel=\"noopener\" target=\"_blank\" rel=\"nofollow\">Moonbug Entertainment</a>.",
+    "description": "Animated series for kids based on the Mega Bloks&reg; line of construction set toys. Produced by <a class=\"font-semibold text-yellow hover:underline\" href=\"https://www.moonbug.com/\" rel=\"noopener noreferrer nofollow\" target=\"_blank\">Moonbug Entertainment</a>.",
     "youtube": ["2KN7v75srZQ"],
     "youtube_playlist": "https://www.youtube.com/playlist?list=PLKCNCfD_4af8sxGFvIuYG3k9nvJQkv58r",
     "platforms": ["youtube"],
