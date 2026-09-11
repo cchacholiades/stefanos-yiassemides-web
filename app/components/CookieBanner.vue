@@ -87,44 +87,45 @@ onMounted(() => {
   flex-shrink: 0;
 }
 
-/* Matches HomeLanding .landing__cta */
+/* Mirrors .landing__cta (mobile dark-bg variant) exactly */
 .cookie-banner__btn {
   display: inline-flex;
   align-items: center;
-  padding: 0.5rem 1.125rem;
+  padding: 0.75rem 1.25rem;
+  border: 1px solid transparent;
   border-radius: 9999px;
-  font-size: 0.8125rem;
   font-weight: 500;
   cursor: pointer;
   transition: background 0.15s ease, transform 0.15s ease;
-  border: 1px solid transparent;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
 
 .cookie-banner__btn:active {
   transform: scale(0.98);
 }
 
-/* Ghost — matches mobile landing CTA */
+/* Secondary — subdued glass */
 .cookie-banner__btn--decline {
-  background: rgba(255, 255, 255, 0.06);
-  border-color: rgba(255, 255, 255, 0.18);
-  color: rgba(255, 255, 255, 0.72);
+  background: transparent;
+  border-color: rgba(255, 255, 255, 0.12);
+  color: rgba(255, 255, 255, 0.65);
 }
 
 .cookie-banner__btn--decline:hover {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.06);
+  color: rgba(255, 255, 255, 0.9);
+}
+
+/* Primary — matches mobile landing CTA: rgba dark glass + visible border */
+.cookie-banner__btn--accept {
+  background: rgba(0, 0, 0, 0.25);
+  border-color: rgba(255, 255, 255, 0.22);
   color: #fff;
 }
 
-/* Filled — matches desktop landing CTA */
-.cookie-banner__btn--accept {
-  background: #fff;
-  border-color: rgba(255, 255, 255, 0.12);
-  color: #0d1011;
-}
-
 .cookie-banner__btn--accept:hover {
-  background: rgba(255, 255, 255, 0.88);
+  background: rgba(255, 255, 255, 0.12);
 }
 
 .banner-enter-active,
