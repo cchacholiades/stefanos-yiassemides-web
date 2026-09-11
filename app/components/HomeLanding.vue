@@ -22,10 +22,10 @@
     >
       <div class="landing__copy w-full max-w-xl">
         <p class="landing__eyebrow brand-name">Stefanos Yiassemides</p>
-        <h2 class="landing__headline">
+        <h1 class="landing__headline">
           Music Composer
           <span class="landing__headline-accent">&amp; Sound Designer</span>
-        </h2>
+        </h1>
         <p class="landing__tagline">for Film &amp; Media</p>
 
         <button
