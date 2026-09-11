@@ -1,8 +1,6 @@
 export interface YoutubeEmbedOptions {
   /** Native player controls (play, volume, timeline). */
   controls?: boolean
-  /** Hide YouTube logo when controls are visible. */
-  modestBranding?: boolean
   /**
    * Related videos from other channels on pause/end.
    * When false, YouTube may still show same-channel suggestions.
@@ -26,7 +24,6 @@ export interface YoutubeEmbedOptions {
 
 export const DEFAULT_YOUTUBE_EMBED_OPTIONS = {
   controls: false,
-  modestBranding: true,
   relatedVideos: false,
   annotations: false,
   fullscreen: false,

@@ -11,7 +11,6 @@ export function buildYoutubePlayerVars(
   const playerVars: Record<string, string | number> = {
     autoplay: opts.autoplay ? 1 : 0,
     controls: opts.controls ? 1 : 0,
-    modestbranding: opts.modestBranding ? 1 : 0,
     rel: opts.relatedVideos ? 1 : 0,
     iv_load_policy: opts.annotations ? 1 : 3,
     playsinline: opts.playsinline ? 1 : 0,
