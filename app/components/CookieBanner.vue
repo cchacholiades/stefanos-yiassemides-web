@@ -17,7 +17,7 @@ onMounted(() => {
     >
       <div class="cookie-banner__inner">
         <p class="cookie-banner__text">
-          I use analytics to understand how people find and explore my work.
+          Analytics help understand how visitors find and explore this portfolio.
         </p>
         <div class="cookie-banner__actions">
           <button
