@@ -7,6 +7,7 @@ export function useSlideNav(works: Ref<Work[] | null>) {
   const hoveredIndicatorIndex = ref<number | null>(null)
   const isNavigatingWithArrows = ref(false)
   const isNavHovered = ref(false)
+  let arrowAnimTimeout: ReturnType<typeof setTimeout> | null = null
 
   const activeIndexForBackground = computed(() =>
     previewIndex.value !== null ? previewIndex.value : currentIndex.value,
@@ -18,25 +19,35 @@ export function useSlideNav(works: Ref<Work[] | null>) {
     hoveredIndicatorIndex.value = null
   }
 
+  function clearArrowAnim() {
+    if (arrowAnimTimeout !== null) {
+      clearTimeout(arrowAnimTimeout)
+      arrowAnimTimeout = null
+    }
+  }
+
+  function setArrowAnim() {
+    clearArrowAnim()
+    isNavigatingWithArrows.value = true
+    arrowAnimTimeout = setTimeout(() => {
+      isNavigatingWithArrows.value = false
+      arrowAnimTimeout = null
+    }, 600)
+  }
+
   function nextSlide(onNavigate?: () => void) {
     if (!works.value?.length) return
     onNavigate?.()
-    isNavigatingWithArrows.value = true
+    setArrowAnim()
     currentIndex.value = (currentIndex.value + 1) % works.value.length
-    setTimeout(() => {
-      isNavigatingWithArrows.value = false
-    }, 600)
   }
 
   function prevSlide(onNavigate?: () => void) {
     if (!works.value?.length) return
     onNavigate?.()
-    isNavigatingWithArrows.value = true
+    setArrowAnim()
     currentIndex.value =
       (currentIndex.value - 1 + works.value.length) % works.value.length
-    setTimeout(() => {
-      isNavigatingWithArrows.value = false
-    }, 600)
   }
 
   function handleKeyDown(
@@ -108,7 +119,10 @@ export function useSlideNav(works: Ref<Work[] | null>) {
   }) {
     const handler = (e: KeyboardEvent) => handleKeyDown(e, options)
     onMounted(() => window.addEventListener('keydown', handler))
-    onBeforeUnmount(() => window.removeEventListener('keydown', handler))
+    onBeforeUnmount(() => {
+      window.removeEventListener('keydown', handler)
+      clearArrowAnim()
+    })
   }
 
   return {
