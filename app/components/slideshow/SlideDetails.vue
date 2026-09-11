@@ -14,8 +14,6 @@
           :alt="work.name"
           width="180"
           height="270"
-          format="webp"
-          quality="85"
         />
         <div class="absolute inset-0 border border-white/10 rounded-lg"></div>
       </div>

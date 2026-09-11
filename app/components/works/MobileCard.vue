@@ -8,8 +8,6 @@
         :alt="work.name"
         width="72"
         height="108"
-        format="webp"
-        quality="80"
       />
       <div class="work-mobile-card__poster-border" aria-hidden="true" />
     </div>

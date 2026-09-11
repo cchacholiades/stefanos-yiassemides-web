@@ -20,8 +20,6 @@
               :alt="work.name"
               width="160"
               height="240"
-              format="webp"
-              quality="80"
             />
             <div class="works-gallery-grid__poster-border" aria-hidden="true" />
           </div>

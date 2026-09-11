@@ -171,7 +171,7 @@ export default defineNuxtConfig({
   },
 
   image: {
-    format: ['webp'],
+    provider: 'none',
   },
 
   googleFonts: {
