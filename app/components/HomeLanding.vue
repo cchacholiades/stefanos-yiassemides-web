@@ -12,6 +12,11 @@
         loading="eager"
         decoding="async"
         fetchpriority="high"
+        width="1672"
+        height="941"
+        sizes="100vw sm:100vw md:100vw"
+        format="webp"
+        preload
       />
     </div>
 

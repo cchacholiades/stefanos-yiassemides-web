@@ -2,12 +2,12 @@
   <article class="work-mobile-card" :aria-label="work.name">
     <div class="work-mobile-card__poster">
       <img
-        :src="`/${work.img}`"
+        :src="`/${work.img.replace('works/', 'works/thumbs/')}`"
         class="work-mobile-card__img"
         loading="lazy"
         :alt="work.name"
-        width="72"
-        height="108"
+        width="88"
+        height="132"
       />
       <div class="work-mobile-card__poster-border" aria-hidden="true" />
     </div>

@@ -2,11 +2,9 @@ type ConsentStatus = 'granted' | 'denied' | null
 
 const STORAGE_KEY = 'cookie-consent'
 
-const consentStatus = ref<ConsentStatus>(
-  import.meta.client
-    ? (localStorage.getItem(STORAGE_KEY) as ConsentStatus)
-    : null,
-)
+// Start null on both server and client so SSR and initial hydration match.
+// Actual value is read from localStorage after mount.
+const consentStatus = ref<ConsentStatus>(null)
 
 function updateGtag(status: 'granted' | 'denied') {
   window.dataLayer?.push({
@@ -22,6 +20,10 @@ function updateGtag(status: 'granted' | 'denied') {
 }
 
 export function useConsent() {
+  onMounted(() => {
+    consentStatus.value = localStorage.getItem(STORAGE_KEY) as ConsentStatus
+  })
+
   function accept() {
     consentStatus.value = 'granted'
     localStorage.setItem(STORAGE_KEY, 'granted')

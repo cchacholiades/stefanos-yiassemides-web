@@ -116,10 +116,7 @@ export default defineNuxtConfig({
       link: [
         { rel: 'canonical', href: 'https://stefanosyiassemides.com' },
         { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-        {
-          rel: 'stylesheet',
-          href: '/css/nuxt-google-fonts.css',
-        },
+        { rel: 'preconnect', href: 'https://www.googletagmanager.com' },
       ],
       script: [
         {
@@ -168,9 +165,31 @@ export default defineNuxtConfig({
 
   nitro: {
     preset: 'static',
+    routeRules: {
+      '/_nuxt/**': { headers: { 'Cache-Control': 'public, max-age=31536000, immutable' } },
+      '/works/**': { headers: { 'Cache-Control': 'public, max-age=31536000, immutable' } },
+      '/css/**': { headers: { 'Cache-Control': 'public, max-age=31536000, immutable' } },
+      '/icons/**': { headers: { 'Cache-Control': 'public, max-age=31536000, immutable' } },
+      '/fonts/**': { headers: { 'Cache-Control': 'public, max-age=31536000, immutable' } },
+      '/*.webp': { headers: { 'Cache-Control': 'public, max-age=31536000, immutable' } },
+      '/*.png': { headers: { 'Cache-Control': 'public, max-age=31536000, immutable' } },
+      '/*.jpg': { headers: { 'Cache-Control': 'public, max-age=31536000, immutable' } },
+      '/*.jpeg': { headers: { 'Cache-Control': 'public, max-age=31536000, immutable' } },
+      '/*.svg': { headers: { 'Cache-Control': 'public, max-age=31536000, immutable' } },
+      '/sw.js': { headers: { 'Cache-Control': 'public, max-age=0, must-revalidate' } },
+    },
   },
 
-  image: {},
+  image: {
+    screens: {
+      xs: 375,
+      sm: 640,
+      md: 768,
+      lg: 1024,
+      xl: 1280,
+    },
+    quality: 80,
+  },
 
   googleFonts: {
     families: {
