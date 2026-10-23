@@ -68,22 +68,27 @@ const emit = defineEmits<{
   position: absolute;
   inset: 0;
   z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 :deep(.youtube-player) {
-  position: absolute !important;
-  inset: 0 !important;
+  position: relative !important;
   width: 100% !important;
-  height: 100% !important;
+  height: auto !important;
+  aspect-ratio: 16 / 9 !important;
   pointer-events: none;
   z-index: 1;
 }
 
-:deep(.youtube-player iframe) {
+:deep(.youtube-player iframe),
+:deep(iframe) {
   position: absolute !important;
-  top: 50% !important;
-  left: 50% !important;
-  transform: translate(-50%, -50%) !important;
+  inset: 0 !important;
+  top: 0 !important;
+  left: 0 !important;
+  transform: none !important;
   width: 100% !important;
   height: 100% !important;
   pointer-events: none;
