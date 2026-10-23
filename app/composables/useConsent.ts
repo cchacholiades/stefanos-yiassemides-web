@@ -6,11 +6,16 @@ const STORAGE_KEY = 'cookie-consent'
 // Actual value is read from localStorage after mount.
 const consentStatus = ref<ConsentStatus>(null)
 
+function gtag(..._args: unknown[]) {
+  // eslint-disable-next-line prefer-rest-params
+  window.dataLayer?.push(arguments as unknown as Record<string, unknown>)
+}
+
 function updateGtag(status: 'granted' | 'denied') {
   window.dataLayer?.push({
     event: 'consent_update',
   })
-  window.dataLayer?.push('consent', 'update', {
+  gtag('consent', 'update', {
     analytics_storage: status,
     ad_storage: status,
     functionality_storage: status,

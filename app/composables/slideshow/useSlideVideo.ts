@@ -27,6 +27,10 @@ export function useSlideVideo(
       youtubePlayers.value.push(null)
     }
     youtubePlayers.value[index] = player
+    // On mobile the player mounts after playPreview() fires, so play it now if still active.
+    if (isPreviewPlaying.value && index === currentIndex.value) {
+      playCurrentVideo()
+    }
   }
 
   function stopAllVideos() {

@@ -1,5 +1,12 @@
 const GTM_ID = 'GTM-TS9GHDL'
 
+// gtag() wraps arguments in an Arguments object so GTM processes consent commands correctly.
+// dataLayer.push('consent', ...) pushes plain strings which GTM ignores for consent signalling.
+function gtag(..._args: unknown[]) {
+  // eslint-disable-next-line prefer-rest-params
+  window.dataLayer?.push(arguments as unknown as Record<string, unknown>)
+}
+
 export default defineNuxtPlugin(() => {
   if (!import.meta.client) return
 
@@ -7,7 +14,7 @@ export default defineNuxtPlugin(() => {
 
   // Consent Mode v2 — default denied; restore prior decision immediately if available
   const storedConsent = localStorage.getItem('cookie-consent') as 'granted' | 'denied' | null
-  window.dataLayer.push('consent', 'default', {
+  gtag('consent', 'default', {
     analytics_storage: storedConsent ?? 'denied',
     ad_storage: storedConsent ?? 'denied',
     functionality_storage: storedConsent ?? 'denied',

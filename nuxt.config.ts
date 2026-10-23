@@ -26,7 +26,6 @@ export default defineNuxtConfig({
         '@fortawesome/free-brands-svg-icons',
         '@fortawesome/free-solid-svg-icons',
         '@fortawesome/vue-fontawesome',
-        '@vimeo/player',
         '@vue/devtools-core',
         '@vue/devtools-kit',
       ],
@@ -94,8 +93,8 @@ export default defineNuxtConfig({
         { property: 'og:type', content: 'website' },
         { property: 'og:url', content: 'https://stefanosyiassemides.com/' },
         { property: 'og:image', content: '/about.png' },
-        { property: 'og:image:width', content: '1200' },
-        { property: 'og:image:height', content: '630' },
+        { property: 'og:image:width', content: '1672' },
+        { property: 'og:image:height', content: '941' },
         {
           property: 'og:image:alt',
           content: 'Stefanos Yiassemides - Music Composer',
