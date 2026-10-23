@@ -322,5 +322,70 @@
     "audible": "",
     "audible_trailer": "",
     "order": 3
+  },
+  {
+    "id": 21,
+    "img": "works/21.webp",
+    "name": "PAW Patrol: To the Rescue",
+    "genre": [
+      "TV Show"
+    ],
+    "description": "When trouble strikes in Adventure Bay, PAW Patrol is there to save the day. No job is too big, no pup too small. They always find a way to help. Don't miss the fun with PAW Patrol Official and Friends.",
+    "youtube": [
+      "Oe25oeCVV3g"
+    ],
+    "platforms": [
+      "youtube"
+    ],
+    "order": 0
+  },
+  {
+    "id": 22,
+    "img": "works/22.webp",
+    "name": "Pocoyo (Season 6)",
+    "genre": [
+      "Animation"
+    ],
+    "description": "Pocoyo follows the adventures of a curious little boy dressed all in blue, who along with his sister Bea, his best friends Pato and Elly is always exploring, learning and most importantly having fun.",
+    "youtube": [
+      "mSlDlam7zOI"
+    ],
+    "platforms": [
+      "youtube"
+    ],
+    "website": "https://www.pocoyo.com/",
+    "order": -1
+  },
+  {
+    "id": 23,
+    "img": "works/23.webp",
+    "name": "Jungle Squad",
+    "genre": [
+      "Animation"
+    ],
+    "description": "The Jungle Squad are an elite group of animals fighting to defend their magical habitat from the RUIN Corporation, an evil empire intent on deforestation and destruction.",
+    "youtube": [],
+    "youtube_channel": "https://www.youtube.com/@JungleSquadUnite/videos",
+    "platforms": [
+      "youtube"
+    ],
+    "order": -3
+  },
+  {
+    "id": 24,
+    "img": "works/24.webp",
+    "name": "Supa Strikas",
+    "genre": [
+      "Animation"
+    ],
+    "description": "Supa Strikas is a football comic and animated series about the world's greatest football team.",
+    "youtube": [
+      "vLw4Ho5F0x0"
+    ],
+    "youtube_playlist": "https://www.youtube.com/playlist?list=PLJbBhDouIDY3cm9co3oBS2w9yOjHHDcT2",
+    "platforms": [
+      "youtube"
+    ],
+    "order": -2
   }
 ]
