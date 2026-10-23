@@ -160,8 +160,8 @@
               class="about__client-logo"
               loading="lazy"
               alt="Spin Master"
-              width="256"
-              height="256"
+              width="340"
+              height="293"
             />
           </a>
           <a
