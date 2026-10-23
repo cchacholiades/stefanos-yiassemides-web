@@ -87,7 +87,7 @@
             <SlideshowSlideDetails
               :work="work"
               :show-watch-button="showWatchButton"
-              @play-preview="emit('play-preview')"
+              @play-preview="(i) => emit('play-preview', i)"
             />
           </div>
 
@@ -109,7 +109,7 @@
             :work="work"
             :show-watch-button="showWatchButton"
             compact
-            @play-preview="emit('play-preview')"
+            @play-preview="(i) => emit('play-preview', i)"
           />
         </div>
       </div>
@@ -154,7 +154,7 @@ watch(
 )
 
 const emit = defineEmits<{
-  'play-preview': []
+  'play-preview': [videoIndex: number]
   'toggle-playback': []
   hover: [isHovered: boolean]
   prev: []

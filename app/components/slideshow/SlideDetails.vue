@@ -61,13 +61,26 @@
           ></p>
         </div>
 
-        <div class="mt-6 flex justify-start">
+        <div class="mt-6 flex flex-wrap justify-start gap-2">
+          <template v-if="showWatchButton && work.youtube_labels?.length">
+            <button
+              v-for="(label, i) in work.youtube_labels"
+              :key="i"
+              type="button"
+              class="watch-button"
+              :title="`Watch: ${label}`"
+              @click="emit('play-preview', i)"
+            >
+              <font-awesome-icon :icon="['fas', 'play']" class="text-sm" />
+              <span>{{ label }}</span>
+            </button>
+          </template>
           <button
-            v-if="showWatchButton"
+            v-else-if="showWatchButton"
             type="button"
             class="watch-button"
             title="Watch Video"
-            @click="emit('play-preview')"
+            @click="emit('play-preview', 0)"
           >
             <font-awesome-icon :icon="['fas', 'play']" class="text-sm" />
             <span>Watch</span>
@@ -90,7 +103,7 @@ defineProps<{
 }>()
 
 const emit = defineEmits<{
-  'play-preview': []
+  'play-preview': [videoIndex: number]
 }>()
 </script>
 

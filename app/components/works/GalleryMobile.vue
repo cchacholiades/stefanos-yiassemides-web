@@ -11,7 +11,7 @@
         <WorksMobileCard
           :work="work"
           :show-watch-button="hasVideo(work)"
-          @play-preview="emit('play-preview', index)"
+          @play-preview="(videoIndex) => emit('play-preview', index, videoIndex)"
         />
       </li>
     </ol>
@@ -27,7 +27,7 @@ defineProps<{
 }>()
 
 const emit = defineEmits<{
-  'play-preview': [index: number]
+  'play-preview': [workIndex: number, videoIndex: number]
 }>()
 </script>
 

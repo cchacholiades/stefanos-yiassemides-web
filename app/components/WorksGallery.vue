@@ -46,7 +46,7 @@
           :preview-index="previewIndex"
           :show-watch-button="hasVideo(work)"
           :origin="origin"
-          @play-preview="playPreview"
+          @play-preview="(videoIndex) => playPreview(videoIndex)"
           @toggle-playback="togglePlayback"
           @hover="handleHover"
           @prev="prevSlide"
@@ -281,11 +281,11 @@ function handleHover(isHoveredValue: boolean) {
   isHovered.value = isHoveredValue
 }
 
-function handleMobilePlayPreview(index: number) {
-  if (currentIndex.value !== index) {
+function handleMobilePlayPreview(workIndex: number, videoIndex: number) {
+  if (currentIndex.value !== workIndex) {
     onNavigate()
-    goToSlide(index)
+    goToSlide(workIndex)
   }
-  playPreview()
+  playPreview(videoIndex)
 }
 </script>

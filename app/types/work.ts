@@ -5,6 +5,7 @@ export interface Work {
   genre?: string[]
   description: string
   youtube?: string[]
+  youtube_labels?: string[]
   youtube_channel?: string
   youtube_playlist?: string
   vimeo?: string[]

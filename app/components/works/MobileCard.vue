@@ -42,16 +42,31 @@
 
       <p class="work-mobile-card__description" v-html="work.description" />
 
-      <button
-        v-if="showWatchButton"
-        type="button"
-        class="work-mobile-card__watch"
-        title="Watch Video"
-        @click="emit('play-preview')"
-      >
-        <font-awesome-icon :icon="['fas', 'play']" class="text-xs" />
-        <span>Watch</span>
-      </button>
+      <div v-if="showWatchButton" class="work-mobile-card__watch-group">
+        <template v-if="work.youtube_labels?.length">
+          <button
+            v-for="(label, i) in work.youtube_labels"
+            :key="i"
+            type="button"
+            class="work-mobile-card__watch"
+            :title="`Watch: ${label}`"
+            @click="emit('play-preview', i)"
+          >
+            <font-awesome-icon :icon="['fas', 'play']" class="text-xs" />
+            <span>{{ label }}</span>
+          </button>
+        </template>
+        <button
+          v-else
+          type="button"
+          class="work-mobile-card__watch"
+          title="Watch Video"
+          @click="emit('play-preview', 0)"
+        >
+          <font-awesome-icon :icon="['fas', 'play']" class="text-xs" />
+          <span>Watch</span>
+        </button>
+      </div>
     </div>
   </article>
 </template>
@@ -65,7 +80,7 @@ defineProps<{
 }>()
 
 const emit = defineEmits<{
-  'play-preview': []
+  'play-preview': [videoIndex: number]
 }>()
 </script>
 
@@ -175,12 +190,18 @@ const emit = defineEmits<{
   margin: 0;
 }
 
+.work-mobile-card__watch-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.375rem;
+  margin-top: 0.25rem;
+}
+
 .work-mobile-card__watch {
   align-self: flex-start;
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  margin-top: 0.25rem;
   padding: 0.5rem 0.75rem;
   border: none;
   border-radius: 9999px;

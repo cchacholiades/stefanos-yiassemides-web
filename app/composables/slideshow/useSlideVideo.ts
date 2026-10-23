@@ -9,6 +9,7 @@ export function useSlideVideo(
   const youtubePlayers = ref<(YT.Player | null)[]>([])
   const vimeoPlayers = ref<(Player | null)[]>([])
   const isPreviewPlaying = ref(false)
+  const activeVideoIndex = ref(0)
   let playbackRetryTimeout: ReturnType<typeof setTimeout> | null = null
   const isPlaybackPaused = ref(false)
   const isHovered = ref(true)
@@ -102,10 +103,15 @@ export function useSlideVideo(
     if (!currentWork) return
 
     const yt = youtubePlayers.value[currentIndex.value]
-    if (currentWork.youtube?.[0] && yt) {
+    const videoId = currentWork.youtube?.[activeVideoIndex.value] ?? currentWork.youtube?.[0]
+    if (videoId && yt) {
       try {
         yt.unMute()
-        yt.playVideo()
+        if (activeVideoIndex.value > 0) {
+          yt.loadVideoById(videoId)
+        } else {
+          yt.playVideo()
+        }
         if (playbackRetryTimeout !== null) clearTimeout(playbackRetryTimeout)
         playbackRetryTimeout = setTimeout(() => {
           playbackRetryTimeout = null
@@ -201,7 +207,7 @@ export function useSlideVideo(
     }
   }
 
-  function playPreview() {
+  function playPreview(videoIndex = 0) {
     const list = works.value
     if (!list) return
     const currentWork = list[currentIndex.value]
@@ -209,6 +215,7 @@ export function useSlideVideo(
 
     if (hasVideo(currentWork)) {
       hasUserInteracted.value = true
+      activeVideoIndex.value = videoIndex
       isPreviewPlaying.value = true
       isPlaybackPaused.value = false
       isHovered.value = false
@@ -222,6 +229,15 @@ export function useSlideVideo(
     pendingVimeoPlayIndex.value = null
     isHovered.value = true
     stopAllVideos()
+    if (activeVideoIndex.value > 0) {
+      const list = works.value
+      const work = list?.[currentIndex.value]
+      const yt = youtubePlayers.value[currentIndex.value]
+      if (work?.youtube?.[0] && yt) {
+        try { yt.cueVideoById(work.youtube[0]) } catch { /* ignore */ }
+      }
+    }
+    activeVideoIndex.value = 0
   }
 
   function onPlayerEnded(index: number) {
@@ -260,6 +276,7 @@ export function useSlideVideo(
     isPreviewPlaying.value = false
     isPlaybackPaused.value = false
     pendingVimeoPlayIndex.value = null
+    activeVideoIndex.value = 0
   }
 
   onMounted(() => {
@@ -281,6 +298,7 @@ export function useSlideVideo(
     youtubePlayers,
     vimeoPlayers,
     isPreviewPlaying,
+    activeVideoIndex,
     isPlaybackPaused,
     isHovered,
     isIOS,

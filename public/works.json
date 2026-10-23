@@ -209,9 +209,11 @@
       "Animation"
     ],
     "description": "In a post-apocalyptic world where all the water and seas have disappeared, a courageous young female pilot fights against vicious sky pirates for control over the last remaining source of water, the clouds.",
-    "youtube": null,
-    "vimeo": [
-      "229325041"
+    "youtube": [
+      "ac1l4FsnqEc"
+    ],
+    "platforms": [
+      "youtube"
     ],
     "order": 15
   },
@@ -224,9 +226,11 @@
       "Stop Motion"
     ],
     "description": "Wallace, after finding no cheese in the kitchen, decides that he and Gromit should go to a place known for its cheese. A glance out the window at the night sky gives him the idea to travel to the moon, since, according to Wallace, everybody knows that the moon is made of cheese.",
-    "youtube": null,
-    "vimeo": [
-      "239726433"
+    "youtube": [
+      "r0awxQO_kmg"
+    ],
+    "platforms": [
+      "youtube"
     ],
     "order": 16
   },
@@ -238,11 +242,17 @@
       "Re-score",
       "Documentary"
     ],
-    "description": "Lizard Attack is a part of a dramatized natural history series by BBC called Hidden Kingdoms. Set in the African savannah, it tells the story about the encounter between a small, mouse-sized and long-nosed insectivore called elephant-shrew (otherwise known as sengi), and its nemesis, the monitor lizard.<br/>Mouse leaves home, is the story about the grasshopper mouse, who specializes in venomous prey, especially bark scorpions, the only scorpion in the USA capable of killing a human.",
-    "youtube": null,
-    "vimeo": [
-      "239716421",
-      "239732509"
+    "description": "Lizard Attack is a part of a dramatized natural history series by BBC called Hidden Kingdoms. Set in the African savannah, it tells the story about the encounter between a small, mouse-sized and long-nosed insectivore called elephant-shrew (otherwise known as sengi), and its nemesis, the monitor lizard.<br/>Mouse Leaves Home is the story about the grasshopper mouse, who specializes in venomous prey, especially bark scorpions, the only scorpion in the USA capable of killing a human.",
+    "youtube": [
+      "HmVRvM6rVYc",
+      "bag78VnqYHw"
+    ],
+    "youtube_labels": [
+      "Lizard Attack",
+      "Mouse Leaves Home"
+    ],
+    "platforms": [
+      "youtube"
     ],
     "order": 20
   },
