@@ -42,6 +42,7 @@
           <a
             class="landing__contact"
             href="mailto:info@stefanosyiassemides.com"
+            @click.prevent="openMail"
           >
             Get in touch
           </a>
@@ -62,6 +63,10 @@ const props = withDefaults(
 const emit = defineEmits<{
   'scroll-to-works': []
 }>()
+
+function openMail() {
+  window.location.href = 'mailto:info@stefanosyiassemides.com'
+}
 
 const prefersReducedMotion = ref(false)
 
