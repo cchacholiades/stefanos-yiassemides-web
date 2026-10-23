@@ -233,6 +233,11 @@
           </footer>
         </blockquote>
       </div>
+
+      <p class="about__copyright mt-14 border-t border-white/10 pt-6">
+        &copy; {{ new Date().getFullYear() }} Stefanos Yiassemides Music. All
+        rights reserved.
+      </p>
     </div>
   </section>
 </template>
@@ -299,5 +304,11 @@
 .about__quote-author span {
   color: rgba(255, 255, 255, 0.55);
   font-weight: 500;
+}
+
+.about__copyright {
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.25);
+  letter-spacing: 0.02em;
 }
 </style>
