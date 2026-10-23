@@ -21,29 +21,6 @@
 
     <div class="flex-1 space-y-8 pt-2 h-[270px] flex flex-col">
       <div class="flex-1 flex flex-col min-h-0">
-        <ul
-          v-if="work.platforms?.length"
-          class="platforms flex flex-wrap items-center gap-3 mb-2"
-          aria-label="Platforms"
-        >
-          <li
-            v-for="platform in work.platforms"
-            :key="platform"
-            class="text-white/70 hover:text-white transition-colors"
-          >
-            <font-awesome-icon
-              v-if="platform !== 'netflix'"
-              :icon="['fab', platform]"
-            />
-            <img
-              v-else
-              src="/icons/netflix.svg"
-              alt="Netflix"
-              class="platforms__netflix"
-            />
-          </li>
-        </ul>
-
         <h2
           class="font-bold text-white mb-3 tracking-tight pr-12 md:pr-0 shrink-0"
           :class="{
@@ -133,23 +110,6 @@ const emit = defineEmits<{
 
 .watch-button:active {
   background: rgba(255, 255, 255, 0.15);
-}
-
-.platforms {
-  font-size: 0.875rem;
-  line-height: 1;
-}
-
-.platforms :deep(svg),
-.platforms :deep(.fa-icon) {
-  width: 0.875rem;
-  height: 0.875rem;
-}
-
-.platforms__netflix {
-  width: 0.875rem;
-  height: 0.875rem;
-  display: block;
 }
 
 .work-poster {

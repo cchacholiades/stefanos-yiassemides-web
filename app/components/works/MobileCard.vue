@@ -21,29 +21,6 @@
     </div>
 
     <div class="work-mobile-card__body">
-      <ul
-        v-if="work.platforms?.length"
-        class="work-mobile-card__platforms"
-        aria-label="Platforms"
-      >
-        <li
-          v-for="platform in work.platforms"
-          :key="platform"
-          class="work-mobile-card__platform"
-        >
-          <font-awesome-icon
-            v-if="platform !== 'netflix'"
-            :icon="['fab', platform]"
-          />
-          <img
-            v-else
-            src="/icons/netflix.svg"
-            alt="Netflix"
-            class="work-mobile-card__netflix"
-          />
-        </li>
-      </ul>
-
       <h2 class="work-mobile-card__title">
         {{ work.name }}
       </h2>
@@ -154,34 +131,6 @@ const emit = defineEmits<{
   display: flex;
   flex-direction: column;
   gap: 0.375rem;
-}
-
-.work-mobile-card__platforms {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 0.5rem;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  font-size: 0.75rem;
-  line-height: 1;
-}
-
-.work-mobile-card__platform {
-  color: rgba(255, 255, 255, 0.7);
-}
-
-.work-mobile-card__platform :deep(svg),
-.work-mobile-card__platform :deep(.fa-icon) {
-  width: 0.75rem;
-  height: 0.75rem;
-}
-
-.work-mobile-card__netflix {
-  display: block;
-  width: 0.75rem;
-  height: 0.75rem;
 }
 
 .work-mobile-card__title {
