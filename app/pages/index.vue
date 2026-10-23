@@ -68,6 +68,8 @@ const worksSectionStyle = computed(() => ({
         @desktop-view-change="worksGalleryDesktopView = $event"
       />
     </section>
+
+    <HomeAbout />
   </div>
 </template>
 
