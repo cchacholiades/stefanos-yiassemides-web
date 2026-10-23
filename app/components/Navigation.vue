@@ -91,7 +91,7 @@ function handleBrandClick() {
           </a>
           <a
             class="social-icon-link"
-            href="https://www.instagram.com/stefyiassemidesmusic"
+            href="https://www.instagram.com/stefyiassemides.music"
             title="Stefanos Yiassemides on Instagram"
             target="_blank"
             rel="noopener noreferrer"
