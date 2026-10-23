@@ -57,7 +57,7 @@ export default defineNuxtConfig({
         {
           name: 'description',
           content:
-            'Stefanos Yiassemides is a Music Composer for Film & Media.',
+            'Stefanos Yiassemides is a Music Composer for Film, TV, Games & Animation — with credits including PAW Patrol, Gecko\'s Garage, Pocoyo, Little Baby Bum, LEGO, and Moonbug Entertainment.',
         },
         {
           name: 'keywords',
@@ -84,7 +84,7 @@ export default defineNuxtConfig({
         {
           name: 'twitter:description',
           content:
-            'Stefanos Yiassemides is a Music Composer for Film & Media.',
+            'Stefanos Yiassemides is a Music Composer for Film, TV, Games & Animation — with credits including PAW Patrol, Gecko\'s Garage, Pocoyo, Little Baby Bum, LEGO, and Moonbug Entertainment.',
         },
         { name: 'twitter:image', content: '/about.png' },
         {
@@ -103,9 +103,9 @@ export default defineNuxtConfig({
         {
           property: 'og:description',
           content:
-            'Stefanos Yiassemides is a Music Composer for Film & Media.',
+            'Stefanos Yiassemides is a Music Composer for Film, TV, Games & Animation — with credits including PAW Patrol, Gecko\'s Garage, Pocoyo, Little Baby Bum, LEGO, and Moonbug Entertainment.',
         },
-        { property: 'og:title', content: 'Stefanos Yiassemides' },
+        { property: 'og:title', content: 'Stefanos Yiassemides – Music Composer for Film & Media' },
         {
           property: 'og:site_name',
           content:
