@@ -73,47 +73,52 @@ function handleBrandClick() {
           <a
             class="social-icon-link"
             href="https://soundcloud.com/stefanos-yiassemides"
+            aria-label="Stefanos Yiassemides on Soundcloud"
             title="Stefanos Yiassemides on Soundcloud"
             target="_blank"
             rel="noopener noreferrer"
           >
-            <FontAwesomeIcon :icon="['fab', 'soundcloud']" />
+            <FontAwesomeIcon :icon="['fab', 'soundcloud']" aria-hidden="true" />
           </a>
           <a
             class="social-icon-link"
             href="https://www.linkedin.com/in/stefanos-yiassemides-99870579"
+            aria-label="Stefanos Yiassemides on LinkedIn"
             title="Stefanos Yiassemides on LinkedIn"
             target="_blank"
             rel="noopener noreferrer"
           >
-            <FontAwesomeIcon :icon="['fab', 'linkedin']" />
+            <FontAwesomeIcon :icon="['fab', 'linkedin']" aria-hidden="true" />
           </a>
           <a
             class="social-icon-link"
             href="https://www.instagram.com/stefyiassemides.music"
+            aria-label="Stefanos Yiassemides on Instagram"
             title="Stefanos Yiassemides on Instagram"
             target="_blank"
             rel="noopener noreferrer"
           >
-            <FontAwesomeIcon :icon="['fab', 'instagram']" />
+            <FontAwesomeIcon :icon="['fab', 'instagram']" aria-hidden="true" />
           </a>
           <a
             class="social-icon-link"
             href="https://www.imdb.com/name/nm9390509/"
+            aria-label="Stefanos Yiassemides on IMDB"
             title="Stefanos Yiassemides on IMDB"
             target="_blank"
             rel="noopener noreferrer"
           >
-            <FontAwesomeIcon :icon="['fab', 'imdb']" />
+            <FontAwesomeIcon :icon="['fab', 'imdb']" aria-hidden="true" />
           </a>
           <a
             class="social-icon-link"
             href="https://twitter.com/Stef_Yia_Music"
+            aria-label="Stefanos Yiassemides on Twitter"
             title="Stefanos Yiassemides on Twitter"
             target="_blank"
             rel="noopener noreferrer"
           >
-            <FontAwesomeIcon :icon="['fab', 'twitter']" />
+            <FontAwesomeIcon :icon="['fab', 'twitter']" aria-hidden="true" />
           </a>
         </div>
       </div>
