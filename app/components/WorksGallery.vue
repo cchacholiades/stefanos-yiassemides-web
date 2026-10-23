@@ -53,8 +53,6 @@
           @next="nextSlide"
           @nav-hover="handleNavHover"
           @youtube-ready="(player, i) => registerYoutubePlayer(i, player)"
-          @vimeo-ready="(player, i) => registerVimeoPlayer(i, player)"
-          @vimeo-destroy="unregisterVimeoPlayer"
           @player-ended="onPlayerEnded"
         />
 
@@ -92,8 +90,6 @@
       :origin="origin"
       @toggle-playback="togglePlayback"
       @youtube-ready="(player, i) => registerYoutubePlayer(i, player)"
-      @vimeo-ready="(player, i) => registerVimeoPlayer(i, player)"
-      @vimeo-destroy="unregisterVimeoPlayer"
       @player-ended="onPlayerEnded"
     />
 
@@ -166,8 +162,6 @@ const {
   origin,
   hasVideo,
   registerYoutubePlayer,
-  registerVimeoPlayer,
-  unregisterVimeoPlayer,
   playPreview,
   togglePlayback,
   stopPreview,

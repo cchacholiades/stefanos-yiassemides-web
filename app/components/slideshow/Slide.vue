@@ -42,14 +42,6 @@
         @ended="(i) => emit('player-ended', i)"
       />
 
-      <SlideshowVimeoPlayer
-        v-if="work.vimeo && work.vimeo[0]"
-        :video-id="work.vimeo[0]"
-        :player-index="slideIndex"
-        class="vimeo-player"
-        @ready="(player, i) => emit('vimeo-ready', player, i)"
-        @destroy="(i) => emit('vimeo-destroy', i)"
-      />
     </div>
 
     <div
@@ -124,7 +116,6 @@
 </template>
 
 <script setup lang="ts">
-import type Player from '@vimeo/player'
 import type { YoutubeEmbedOptions } from '~/types/youtube-embed'
 import { DEFAULT_YOUTUBE_EMBED_OPTIONS } from '~/types/youtube-embed'
 import type { Work } from '~/types/work'
@@ -161,8 +152,6 @@ const emit = defineEmits<{
   next: []
   'nav-hover': [isHovered: boolean]
   'youtube-ready': [player: YT.Player, index: number]
-  'vimeo-ready': [player: Player, index: number]
-  'vimeo-destroy': [index: number]
   'player-ended': [index: number]
 }>()
 </script>
@@ -174,8 +163,7 @@ const emit = defineEmits<{
   cursor: default;
 }
 
-:deep(.youtube-player),
-:deep(.vimeo-player) {
+:deep(.youtube-player) {
   position: absolute !important;
   inset: 0 !important;
   width: 100% !important;
@@ -184,8 +172,7 @@ const emit = defineEmits<{
   z-index: 1;
 }
 
-:deep(.youtube-player iframe),
-:deep(.vimeo-player iframe) {
+:deep(.youtube-player iframe) {
   position: absolute !important;
   top: 50% !important;
   left: 50% !important;
