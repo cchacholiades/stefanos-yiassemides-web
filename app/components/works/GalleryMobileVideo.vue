@@ -23,7 +23,6 @@
         @ready="(player, i) => emit('youtube-ready', player, i)"
         @ended="(i) => emit('player-ended', i)"
       />
-
     </div>
   </div>
 </template>

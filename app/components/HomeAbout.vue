@@ -18,22 +18,24 @@
           />
         </div>
 
-        <div class="space-y-5 text-base leading-relaxed text-white/75 md:text-lg">
+        <div
+          class="space-y-5 text-base leading-relaxed text-white/75 md:text-lg"
+        >
           <p>
             I'm a versatile music composer based in Bristol, UK, with a lifelong
             passion for music and film that began at an early age. I believe the
             synergy between music and visuals is one of the most beautiful art
             forms. Scoring for media felt like a natural path for me, and I find
-            joy in crafting music that enhances visual storytelling, bringing each
-            scene to life with every note.
+            joy in crafting music that enhances visual storytelling, bringing
+            each scene to life with every note.
           </p>
           <p>
             I've had the privilege of writing music for award-winning global
             entertainment companies behind some of the most popular kids' titles
-            in the world. My work has been featured on platforms such as Netflix,
-            YouTube, and Amazon. Over the years, I've worked on a variety of
-            projects, including video games, cartoons, animated series, short-form
-            content, and feature films.
+            in the world. My work has been featured on platforms such as
+            Netflix, YouTube, and Amazon. Over the years, I've worked on a
+            variety of projects, including video games, cartoons, animated
+            series, short-form content, and feature films.
           </p>
           <p>
             My journey began in Cyprus, where I studied under some of the most

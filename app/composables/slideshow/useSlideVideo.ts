@@ -57,7 +57,8 @@ export function useSlideVideo(
     if (!currentWork) return
 
     const yt = youtubePlayers.value[currentIndex.value]
-    const videoId = currentWork.youtube?.[activeVideoIndex.value] ?? currentWork.youtube?.[0]
+    const videoId =
+      currentWork.youtube?.[activeVideoIndex.value] ?? currentWork.youtube?.[0]
     if (videoId && yt) {
       try {
         yt.unMute()
@@ -156,7 +157,11 @@ export function useSlideVideo(
       const work = list?.[currentIndex.value]
       const yt = youtubePlayers.value[currentIndex.value]
       if (work?.youtube?.[0] && yt) {
-        try { yt.cueVideoById(work.youtube[0]) } catch { /* ignore */ }
+        try {
+          yt.cueVideoById(work.youtube[0])
+        } catch {
+          /* ignore */
+        }
       }
     }
     activeVideoIndex.value = 0

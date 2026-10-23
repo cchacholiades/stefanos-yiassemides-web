@@ -26,9 +26,7 @@
     >
       <div class="landing__copy w-full max-w-xl">
         <p class="landing__eyebrow brand-name">Stefanos Yiassemides</p>
-        <h1 class="landing__headline">
-          Music Composer
-        </h1>
+        <h1 class="landing__headline">Music Composer</h1>
         <p class="landing__tagline">for Film &amp; Media</p>
 
         <div class="landing__actions mt-8">
@@ -179,7 +177,9 @@ const contentStyle = computed(() => {
   color: var(--landing-ink);
   font-weight: 500;
   text-decoration: none;
-  transition: background 0.15s ease, transform 0.15s ease;
+  transition:
+    background 0.15s ease,
+    transform 0.15s ease;
 }
 
 .landing__contact:hover {

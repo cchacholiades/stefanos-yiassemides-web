@@ -11,7 +11,9 @@
         <WorksMobileCard
           :work="work"
           :show-watch-button="hasVideo(work)"
-          @play-preview="(videoIndex) => emit('play-preview', index, videoIndex)"
+          @play-preview="
+            (videoIndex) => emit('play-preview', index, videoIndex)
+          "
         />
       </li>
     </ol>

@@ -13,7 +13,8 @@ const { consentStatus, accept, decline } = useConsent()
     >
       <div class="cookie-banner__inner">
         <p class="cookie-banner__text">
-          This site uses analytics cookies to understand how visitors use the site.
+          This site uses analytics cookies to understand how visitors use the
+          site.
         </p>
         <div class="cookie-banner__actions">
           <button
@@ -93,7 +94,9 @@ const { consentStatus, accept, decline } = useConsent()
   border-radius: 9999px;
   font-weight: 500;
   cursor: pointer;
-  transition: background 0.15s ease, transform 0.15s ease;
+  transition:
+    background 0.15s ease,
+    transform 0.15s ease;
 }
 
 .cookie-banner__btn:active {
@@ -125,7 +128,9 @@ const { consentStatus, accept, decline } = useConsent()
 
 .banner-enter-active,
 .banner-leave-active {
-  transition: opacity 0.3s ease, transform 0.3s ease;
+  transition:
+    opacity 0.3s ease,
+    transform 0.3s ease;
 }
 
 .banner-enter-from,

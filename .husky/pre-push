@@ -1,4 +1,11 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
-npm run check
+# Skip quality checks for the generated gh-pages branch
+while read local_ref local_sha remote_ref remote_sha; do
+  case "$remote_ref" in
+    refs/heads/gh-pages) exit 0 ;;
+  esac
+done
+
+npm run lint && npm run format:check && npm run typecheck

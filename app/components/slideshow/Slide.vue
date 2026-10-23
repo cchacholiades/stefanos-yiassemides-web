@@ -41,7 +41,6 @@
         @ready="(player, i) => emit('youtube-ready', player, i)"
         @ended="(i) => emit('player-ended', i)"
       />
-
     </div>
 
     <div
@@ -140,7 +139,9 @@ const props = defineProps<{
 const hasBeenActive = ref(false)
 watch(
   () => props.isActive,
-  (active) => { if (active) hasBeenActive.value = true },
+  (active) => {
+    if (active) hasBeenActive.value = true
+  },
   { immediate: true },
 )
 

@@ -13,7 +13,10 @@ export default defineNuxtPlugin(() => {
   window.dataLayer = window.dataLayer || []
 
   // Consent Mode v2 — default denied; restore prior decision immediately if available
-  const storedConsent = localStorage.getItem('cookie-consent') as 'granted' | 'denied' | null
+  const storedConsent = localStorage.getItem('cookie-consent') as
+    | 'granted'
+    | 'denied'
+    | null
   gtag('consent', 'default', {
     analytics_storage: storedConsent ?? 'denied',
     ad_storage: storedConsent ?? 'denied',

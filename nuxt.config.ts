@@ -39,8 +39,7 @@ export default defineNuxtConfig({
 
   app: {
     head: {
-      title:
-        'Music Composer for Film & Media | Stefanos Yiassemides',
+      title: 'Music Composer for Film & Media | Stefanos Yiassemides',
       htmlAttrs: {
         lang: 'en',
         class: 'antialiased bg-black text-white scrollbar-hide font-sans',
@@ -51,12 +50,12 @@ export default defineNuxtConfig({
       meta: [
         { charset: 'utf-8' },
         { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-{ name: 'geo.region', content: 'GB' },
+        { name: 'geo.region', content: 'GB' },
         { name: 'geo.placename', content: 'United Kingdom' },
         {
           name: 'description',
           content:
-            'Stefanos Yiassemides is a Music Composer for Film, TV, Games & Animation — with credits including PAW Patrol, Gecko\'s Garage, Pocoyo, Little Baby Bum, LEGO, and Moonbug Entertainment.',
+            "Stefanos Yiassemides is a Music Composer for Film, TV, Games & Animation — with credits including PAW Patrol, Gecko's Garage, Pocoyo, Little Baby Bum, LEGO, and Moonbug Entertainment.",
         },
         {
           name: 'keywords',
@@ -77,13 +76,12 @@ export default defineNuxtConfig({
         { name: 'twitter:site', content: 'https://stefanosyiassemides.com/' },
         {
           name: 'twitter:title',
-          content:
-            'Music Composer for Film & Media | Stefanos Yiassemides',
+          content: 'Music Composer for Film & Media | Stefanos Yiassemides',
         },
         {
           name: 'twitter:description',
           content:
-            'Stefanos Yiassemides is a Music Composer for Film, TV, Games & Animation — with credits including PAW Patrol, Gecko\'s Garage, Pocoyo, Little Baby Bum, LEGO, and Moonbug Entertainment.',
+            "Stefanos Yiassemides is a Music Composer for Film, TV, Games & Animation — with credits including PAW Patrol, Gecko's Garage, Pocoyo, Little Baby Bum, LEGO, and Moonbug Entertainment.",
         },
         { name: 'twitter:image', content: '/about.png' },
         {
@@ -102,13 +100,15 @@ export default defineNuxtConfig({
         {
           property: 'og:description',
           content:
-            'Stefanos Yiassemides is a Music Composer for Film, TV, Games & Animation — with credits including PAW Patrol, Gecko\'s Garage, Pocoyo, Little Baby Bum, LEGO, and Moonbug Entertainment.',
+            "Stefanos Yiassemides is a Music Composer for Film, TV, Games & Animation — with credits including PAW Patrol, Gecko's Garage, Pocoyo, Little Baby Bum, LEGO, and Moonbug Entertainment.",
         },
-        { property: 'og:title', content: 'Stefanos Yiassemides – Music Composer for Film & Media' },
+        {
+          property: 'og:title',
+          content: 'Stefanos Yiassemides – Music Composer for Film & Media',
+        },
         {
           property: 'og:site_name',
-          content:
-            'Music Composer for Film & Media | Stefanos Yiassemides',
+          content: 'Music Composer for Film & Media | Stefanos Yiassemides',
         },
         { property: 'fb:app_id', content: '1849135811851242' },
       ],
@@ -165,17 +165,39 @@ export default defineNuxtConfig({
   nitro: {
     preset: 'static',
     routeRules: {
-      '/_nuxt/**': { headers: { 'Cache-Control': 'public, max-age=31536000, immutable' } },
-      '/works/**': { headers: { 'Cache-Control': 'public, max-age=31536000, immutable' } },
-      '/css/**': { headers: { 'Cache-Control': 'public, max-age=31536000, immutable' } },
-      '/icons/**': { headers: { 'Cache-Control': 'public, max-age=31536000, immutable' } },
-      '/fonts/**': { headers: { 'Cache-Control': 'public, max-age=31536000, immutable' } },
-      '/*.webp': { headers: { 'Cache-Control': 'public, max-age=31536000, immutable' } },
-      '/*.png': { headers: { 'Cache-Control': 'public, max-age=31536000, immutable' } },
-      '/*.jpg': { headers: { 'Cache-Control': 'public, max-age=31536000, immutable' } },
-      '/*.jpeg': { headers: { 'Cache-Control': 'public, max-age=31536000, immutable' } },
-      '/*.svg': { headers: { 'Cache-Control': 'public, max-age=31536000, immutable' } },
-      '/sw.js': { headers: { 'Cache-Control': 'public, max-age=0, must-revalidate' } },
+      '/_nuxt/**': {
+        headers: { 'Cache-Control': 'public, max-age=31536000, immutable' },
+      },
+      '/works/**': {
+        headers: { 'Cache-Control': 'public, max-age=31536000, immutable' },
+      },
+      '/css/**': {
+        headers: { 'Cache-Control': 'public, max-age=31536000, immutable' },
+      },
+      '/icons/**': {
+        headers: { 'Cache-Control': 'public, max-age=31536000, immutable' },
+      },
+      '/fonts/**': {
+        headers: { 'Cache-Control': 'public, max-age=31536000, immutable' },
+      },
+      '/*.webp': {
+        headers: { 'Cache-Control': 'public, max-age=31536000, immutable' },
+      },
+      '/*.png': {
+        headers: { 'Cache-Control': 'public, max-age=31536000, immutable' },
+      },
+      '/*.jpg': {
+        headers: { 'Cache-Control': 'public, max-age=31536000, immutable' },
+      },
+      '/*.jpeg': {
+        headers: { 'Cache-Control': 'public, max-age=31536000, immutable' },
+      },
+      '/*.svg': {
+        headers: { 'Cache-Control': 'public, max-age=31536000, immutable' },
+      },
+      '/sw.js': {
+        headers: { 'Cache-Control': 'public, max-age=0, must-revalidate' },
+      },
     },
   },
 
