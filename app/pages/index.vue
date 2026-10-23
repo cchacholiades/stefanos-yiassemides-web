@@ -2,28 +2,7 @@
 defineOptions({ name: 'HomePage' })
 
 useHead({
-  title:
-    'Music Composer for Film & Media | Stefanos Yiassemides',
-  script: [
-    {
-      type: 'application/ld+json',
-      innerHTML: JSON.stringify({
-        '@context': 'https://schema.org',
-        '@type': 'Person',
-        name: 'Stefanos Yiassemides',
-        alternateName: 'Stefanos Yiassemides',
-        description: 'Music Composer for Film & Media',
-        url: 'https://stefanosyiassemides.com',
-        sameAs: [
-          'https://soundcloud.com/stefanos-yiassemides',
-          'https://www.linkedin.com/in/stefanos-yiassemides-99870579',
-          'https://www.instagram.com/stefyiassemides.music',
-          'https://www.imdb.com/name/nm9390509/',
-          'https://twitter.com/Stef_Yia_Music',
-        ],
-      }),
-    },
-  ],
+  title: 'Music Composer for Film & Media | Stefanos Yiassemides',
 })
 
 const scrollRoot = ref<HTMLElement | null>(null)
