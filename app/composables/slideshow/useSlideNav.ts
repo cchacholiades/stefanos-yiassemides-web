@@ -76,9 +76,9 @@ export function useSlideNav(works: Ref<Work[] | null>) {
     }
 
     if (event.key === 'ArrowLeft') {
-      prevSlide(options.onNavigate)
+      prevSlide(options?.onNavigate)
     } else if (event.key === 'ArrowRight') {
-      nextSlide(options.onNavigate)
+      nextSlide(options?.onNavigate)
     }
   }
 

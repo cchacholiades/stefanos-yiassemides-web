@@ -28,13 +28,13 @@
     >
       <WorksGalleryGrid
         v-if="!isDesktopSlideshowOpen"
-        :works="works"
+        :works="worksData"
         @select="openDesktopSlideshow"
       />
 
       <template v-else>
         <SlideshowSlide
-          v-for="(work, index) in works"
+          v-for="(work, index) in worksData"
           :key="work.id"
           :work="work"
           :slide-index="index"
@@ -57,7 +57,7 @@
         />
 
         <SlideshowIndicators
-          :works="works"
+          :works="worksData"
           :current-index="currentIndex"
           :preview-index="previewIndex"
           :hovered-indicator-index="hoveredIndicatorIndex"
@@ -76,16 +76,16 @@
 
     <!-- Mobile: vertical compact cards (hidden at md+ where slideshow shows) -->
     <WorksGalleryMobile
-      v-if="works.length"
+      v-if="worksData.length"
       v-show="!isPreviewPlaying"
-      :works="works"
+      :works="worksData"
       :has-video="hasVideo"
       @play-preview="handleMobilePlayPreview"
     />
 
     <WorksGalleryMobileVideo
       v-if="isPreviewPlaying && !isDesktopLayout"
-      :work="works[currentIndex]"
+      :work="worksData[currentIndex]"
       :slide-index="currentIndex"
       :origin="origin"
       @toggle-playback="togglePlayback"
@@ -104,12 +104,15 @@
 </template>
 
 <script setup lang="ts">
+import type { Work } from '~/types/work'
+
 const emit = defineEmits<{
   'preview-playing': [value: boolean]
   'desktop-view-change': [view: 'grid' | 'slideshow' | null]
 }>()
 
 const { works, pending, error } = useSlideshowWorks()
+const worksData = computed<Work[]>(() => works.value ?? [])
 
 const isDesktopSlideshowOpen = ref(false)
 const homeScrollRoot = useHomeScrollRoot()
