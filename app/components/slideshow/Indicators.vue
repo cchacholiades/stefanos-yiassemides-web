@@ -2,7 +2,7 @@
   <nav class="slide-indicators-root" aria-label="Works slides">
     <div class="slide-indicators-bar">
       <div v-if="$slots.leading" class="slide-indicators-bar__leading">
-        <slot name="leading" ></slot>
+        <slot name="leading"></slot>
       </div>
 
       <div

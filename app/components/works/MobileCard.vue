@@ -17,7 +17,7 @@
         width="88"
         height="132"
       />
-      <div class="work-mobile-card__poster-border" aria-hidden="true" ></div>
+      <div class="work-mobile-card__poster-border" aria-hidden="true"></div>
     </div>
 
     <div class="work-mobile-card__body">
@@ -25,7 +25,7 @@
         {{ work.name }}
       </h2>
 
-      <p class="work-mobile-card__description" v-html="work.description" ></p>
+      <p class="work-mobile-card__description" v-html="work.description"></p>
 
       <div v-if="showWatchButton" class="work-mobile-card__watch-group">
         <template v-if="work.youtube_labels?.length">
