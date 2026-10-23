@@ -31,13 +31,21 @@
         </h1>
         <p class="landing__tagline">for Film &amp; Media</p>
 
-        <button
-          type="button"
-          class="landing__cta mt-8"
-          @click="emit('scroll-to-works')"
-        >
-          View works
-        </button>
+        <div class="landing__actions mt-8">
+          <button
+            type="button"
+            class="landing__cta"
+            @click="emit('scroll-to-works')"
+          >
+            View works
+          </button>
+          <a
+            class="landing__cta landing__cta--secondary"
+            href="mailto:info@stefanosyiassemides.com"
+          >
+            Get in touch
+          </a>
+        </div>
       </div>
     </div>
   </section>
@@ -155,6 +163,18 @@ const contentStyle = computed(() => {
   transform: scale(0.98);
 }
 
+.landing__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.landing__cta--secondary {
+  background: transparent;
+  border-color: rgba(13, 16, 17, 0.25);
+  color: var(--landing-ink);
+}
+
 .landing__media {
   will-change: transform, opacity;
 }
@@ -212,6 +232,16 @@ const contentStyle = computed(() => {
 
   .landing__cta:hover {
     background: rgba(255, 255, 255, 0.12);
+  }
+
+  .landing__cta--secondary {
+    background: transparent;
+    border-color: rgba(255, 255, 255, 0.22);
+    color: rgba(255, 255, 255, 0.9);
+  }
+
+  .landing__cta--secondary:hover {
+    background: rgba(255, 255, 255, 0.1);
   }
 }
 
