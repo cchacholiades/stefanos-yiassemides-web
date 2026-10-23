@@ -1,5 +1,13 @@
 <template>
-  <article class="work-mobile-card" :aria-label="work.name">
+  <article
+    class="work-mobile-card"
+    :class="{ 'work-mobile-card--playable': showWatchButton }"
+    :aria-label="work.name"
+    :role="showWatchButton ? 'button' : undefined"
+    :tabindex="showWatchButton ? 0 : undefined"
+    @click="showWatchButton && emit('play-preview', 0)"
+    @keydown.enter.space.prevent="showWatchButton && emit('play-preview', 0)"
+  >
     <div class="work-mobile-card__poster">
       <img
         :src="`/${work.img.replace('works/', 'works/thumbs/')}`"
@@ -50,7 +58,7 @@
             type="button"
             class="work-mobile-card__watch"
             :title="`Watch: ${label}`"
-            @click="emit('play-preview', i)"
+            @click.stop="emit('play-preview', i)"
           >
             <font-awesome-icon :icon="['fas', 'play']" class="text-xs" />
             <span>{{ label }}</span>
@@ -61,7 +69,7 @@
           type="button"
           class="work-mobile-card__watch"
           title="Watch Video"
-          @click="emit('play-preview', 0)"
+          @click.stop="emit('play-preview', 0)"
         >
           <font-awesome-icon :icon="['fas', 'play']" class="text-xs" />
           <span>Watch</span>
@@ -99,6 +107,18 @@ const emit = defineEmits<{
   box-shadow:
     0 4px 6px -1px rgba(0, 0, 0, 0.1),
     0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.work-mobile-card--playable {
+  cursor: pointer;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+.work-mobile-card--playable:active {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.18);
 }
 
 .work-mobile-card__poster {
