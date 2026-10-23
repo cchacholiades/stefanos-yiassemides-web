@@ -40,7 +40,7 @@
             View works
           </button>
           <a
-            class="landing__cta landing__cta--secondary"
+            class="landing__contact"
             href="mailto:info@stefanosyiassemides.com"
           >
             Get in touch
@@ -169,10 +169,25 @@ const contentStyle = computed(() => {
   gap: 0.75rem;
 }
 
-.landing__cta--secondary {
+.landing__contact {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.75rem 1.25rem;
+  border: 1px solid rgba(13, 16, 17, 0.25);
+  border-radius: 9999px;
   background: transparent;
-  border-color: rgba(13, 16, 17, 0.25);
   color: var(--landing-ink);
+  font-weight: 500;
+  text-decoration: none;
+  transition: background 0.15s ease, transform 0.15s ease;
+}
+
+.landing__contact:hover {
+  background: rgba(13, 16, 17, 0.06);
+}
+
+.landing__contact:active {
+  transform: scale(0.98);
 }
 
 .landing__media {
@@ -234,13 +249,12 @@ const contentStyle = computed(() => {
     background: rgba(255, 255, 255, 0.12);
   }
 
-  .landing__cta--secondary {
-    background: transparent;
+  .landing__contact {
     border-color: rgba(255, 255, 255, 0.22);
     color: rgba(255, 255, 255, 0.9);
   }
 
-  .landing__cta--secondary:hover {
+  .landing__contact:hover {
     background: rgba(255, 255, 255, 0.1);
   }
 }
