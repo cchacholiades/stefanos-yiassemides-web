@@ -1,6 +1,6 @@
 <template>
   <div
-    class="absolute top-8 right-4 md:right-8 flex items-center gap-4 z-[300]"
+    class="absolute max-md:fixed top-8 right-4 md:right-8 flex items-center gap-4 z-[300]"
   >
     <button
       type="button"
