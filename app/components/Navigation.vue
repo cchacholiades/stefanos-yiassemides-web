@@ -63,7 +63,6 @@ function handleBrandClick() {
             class="site-nav__subtitle text-sm tracking-wide mt-0.5 leading-snug"
           >
             Music Composer
-            <span class="site-nav__subtitle-accent">&amp; Sound Designer</span>
           </span>
         </button>
         <div

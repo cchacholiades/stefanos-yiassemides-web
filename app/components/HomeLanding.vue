@@ -28,7 +28,6 @@
         <p class="landing__eyebrow brand-name">Stefanos Yiassemides</p>
         <h1 class="landing__headline">
           Music Composer
-          <span class="landing__headline-accent">&amp; Sound Designer</span>
         </h1>
         <p class="landing__tagline">for Film &amp; Media</p>
 

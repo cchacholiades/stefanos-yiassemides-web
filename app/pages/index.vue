@@ -3,7 +3,7 @@ defineOptions({ name: 'HomePage' })
 
 useHead({
   title:
-    'Music Composer & Sound Designer for Film & Media | Stefanos Yiassemides',
+    'Music Composer for Film & Media | Stefanos Yiassemides',
   script: [
     {
       type: 'application/ld+json',
@@ -12,7 +12,7 @@ useHead({
         '@type': 'Person',
         name: 'Stefanos Yiassemides',
         alternateName: 'Stefanos Yiassemides',
-        description: 'Music Composer & Sound Designer for Film & Media',
+        description: 'Music Composer for Film & Media',
         url: 'https://stefanosyiassemides.com',
         sameAs: [
           'https://soundcloud.com/stefanos-yiassemides',

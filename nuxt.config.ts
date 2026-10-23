@@ -41,7 +41,7 @@ export default defineNuxtConfig({
   app: {
     head: {
       title:
-        'Music Composer & Sound Designer for Film & Media | Stefanos Yiassemides',
+        'Music Composer for Film & Media | Stefanos Yiassemides',
       htmlAttrs: {
         lang: 'en',
         class: 'antialiased bg-black text-white scrollbar-hide font-sans',
@@ -57,7 +57,7 @@ export default defineNuxtConfig({
         {
           name: 'description',
           content:
-            'Stefanos Yiassemides is a Music Composer and Sound Designer for Film & Media.',
+            'Stefanos Yiassemides is a Music Composer for Film & Media.',
         },
         {
           name: 'keywords',
@@ -79,17 +79,17 @@ export default defineNuxtConfig({
         {
           name: 'twitter:title',
           content:
-            'Music Composer & Sound Designer for Film & Media | Stefanos Yiassemides',
+            'Music Composer for Film & Media | Stefanos Yiassemides',
         },
         {
           name: 'twitter:description',
           content:
-            'Stefanos Yiassemides is a Music Composer and Sound Designer for Film & Media.',
+            'Stefanos Yiassemides is a Music Composer for Film & Media.',
         },
         { name: 'twitter:image', content: '/about.png' },
         {
           name: 'twitter:image:alt',
-          content: 'Stefanos Yiassemides - Music Composer & Sound Designer',
+          content: 'Stefanos Yiassemides - Music Composer',
         },
         { property: 'og:type', content: 'website' },
         { property: 'og:url', content: 'https://stefanosyiassemides.com/' },
@@ -98,18 +98,18 @@ export default defineNuxtConfig({
         { property: 'og:image:height', content: '630' },
         {
           property: 'og:image:alt',
-          content: 'Stefanos Yiassemides - Music Composer & Sound Designer',
+          content: 'Stefanos Yiassemides - Music Composer',
         },
         {
           property: 'og:description',
           content:
-            'Stefanos Yiassemides is a Music Composer and Sound Designer for Film & Media.',
+            'Stefanos Yiassemides is a Music Composer for Film & Media.',
         },
         { property: 'og:title', content: 'Stefanos Yiassemides' },
         {
           property: 'og:site_name',
           content:
-            'Music Composer & Sound Designer for Film & Media | Stefanos Yiassemides',
+            'Music Composer for Film & Media | Stefanos Yiassemides',
         },
         { property: 'fb:app_id', content: '1849135811851242' },
       ],
@@ -125,9 +125,9 @@ export default defineNuxtConfig({
             '@context': 'https://schema.org',
             '@type': 'Person',
             name: 'Stefanos Yiassemides',
-            jobTitle: 'Music Composer & Sound Designer',
+            jobTitle: 'Music Composer',
             description:
-              'Award-winning Music Composer & Sound Designer for Film, TV, Games & Animation',
+              'Award-winning Music Composer for Film, TV, Games & Animation',
             url: 'https://stefanosyiassemides.com',
             sameAs: [
               'https://soundcloud.com/stefanos-yiassemides',
@@ -225,7 +225,7 @@ export default defineNuxtConfig({
       lang: 'en',
       name: 'Stefanos Yiassemides - Music Composer',
       short_name: 'Stefanos Yiassemides',
-      description: 'Music Composer & Sound Designer for Film & Media',
+      description: 'Music Composer for Film & Media',
       theme_color: '#000000',
       background_color: '#000000',
       display: 'standalone',
