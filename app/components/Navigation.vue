@@ -40,7 +40,7 @@ function handleBrandClick() {
       v-if="props.showGridNavScrim"
       class="site-nav__scrim"
       aria-hidden="true"
-    />
+    ></div>
 
     <div class="site-nav__inner relative w-full mx-auto px-4 md:px-6 py-4">
       <div

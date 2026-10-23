@@ -21,7 +21,7 @@
               width="160"
               height="240"
             />
-            <div class="works-gallery-grid__poster-border" aria-hidden="true" />
+            <div class="works-gallery-grid__poster-border" aria-hidden="true" ></div>
           </div>
           <h2 class="works-gallery-grid__title">
             {{ work.name }}
