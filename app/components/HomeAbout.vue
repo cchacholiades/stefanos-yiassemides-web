@@ -187,12 +187,11 @@
 
         <blockquote class="about__quote">
           <p class="about__quote-text">
-            &ldquo;Stefanos is a fantastic composer to work with on projects. He
-            is an extremely reliable, versatile and creative artist who responds
-            very well to our musical briefs and feedback. He is a very versatile
-            composer who can work effectively across our varied musical
-            requirements from epic orchestral scores to melodic pop/rock
-            songs&rdquo;
+            &ldquo;Stefanos is a fantastic composer to work with. He is an
+            extremely reliable, versatile and creative artist who responds very
+            well to our musical briefs and feedback. He can work effectively
+            across our varied musical requirements from epic orchestral scores
+            to melodic pop/rock songs&rdquo;
           </p>
           <footer class="about__quote-author">
             <span>Joshua Embury</span> &mdash; Music Director, Moonbug
@@ -216,15 +215,8 @@
 
         <blockquote class="about__quote">
           <p class="about__quote-text">
-            &ldquo;From the outset Stefanos worked hard to accommodate a
-            constantly shifting design ethos, adapting to rough briefs with a
-            creativity that enhanced the projects narrative elements. With each
-            track he brought a distinct tone and emotional drive that
-            underpinned the core themes of the narrative events they framed, and
-            when change was needed he worked hard to accommodate the needs of
-            the game with a friendly and easy to approach manner. If you need
-            distinct, emotionally driven music, then there are few composers I
-            could recommend more.&rdquo;
+            &ldquo;If you need distinct, emotionally driven music, then there
+            are few composers I could recommend more.&rdquo;
           </p>
           <footer class="about__quote-author">
             <span>Nick Pritchard</span> &mdash; Game Developer, Mega Sloth
