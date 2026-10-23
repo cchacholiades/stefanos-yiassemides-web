@@ -41,7 +41,7 @@ const worksSectionStyle = computed(() => ({
 <template>
   <div
     ref="scrollRoot"
-    class="home h-[100dvh] overflow-y-auto overflow-x-hidden snap-y snap-mandatory scroll-smooth bg-black"
+    class="home h-[100dvh] overflow-y-auto overflow-x-hidden snap-y snap-mandatory max-md:snap-none scroll-smooth bg-black"
   >
     <Navigation
       :is-preview-playing="isPreviewPlaying"
