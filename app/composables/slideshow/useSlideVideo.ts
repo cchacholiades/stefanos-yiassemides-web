@@ -9,6 +9,7 @@ export function useSlideVideo(
   const youtubePlayers = ref<(YT.Player | null)[]>([])
   const vimeoPlayers = ref<(Player | null)[]>([])
   const isPreviewPlaying = ref(false)
+  let playbackRetryTimeout: ReturnType<typeof setTimeout> | null = null
   const isPlaybackPaused = ref(false)
   const isHovered = ref(true)
   const isIOS = ref(false)
@@ -75,6 +76,10 @@ export function useSlideVideo(
   }
 
   function stopAllVideos() {
+    if (playbackRetryTimeout !== null) {
+      clearTimeout(playbackRetryTimeout)
+      playbackRetryTimeout = null
+    }
     youtubePlayers.value.forEach((player) => {
       try {
         player?.pauseVideo()
@@ -101,7 +106,10 @@ export function useSlideVideo(
       try {
         yt.unMute()
         yt.playVideo()
-        setTimeout(() => {
+        if (playbackRetryTimeout !== null) clearTimeout(playbackRetryTimeout)
+        playbackRetryTimeout = setTimeout(() => {
+          playbackRetryTimeout = null
+          if (!isPreviewPlaying.value) return
           if (yt.getPlayerState() !== 1) {
             yt.unMute()
             yt.playVideo()
@@ -217,6 +225,7 @@ export function useSlideVideo(
   }
 
   function onPlayerEnded(index: number) {
+    if (!isPreviewPlaying.value) return
     const yt = youtubePlayers.value[index]
     if (yt) {
       yt.seekTo(0)

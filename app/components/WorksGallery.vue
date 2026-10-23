@@ -86,7 +86,7 @@
     />
 
     <WorksGalleryMobileVideo
-      v-if="isPreviewPlaying"
+      v-if="isPreviewPlaying && !isDesktopLayout"
       :work="works[currentIndex]"
       :slide-index="currentIndex"
       :origin="origin"
