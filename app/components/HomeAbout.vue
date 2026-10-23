@@ -44,8 +44,44 @@
             Institute Brighton in 2013, followed by a Master's in Music
             Composition and Film Scoring from the University of Bristol in 2017.
           </p>
+          <div class="pt-2">
+            <a
+              href="mailto:info@stefanosyiassemides.com"
+              class="about__contact"
+            >
+              Get in touch
+            </a>
+          </div>
         </div>
       </div>
     </div>
   </section>
 </template>
+
+<style scoped>
+.about__contact {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.75rem 1.25rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 9999px;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.85);
+  font-weight: 500;
+  text-decoration: none;
+  transition:
+    background 0.15s ease,
+    border-color 0.15s ease,
+    color 0.15s ease;
+}
+
+.about__contact:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.35);
+  color: #fff;
+}
+
+.about__contact:active {
+  transform: scale(0.98);
+}
+</style>
