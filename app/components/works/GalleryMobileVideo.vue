@@ -1,8 +1,9 @@
 <template>
   <div
     v-if="work"
-    class="works-gallery-mobile-video absolute inset-0 z-50 hidden max-md:block max-md:fixed overflow-hidden"
+    class="works-gallery-mobile-video absolute inset-0 z-50 hidden max-md:block max-md:fixed overflow-hidden bg-black"
     @click="emit('toggle-playback')"
+    @touchmove.prevent
   >
     <img
       v-if="work"

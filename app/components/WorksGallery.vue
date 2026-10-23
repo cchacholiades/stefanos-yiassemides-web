@@ -77,12 +77,25 @@
     <!-- Mobile: vertical compact cards (hidden at md+ where slideshow shows) -->
     <WorksGalleryMobile
       v-if="worksData.length"
-      v-show="!isPreviewPlaying"
+      :class="isPreviewPlaying ? 'invisible pointer-events-none' : ''"
       :works="worksData"
       :has-video="hasVideo"
       @play-preview="handleMobilePlayPreview"
     />
 
+    <!-- Desktop playback controls (absolute inside works section) -->
+    <SlideshowPlaybackControls
+      v-if="isPreviewPlaying && isDesktopLayout"
+      :is-paused="isPlaybackPaused"
+      @rewind="rewindVideo"
+      @toggle="togglePlayback"
+      @close="stopPreview"
+    />
+  </div>
+
+  <!-- Mobile overlay teleported to <body> so position:fixed works correctly
+       regardless of any overflow:auto ancestor (iOS Safari containing-block bug) -->
+  <Teleport to="body">
     <WorksGalleryMobileVideo
       v-if="isPreviewPlaying && !isDesktopLayout"
       :work="worksData[currentIndex]"
@@ -92,15 +105,14 @@
       @youtube-ready="(player, i) => registerYoutubePlayer(i, player)"
       @player-ended="onPlayerEnded"
     />
-
     <SlideshowPlaybackControls
-      v-if="isPreviewPlaying"
+      v-if="isPreviewPlaying && !isDesktopLayout"
       :is-paused="isPlaybackPaused"
       @rewind="rewindVideo"
       @toggle="togglePlayback"
       @close="stopPreview"
     />
-  </div>
+  </Teleport>
 </template>
 
 <script setup lang="ts">
@@ -110,6 +122,9 @@ const emit = defineEmits<{
   'preview-playing': [value: boolean]
   'desktop-view-change': [view: 'grid' | 'slideshow' | null]
 }>()
+
+const route = useRoute()
+const router = useRouter()
 
 const { works, pending, error } = useSlideshowWorks()
 const worksData = computed<Work[]>(() => works.value ?? [])
@@ -180,6 +195,9 @@ setupKeyboardListener({
   isPreviewPlaying,
 })
 
+// Prevents circular URL ↔ state updates when the URL changes via popstate
+let isHandlingUrlChange = false
+
 function openDesktopSlideshow(index: number) {
   if (currentIndex.value !== index) {
     onNavigate()
@@ -188,14 +206,55 @@ function openDesktopSlideshow(index: number) {
   isDesktopSlideshowOpen.value = true
 }
 
-function closeDesktopSlideshow() {
-  if (isPreviewPlaying.value) {
-    stopPreview()
-  }
+function closeDesktopSlideshow({ skipHistory = false } = {}) {
+  if (isPreviewPlaying.value) stopPreview()
   previewIndex.value = null
   hoveredIndicatorIndex.value = null
   isDesktopSlideshowOpen.value = false
+  if (!skipHistory) {
+    const { work: _removed, ...rest } = route.query
+    router.push({ query: rest })
+  }
 }
+
+// state → URL: push a history entry whenever the active work changes
+watch([currentIndex, isDesktopSlideshowOpen], ([idx, open], [, prevOpen]) => {
+  if (isHandlingUrlChange || !isDesktopLayout.value || !worksData.value.length)
+    return
+  const work = worksData.value[idx]
+  if (!work) return
+  if (open) {
+    if (String(route.query.work) !== String(work.id)) {
+      router.push({ query: { ...route.query, work: String(work.id) } })
+    }
+  } else if (prevOpen) {
+    const { work: _removed, ...rest } = route.query
+    router.push({ query: rest })
+  }
+})
+
+// URL → state: handle back/forward and direct links
+watch(
+  [() => route.query.work, worksData] as const,
+  ([workParam, works]) => {
+    if (!isDesktopLayout.value || !works.length) return
+    isHandlingUrlChange = true
+    if (!workParam) {
+      if (isDesktopSlideshowOpen.value)
+        closeDesktopSlideshow({ skipHistory: true })
+    } else {
+      const idx = works.findIndex((w) => String(w.id) === String(workParam))
+      if (idx !== -1) {
+        if (!isDesktopSlideshowOpen.value) isDesktopSlideshowOpen.value = true
+        if (currentIndex.value !== idx) goToSlide(idx)
+      }
+    }
+    nextTick(() => {
+      isHandlingUrlChange = false
+    })
+  },
+  { immediate: true },
+)
 
 function handleDesktopSlideshowWheel(event: WheelEvent) {
   if (!isDesktopSlideshowOpen.value) return
