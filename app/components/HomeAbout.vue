@@ -56,7 +56,7 @@
       </div>
 
       <div class="mt-14 border-t border-white/10 pt-12">
-        <p class="brand-name mb-8 text-white/40">Clients</p>
+        <p class="brand-name mb-8 text-white/40">Brands &amp; Studios</p>
         <div
           class="grid grid-cols-2 gap-x-8 gap-y-8 sm:grid-cols-4 sm:gap-x-10 items-center"
         >
