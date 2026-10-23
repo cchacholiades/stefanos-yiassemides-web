@@ -58,7 +58,7 @@
       <div class="mt-14 border-t border-white/10 pt-12">
         <p class="brand-name mb-8 text-white/40">Clients</p>
         <div
-          class="grid grid-cols-4 gap-x-8 gap-y-6 sm:grid-cols-7 sm:gap-x-10 items-center"
+          class="grid grid-cols-4 gap-x-8 gap-y-6 sm:grid-cols-8 sm:gap-x-10 items-center"
         >
           <a
             rel="nofollow"
@@ -162,6 +162,20 @@
               alt="Spin Master"
               width="256"
               height="256"
+            />
+          </a>
+          <a
+            rel="nofollow"
+            href="https://www.animaj.com/"
+            class="flex items-center justify-center"
+          >
+            <NuxtImg
+              src="/clients/animaj.png"
+              class="about__client-logo"
+              loading="lazy"
+              alt="Animaj"
+              width="1000"
+              height="562"
             />
           </a>
         </div>
