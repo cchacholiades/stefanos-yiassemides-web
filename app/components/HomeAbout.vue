@@ -111,7 +111,6 @@
             class="flex items-center justify-center"
           >
             <NuxtImg
-              format="webp"
               src="/clients/4.svg"
               class="about__client-logo"
               loading="lazy"
