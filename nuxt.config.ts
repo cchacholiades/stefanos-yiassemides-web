@@ -225,6 +225,7 @@ export default defineNuxtConfig({
   },
 
   sitemap: {
+    xsl: false,
     zeroRuntime: true,
     urls: [
       {
