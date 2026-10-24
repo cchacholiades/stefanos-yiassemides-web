@@ -19,7 +19,7 @@
       </div>
     </div>
 
-    <div class="flex-1 space-y-4 pt-2 flex flex-col">
+    <div class="flex-1 space-y-4 pt-2 flex flex-col min-h-[270px]">
       <h2
         class="font-bold text-white tracking-tight pr-12 md:pr-0"
         :class="{
