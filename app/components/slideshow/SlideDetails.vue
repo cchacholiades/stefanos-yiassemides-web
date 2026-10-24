@@ -37,17 +37,17 @@
 
       <div class="flex flex-wrap justify-start gap-2">
         <template v-if="showWatchButton && work.youtube_labels?.length">
-            <button
-              v-for="(label, i) in work.youtube_labels"
-              :key="i"
-              type="button"
-              class="watch-button"
-              :title="`Watch: ${label}`"
-              @click="emit('play-preview', i)"
-            >
-              <font-awesome-icon :icon="['fas', 'play']" class="text-sm" />
-              <span>{{ label }}</span>
-            </button>
+          <button
+            v-for="(label, i) in work.youtube_labels"
+            :key="i"
+            type="button"
+            class="watch-button"
+            :title="`Watch: ${label}`"
+            @click="emit('play-preview', i)"
+          >
+            <font-awesome-icon :icon="['fas', 'play']" class="text-sm" />
+            <span>{{ label }}</span>
+          </button>
         </template>
         <button
           v-else-if="showWatchButton"

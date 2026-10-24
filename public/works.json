@@ -4,9 +4,7 @@
     "img": "works/1.webp",
     "name": "Rainbocorns",
     "description": "Original score for the Rainbocorns animated series. Explore the magical world of Rainbocorn Town — bringing the colorful characters to life well beyond the toy line.",
-    "youtube": [
-      "FnvGnfZgF0g"
-    ],
+    "youtube": ["FnvGnfZgF0g"],
     "order": 12
   },
   {
@@ -14,9 +12,7 @@
     "img": "works/2.webp",
     "name": "Go Buster (Sound Design)",
     "description": "Sound design for Go Buster, a vehicle adventure show following Buster, a fun-loving young bus and his friends as they explore colors, shapes, and numbers together.",
-    "youtube": [
-      "6_EDRNivnnI"
-    ],
+    "youtube": ["6_EDRNivnnI"],
     "order": 13
   },
   {
@@ -24,9 +20,7 @@
     "img": "works/3.webp",
     "name": "Lego Duplo",
     "description": "A world where your favourite LEGO characters sing popular nursery rhymes that are loved by children and their parents all around the world.",
-    "youtube": [
-      "NqFxPrOXjVk"
-    ],
+    "youtube": ["NqFxPrOXjVk"],
     "order": 4
   },
   {
@@ -34,9 +28,7 @@
     "img": "works/4.webp",
     "name": "appMink",
     "description": "Music for appMink, a popular children's animation channel producing high-quality songs, nursery rhymes, and educational videos for young audiences worldwide.",
-    "youtube": [
-      "94YnB8nndf0"
-    ],
+    "youtube": ["94YnB8nndf0"],
     "order": 14
   },
   {
@@ -44,9 +36,7 @@
     "img": "works/5.webp",
     "name": "Little Baby Bum",
     "description": "Little Baby Bum is a fun and educational show for kids featuring classic and new nursery rhymes.",
-    "youtube": [
-      "eT3eeaeI4vM"
-    ],
+    "youtube": ["eT3eeaeI4vM"],
     "order": 10
   },
   {
@@ -54,10 +44,7 @@
     "img": "works/6.webp",
     "name": "The Untold Legacy",
     "description": "Original game score for The Untold Legacy, an atmospheric action-adventure RPG developed by Iconic Games. A bright, colorful world with a surreal and often unsettling edge — releasing on PlayStation, Xbox, PC, and Steam.",
-    "youtube": [
-      "frKQTxZoSzw",
-      "yBBLivbQQ54"
-    ],
+    "youtube": ["frKQTxZoSzw", "yBBLivbQQ54"],
     "order": 7
   },
   {
@@ -65,9 +52,7 @@
     "img": "works/7.webp",
     "name": "T-Rex Ranch (4 Seasons)",
     "description": "T-Rex Ranch follows Park Rangers on their action-packed, everyday dinosaur adventures. T-Rex Ranch is a favorite of kids age 4-8, and has over 2.4 million fans on YouTube. Its imaginative storylines and CGI dinosaurs entertain while teaching kids about the natural and prehistoric world.",
-    "youtube": [
-      "2KicJko_cVY"
-    ],
+    "youtube": ["2KicJko_cVY"],
     "order": 8
   },
   {
@@ -75,9 +60,7 @@
     "img": "works/8.webp",
     "name": "Mega Bloks (3 Seasons)",
     "description": "Animated series for kids based on the Mega Bloks&reg; line of construction set toys. Produced by <a class=\"font-semibold text-yellow hover:underline\" href=\"https://www.moonbug.com/\" rel=\"noopener noreferrer nofollow\" target=\"_blank\">Moonbug Entertainment</a>.",
-    "youtube": [
-      "2KN7v75srZQ"
-    ],
+    "youtube": ["2KN7v75srZQ"],
     "order": 6
   },
   {
@@ -85,9 +68,7 @@
     "img": "works/9.webp",
     "name": "Westworld Scoring Competition",
     "description": "Entry for the Westworld Scoring Competition hosted by Spitfire Audio. The task was to re-imagine and score a scene from Westworld Season 3.",
-    "youtube": [
-      "T__-goYTu3Q"
-    ],
+    "youtube": ["T__-goYTu3Q"],
     "order": 18
   },
   {
@@ -95,9 +76,7 @@
     "img": "works/10.webp",
     "name": "Caminandes: Llamigos (Re-score)",
     "description": "It's winter in Patagonia, food is getting scarce. Koro the Llama engages with Oti the pesky penguin in an epic fight over that last tasty berry!",
-    "youtube": [
-      "mEcKY9gbUx4"
-    ],
+    "youtube": ["mEcKY9gbUx4"],
     "order": 20
   },
   {
@@ -105,9 +84,7 @@
     "img": "works/11.webp",
     "name": "It Will Find You",
     "description": "It Will Find You is a first person narrative driven horror experience, with a focus on environmental interaction and progressive narrative through game-play. It Will Find You aims to provide an immersive experience where a dark, twisting narrative evolves in tandem with your decisions. Developed by <a href=\"https://twitter.com/heraldofloco\" class=\"text-yellow hover:underline\" rel=\"nofollow\">Mega Sloth Studios</a>.",
-    "youtube": [
-      "k0RMwoxzLi0"
-    ],
+    "youtube": ["k0RMwoxzLi0"],
     "order": 19
   },
   {
@@ -115,9 +92,7 @@
     "img": "works/12.webp",
     "name": "Rescue Heroes",
     "description": "Stop-motion animated series for kids produced by <a class=\"font-semibold text-yellow hover:underline\" href=\"https://www.moonbug.com/\" target=\"_blank\" rel=\"noopener\">Moonbug Entertainment</a>. Based on the Fisher-Price&reg; toy line of \"Rescue Heroes\", this online series tracks the adventures of a team of emergency responders who rescue people from various disasters.",
-    "youtube": [
-      "KJltqNGhWns"
-    ],
+    "youtube": ["KJltqNGhWns"],
     "order": 11
   },
   {
@@ -125,9 +100,7 @@
     "img": "works/13.webp",
     "name": "The Oceanmaker (Re-score)",
     "description": "In a post-apocalyptic world where all the water and seas have disappeared, a courageous young female pilot fights against vicious sky pirates for control over the last remaining source of water, the clouds.",
-    "youtube": [
-      "ac1l4FsnqEc"
-    ],
+    "youtube": ["ac1l4FsnqEc"],
     "order": 15
   },
   {
@@ -135,9 +108,7 @@
     "img": "works/14.webp",
     "name": "Wallace & Gromit: A Grand Day Out (Re-score)",
     "description": "Wallace, after finding no cheese in the kitchen, decides that he and Gromit should go to a place known for its cheese. A glance out the window at the night sky gives him the idea to travel to the moon, since, according to Wallace, everybody knows that the moon is made of cheese.",
-    "youtube": [
-      "r0awxQO_kmg"
-    ],
+    "youtube": ["r0awxQO_kmg"],
     "order": 16
   },
   {
@@ -145,14 +116,8 @@
     "img": "works/15.webp",
     "name": "BBC Hidden Kingdoms: Lizard Attack, Mouse Leaves Home (Re-score)",
     "description": "Lizard Attack is a part of a dramatized natural history series by BBC called Hidden Kingdoms. Set in the African savannah, it tells the story about the encounter between a small, mouse-sized and long-nosed insectivore called elephant-shrew (otherwise known as sengi), and its nemesis, the monitor lizard.<br/>Mouse Leaves Home is the story about the grasshopper mouse, who specializes in venomous prey, especially bark scorpions, the only scorpion in the USA capable of killing a human.",
-    "youtube": [
-      "HmVRvM6rVYc",
-      "bag78VnqYHw"
-    ],
-    "youtube_labels": [
-      "Lizard Attack",
-      "Mouse Leaves Home"
-    ],
+    "youtube": ["HmVRvM6rVYc", "bag78VnqYHw"],
+    "youtube_labels": ["Lizard Attack", "Mouse Leaves Home"],
     "order": 20
   },
   {
@@ -160,9 +125,7 @@
     "img": "works/16.webp",
     "name": "Let's Go Cozy Coupe",
     "description": "Music for Let's Go Cozy Coupe, a children's online series based on the iconic ride-on toy. An imaginative show that sparks creativity and helps young audiences learn through play.",
-    "youtube": [
-      "3yzR-M_ZMdc"
-    ],
+    "youtube": ["3yzR-M_ZMdc"],
     "order": 9
   },
   {
@@ -178,9 +141,7 @@
     "img": "works/18.webp",
     "name": "Paw Patrol: Rocky's Garage",
     "description": "Rocky's Garage: Adventure Bay's amazing recycling pup, Rocky, fixes anything the PAW Patrol needs in his cool new garage.",
-    "youtube": [
-      "txMGowizXx4"
-    ],
+    "youtube": ["txMGowizXx4"],
     "order": 1
   },
   {
@@ -196,9 +157,7 @@
     "img": "works/20.webp",
     "name": "Gecko's Garage",
     "description": "Gecko's Garage is the repair shop that cares, run by cheerful mechanic Gecko and his trusty robot sidekicks, The Mechanicals. The garage looks after all of the vehicles in town and keeps them running smoothly.",
-    "youtube": [
-      "6KTfawqn40Y"
-    ],
+    "youtube": ["6KTfawqn40Y"],
     "order": 3
   },
   {
@@ -206,9 +165,7 @@
     "img": "works/21.webp",
     "name": "PAW Patrol: To the Rescue",
     "description": "When trouble strikes in Adventure Bay, PAW Patrol is there to save the day. No job is too big, no pup too small. They always find a way to help. Don't miss the fun with PAW Patrol Official and Friends.",
-    "youtube": [
-      "Oe25oeCVV3g"
-    ],
+    "youtube": ["Oe25oeCVV3g"],
     "order": 0
   },
   {
@@ -216,9 +173,7 @@
     "img": "works/22.webp",
     "name": "Pocoyo (Season 6)",
     "description": "Pocoyo follows the adventures of a curious little boy dressed all in blue, who along with his sister Bea, his best friends Pato and Elly is always exploring, learning and most importantly having fun.",
-    "youtube": [
-      "mSlDlam7zOI"
-    ],
+    "youtube": ["mSlDlam7zOI"],
     "website": "https://www.pocoyo.com/",
     "order": -1
   },
@@ -227,9 +182,7 @@
     "img": "works/23.webp",
     "name": "Jungle Squad",
     "description": "The Jungle Squad are an elite group of animals fighting to defend their magical habitat from the RUIN Corporation, an evil empire intent on deforestation and destruction.",
-    "youtube": [
-      "z1RajfAFdqM"
-    ],
+    "youtube": ["z1RajfAFdqM"],
     "order": -3
   },
   {
@@ -237,9 +190,7 @@
     "img": "works/24.webp",
     "name": "Supa Strikas",
     "description": "Music for Supa Strikas, an internationally broadcast animated football series following the highs and drama of the world's greatest team — beloved by fans of the sport worldwide.",
-    "youtube": [
-      "vLw4Ho5F0x0"
-    ],
+    "youtube": ["vLw4Ho5F0x0"],
     "order": -2
   }
 ]
