@@ -14,7 +14,7 @@
     "typecheck": "nuxt typecheck",
     "check": "npm run lint && npm run format:check && npm run typecheck && npm run generate",
     "prepare": "husky",
-    "deploy": "gh-pages -d .output/public"
+    "deploy": "gh-pages -d .output/public --no-history"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^7.3.1",
