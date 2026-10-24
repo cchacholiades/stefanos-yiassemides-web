@@ -1,6 +1,6 @@
 # Stefanos Yiassemides - Music Composer for Film & Media
 
-Official website for Stefanos Yiassemides. Music Composer for Film, TV, Games & Animation.
+Official website for Stefanos Yiassemides — Film, TV, Games & Animation.
 
 **Website:** https://stefanosyiassemides.com
 
@@ -44,12 +44,12 @@ npm run check
 
 - `app/` — Vue pages, components, plugins, and assets
 - `public/` — static files (images, `works.json`, `CNAME`, etc.)
-- `nuxt.config.ts` — Nuxt 4 configuration
+- `nuxt.config.ts` — site configuration
 
 ## Stack
 
-- [Nuxt 4](https://nuxt.com) + Vue 3 + TypeScript
-- Tailwind CSS 4 (via `@tailwindcss/vite`)
+- [Nuxt 4](https://nuxt.com) + [Vue 3](https://vuejs.org) + [TypeScript](https://www.typescriptlang.org)
+- [Tailwind CSS 4](https://tailwindcss.com) (via `@tailwindcss/vite`)
 - `@nuxt/image`, `@nuxtjs/sitemap`, `@nuxtjs/google-fonts`, `@vite-pwa/nuxt`
-- Font Awesome v7 (tree-shaken icons)
+- [Font Awesome v7](https://fontawesome.com) (tree-shaken icons)
 - YouTube IFrame API for portfolio video previews
