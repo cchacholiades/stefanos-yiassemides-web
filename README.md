@@ -1,4 +1,4 @@
-# Stefanos Yiassemides - Music Composer & Sound Designer
+# Stefanos Yiassemides - Music Composer for Film & Media
 
 Official website for Stefanos Yiassemides. Music Composer for Film, TV, Games & Animation.
 
@@ -6,15 +6,12 @@ Official website for Stefanos Yiassemides. Music Composer for Film, TV, Games & 
 
 ## Requirements
 
-- Node.js **20.19+**, **22.13+**, or **24+** recommended (see [.nvmrc](.nvmrc))
-- **22.12.x:** `npm install` still works; you may see `EBADENGINE` warnings from ESLint. Upgrade one patch to clear them:
+- Node.js **24** (see [.nvmrc](.nvmrc))
 
 ```bash
-nvm install 22.13 && nvm use    # or: nvm install && nvm use
-node -v                         # should be v22.13.0+
+nvm install && nvm use
+node -v   # should be v24.x
 ```
-
-- To silence engine warnings without upgrading, uncomment `ignore-engines=true` in [.npmrc](.npmrc)
 
 ## Build setup
 
@@ -52,7 +49,7 @@ npm run check
 ## Stack
 
 - [Nuxt 4](https://nuxt.com) + Vue 3 + TypeScript
-- Tailwind CSS
-- `@nuxt/image`, `@nuxtjs/sitemap`, `@vite-pwa/nuxt`
-- Font Awesome (tree-shaken icons)
-- YouTube IFrame API + `@vimeo/player` for portfolio video previews
+- Tailwind CSS 4 (via `@tailwindcss/vite`)
+- `@nuxt/image`, `@nuxtjs/sitemap`, `@nuxtjs/google-fonts`, `@vite-pwa/nuxt`
+- Font Awesome v7 (tree-shaken icons)
+- YouTube IFrame API for portfolio video previews
