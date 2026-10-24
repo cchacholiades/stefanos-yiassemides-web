@@ -25,6 +25,7 @@
         {{ work.name }}
       </h2>
 
+      <!-- eslint-disable-next-line vue/no-v-html -- content is static author-controlled data, not user input -->
       <p class="work-mobile-card__description" v-html="work.description"></p>
 
       <div v-if="showWatchButton" class="work-mobile-card__watch-group">

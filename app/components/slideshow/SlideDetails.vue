@@ -30,6 +30,7 @@
         {{ work.name }}
       </h2>
 
+      <!-- eslint-disable-next-line vue/no-v-html -- content is static author-controlled data, not user input -->
       <p
         class="text-base md:text-lg text-white/90 max-w-2xl leading-relaxed"
         v-html="work.description"
