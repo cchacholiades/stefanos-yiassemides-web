@@ -62,7 +62,7 @@ export default defineNuxtConfig({
         {
           name: 'keywords',
           content:
-            'music composer, sound designer, film composer, tv composer, game composer, animation music, netflix composer, youtube music, film score, soundtrack, audio design, sound effects, music production, entertainment composer, stefanos yiassemides',
+            'music composer, sound designer, film composer, tv composer, game composer, animation music, netflix composer, youtube music, film score, soundtrack, audio design, sound effects, music production, entertainment composer, stefanos yiassemides, stefanos yiasemides',
         },
         { name: 'copyright', content: 'Stefanos Yiassemides' },
         { name: 'reply-to', content: 'info@stefanosyiassemides.com' },
@@ -126,6 +126,7 @@ export default defineNuxtConfig({
             '@context': 'https://schema.org',
             '@type': 'Person',
             name: 'Stefanos Yiassemides',
+            alternateName: 'Stefanos Yiasemides',
             jobTitle: 'Music Composer',
             description:
               'Award-winning Music Composer for Film, TV, Games & Animation',
