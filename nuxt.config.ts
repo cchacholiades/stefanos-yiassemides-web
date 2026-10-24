@@ -1,5 +1,6 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 import { defineNuxtConfig } from 'nuxt/config'
+import tailwindcss from '@tailwindcss/vite'
 
 export default defineNuxtConfig({
   compatibilityDate: '2025-05-23',
@@ -16,6 +17,7 @@ export default defineNuxtConfig({
   css: ['~/assets/css/main.css'],
 
   vite: {
+    plugins: [tailwindcss()],
     build: {
       // Skips nuxt:module-preload-polyfill transform (and its sourcemap WARN on generate)
       modulePreload: { polyfill: false },
@@ -155,7 +157,6 @@ export default defineNuxtConfig({
 
   modules: [
     '@nuxt/eslint',
-    '@nuxtjs/tailwindcss',
     '@nuxtjs/google-fonts',
     '@nuxt/image',
     '@nuxtjs/sitemap',
@@ -273,11 +274,6 @@ export default defineNuxtConfig({
     devOptions: {
       enabled: false,
     },
-  },
-
-  tailwindcss: {
-    configPath: 'tailwind.config.js',
-    exposeConfig: false,
   },
 
   imports: {

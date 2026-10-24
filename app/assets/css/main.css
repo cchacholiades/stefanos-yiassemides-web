@@ -1,6 +1,64 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+@import "tailwind-scrollbar-hide/v4";
+
+@source inline("text-yellow font-semibold hover:underline");
+
+@theme {
+  /* Replace default palette entirely */
+  --color-*: initial;
+  --color-transparent: transparent;
+  --color-black: #0d1011;
+  --color-black-lighter: #333333;
+  --color-white: #ffffff;
+  --color-yellow: #ffcb30;
+
+  /* Replace default type scale entirely */
+  --font-size-*: initial;
+  --font-size-2xs: 0.5625rem;
+  --font-size-2xs--line-height: 1.7em;
+  --font-size-1xs: 0.6875rem;
+  --font-size-1xs--line-height: 1.7em;
+  --font-size-xs: 0.8125rem;
+  --font-size-xs--line-height: 1.6em;
+  --font-size-sm: 0.9375rem;
+  --font-size-sm--line-height: 1.6em;
+  --font-size-base: 1rem;
+  --font-size-base--line-height: 1.5em;
+  --font-size-lg: 1.0625rem;
+  --font-size-lg--line-height: 1.5em;
+  --font-size-xl: 1.125rem;
+  --font-size-xl--line-height: 1.5em;
+  --font-size-2xl: 1.25rem;
+  --font-size-2xl--line-height: 1.5em;
+  --font-size-3xl: 1.675rem;
+  --font-size-3xl--line-height: 1.5em;
+  --font-size-4xl: 2.375rem;
+  --font-size-4xl--line-height: 1.4em;
+  --font-size-5xl: 3rem;
+  --font-size-5xl--line-height: 1.3em;
+  --font-size-6xl: 3.75rem;
+  --font-size-6xl--line-height: 1.2em;
+  --font-size-7xl: 4.25rem;
+  --font-size-7xl--line-height: 1.2em;
+
+  /* Add xs breakpoint (md–2xl match v4 defaults) */
+  --breakpoint-xs: 29.6875rem;
+
+  /* Extend font family */
+  --font-family-sans: Inter, ui-sans-serif, system-ui, sans-serif;
+
+  /* Custom animation */
+  --animate-fade-in-opacity: fadeInOpacity 0.3s ease-in 1;
+}
+
+@keyframes fadeInOpacity {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
 
 @layer components {
   .brand-name {
