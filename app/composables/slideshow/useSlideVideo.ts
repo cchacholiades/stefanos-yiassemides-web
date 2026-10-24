@@ -11,8 +11,6 @@ export function useSlideVideo(
   let playbackRetryTimeout: ReturnType<typeof setTimeout> | null = null
   const isPlaybackPaused = ref(false)
   const isHovered = ref(true)
-  const isIOS = ref(false)
-  const hasUserInteracted = ref(false)
 
   const origin = computed(() =>
     import.meta.client ? window.location.origin : '',
@@ -138,7 +136,6 @@ export function useSlideVideo(
     if (!currentWork) return
 
     if (hasVideo(currentWork)) {
-      hasUserInteracted.value = true
       activeVideoIndex.value = videoIndex
       isPreviewPlaying.value = true
       isPlaybackPaused.value = false
@@ -204,9 +201,6 @@ export function useSlideVideo(
   }
 
   onMounted(() => {
-    isIOS.value =
-      /iPad|iPhone|iPod/.test(navigator.userAgent) &&
-      !(window as Window & { MSStream?: unknown }).MSStream
     document.addEventListener('visibilitychange', handleVisibilityChange)
     window.addEventListener('pagehide', handlePageHide)
     window.addEventListener('pageshow', handlePageShow)
@@ -224,8 +218,6 @@ export function useSlideVideo(
     activeVideoIndex,
     isPlaybackPaused,
     isHovered,
-    isIOS,
-    hasUserInteracted,
     origin,
     hasVideo,
     registerYoutubePlayer,
