@@ -227,7 +227,7 @@ export default defineNuxtConfig({
   sitemap: {
     xsl: false,
     zeroRuntime: true,
-    images: false,
+    discoverImages: false,
     urls: [
       {
         loc: '/',
