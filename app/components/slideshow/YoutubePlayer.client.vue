@@ -57,6 +57,7 @@ onMounted(async () => {
     events: {
       onReady: () => {
         if (playerInstance) {
+          playerInstance.unloadModule('captions')
           emit('ready', playerInstance, props.playerIndex)
         }
       },

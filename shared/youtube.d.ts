@@ -49,6 +49,7 @@ declare namespace YT {
     getPlayerState: () => number
     mute: () => void
     unMute: () => void
+    unloadModule: (module: string) => void
     destroy: () => void
   }
 
