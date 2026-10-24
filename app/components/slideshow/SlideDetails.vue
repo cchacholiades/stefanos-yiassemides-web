@@ -19,27 +19,24 @@
       </div>
     </div>
 
-    <div class="flex-1 space-y-8 pt-2 h-[270px] flex flex-col">
-      <div class="flex-1 flex flex-col min-h-0">
-        <h2
-          class="font-bold text-white mb-3 tracking-tight pr-12 md:pr-0 shrink-0"
-          :class="{
-            'text-2xl md:text-4xl': work.name.length > TITLE_LENGTH_THRESHOLD,
-            'text-3xl md:text-5xl': work.name.length <= TITLE_LENGTH_THRESHOLD,
-          }"
-        >
-          {{ work.name }}
-        </h2>
+    <div class="flex-1 space-y-4 pt-2 flex flex-col">
+      <h2
+        class="font-bold text-white tracking-tight pr-12 md:pr-0"
+        :class="{
+          'text-2xl md:text-4xl': work.name.length > TITLE_LENGTH_THRESHOLD,
+          'text-3xl md:text-5xl': work.name.length <= TITLE_LENGTH_THRESHOLD,
+        }"
+      >
+        {{ work.name }}
+      </h2>
 
-        <div class="overflow-y-auto pr-4 flex-1 min-h-0">
-          <p
-            class="text-base md:text-lg text-white/90 max-w-2xl leading-relaxed"
-            v-html="work.description"
-          ></p>
-        </div>
+      <p
+        class="text-base md:text-lg text-white/90 max-w-2xl leading-relaxed"
+        v-html="work.description"
+      ></p>
 
-        <div class="mt-6 flex flex-wrap justify-start gap-2">
-          <template v-if="showWatchButton && work.youtube_labels?.length">
+      <div class="flex flex-wrap justify-start gap-2">
+        <template v-if="showWatchButton && work.youtube_labels?.length">
             <button
               v-for="(label, i) in work.youtube_labels"
               :key="i"
@@ -51,18 +48,17 @@
               <font-awesome-icon :icon="['fas', 'play']" class="text-sm" />
               <span>{{ label }}</span>
             </button>
-          </template>
-          <button
-            v-else-if="showWatchButton"
-            type="button"
-            class="watch-button"
-            title="Watch Video"
-            @click="emit('play-preview', 0)"
-          >
-            <font-awesome-icon :icon="['fas', 'play']" class="text-sm" />
-            <span>Watch</span>
-          </button>
-        </div>
+        </template>
+        <button
+          v-else-if="showWatchButton"
+          type="button"
+          class="watch-button"
+          title="Watch Video"
+          @click="emit('play-preview', 0)"
+        >
+          <font-awesome-icon :icon="['fas', 'play']" class="text-sm" />
+          <span>Watch</span>
+        </button>
       </div>
     </div>
   </div>
