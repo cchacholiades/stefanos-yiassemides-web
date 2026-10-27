@@ -9,46 +9,7 @@ export function useSlideVideo(
   const isPreviewPlaying = ref(false)
   const activeVideoIndex = ref(0)
   let playbackRetryTimeout: ReturnType<typeof setTimeout> | null = null
-  const isPlaybackPaused = ref(false)
   const isHovered = ref(true)
-  const currentTime = ref(0)
-  const duration = ref(0)
-  let pollInterval: ReturnType<typeof setInterval> | null = null
-
-  function startTimePolling() {
-    if (pollInterval) return
-    pollInterval = setInterval(() => {
-      const yt = youtubePlayers.value[currentIndex.value]
-      if (!yt) return
-      try {
-        currentTime.value = yt.getCurrentTime() ?? 0
-        const d = yt.getDuration()
-        if (d > 0) duration.value = d
-      } catch {
-        /* ignore */
-      }
-    }, 250)
-  }
-
-  function stopTimePolling() {
-    if (pollInterval !== null) {
-      clearInterval(pollInterval)
-      pollInterval = null
-    }
-    currentTime.value = 0
-    duration.value = 0
-  }
-
-  function seek(seconds: number) {
-    const yt = youtubePlayers.value[currentIndex.value]
-    if (!yt) return
-    try {
-      yt.seekTo(seconds, true)
-      currentTime.value = seconds
-    } catch {
-      /* ignore */
-    }
-  }
 
   const origin = computed(() =>
     import.meta.client ? window.location.origin : '',
@@ -119,26 +80,6 @@ export function useSlideVideo(
     }
   }
 
-  function rewindVideo() {
-    const list = works.value
-    if (!list) return
-
-    const currentWork = list[currentIndex.value]
-    if (!currentWork) return
-
-    isPlaybackPaused.value = false
-
-    const yt = youtubePlayers.value[currentIndex.value]
-    if (currentWork.youtube?.[0] && yt) {
-      try {
-        yt.seekTo(0)
-        yt.playVideo()
-      } catch {
-        /* ignore */
-      }
-    }
-  }
-
   function togglePlayback() {
     if (!isPreviewPlaying.value) return
 
@@ -157,10 +98,8 @@ export function useSlideVideo(
           state === YT.PlayerState.BUFFERING
         ) {
           yt.pauseVideo()
-          isPlaybackPaused.value = true
         } else {
           yt.playVideo()
-          isPlaybackPaused.value = false
         }
       } catch {
         /* player not ready */
@@ -177,18 +116,14 @@ export function useSlideVideo(
     if (hasVideo(currentWork)) {
       activeVideoIndex.value = videoIndex
       isPreviewPlaying.value = true
-      isPlaybackPaused.value = false
       isHovered.value = false
       playCurrentVideo()
-      startTimePolling()
     }
   }
 
   function stopPreview() {
     isPreviewPlaying.value = false
-    isPlaybackPaused.value = false
     isHovered.value = true
-    stopTimePolling()
     stopAllVideos()
     if (activeVideoIndex.value > 0) {
       const list = works.value
@@ -229,16 +164,13 @@ export function useSlideVideo(
   function handlePageShow(event: PageTransitionEvent) {
     if (event.persisted) {
       isPreviewPlaying.value = false
-      isPlaybackPaused.value = false
       isHovered.value = true
     }
   }
 
   function onNavigate() {
     stopAllVideos()
-    stopTimePolling()
     isPreviewPlaying.value = false
-    isPlaybackPaused.value = false
     activeVideoIndex.value = 0
   }
 
@@ -249,25 +181,17 @@ export function useSlideVideo(
   })
 
   onBeforeUnmount(() => {
-    stopTimePolling()
     document.removeEventListener('visibilitychange', handleVisibilityChange)
     window.removeEventListener('pagehide', handlePageHide)
     window.removeEventListener('pageshow', handlePageShow)
   })
 
   return {
-    youtubePlayers,
     isPreviewPlaying,
-    activeVideoIndex,
-    isPlaybackPaused,
     isHovered,
-    currentTime,
-    duration,
     origin,
     hasVideo,
     registerYoutubePlayer,
-    rewindVideo,
-    seek,
     playPreview,
     togglePlayback,
     stopPreview,

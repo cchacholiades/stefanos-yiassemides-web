@@ -79,20 +79,7 @@
         </template>
       </SlideshowIndicators>
 
-      <SlideshowPlaybackControls
-        v-if="isPreviewPlaying"
-        :is-paused="isPlaybackPaused"
-        @rewind="rewindVideo"
-        @toggle="togglePlayback"
-        @close="stopPreview"
-      />
-
-      <SlideshowTimeline
-        v-if="isPreviewPlaying"
-        :current-time="currentTime"
-        :duration="duration"
-        @seek="seek"
-      />
+      <SlideshowPlaybackControls v-if="isPreviewPlaying" @close="stopPreview" />
     </div>
   </Teleport>
 
@@ -110,16 +97,7 @@
     />
     <SlideshowPlaybackControls
       v-if="isPreviewPlaying && !isDesktopLayout"
-      :is-paused="isPlaybackPaused"
-      @rewind="rewindVideo"
-      @toggle="togglePlayback"
       @close="stopPreview"
-    />
-    <SlideshowTimeline
-      v-if="isPreviewPlaying && !isDesktopLayout"
-      :current-time="currentTime"
-      :duration="duration"
-      @seek="seek"
     />
   </Teleport>
 </template>
@@ -184,18 +162,13 @@ const previewWork = computed(() => {
 
 const {
   isPreviewPlaying,
-  isPlaybackPaused,
   isHovered,
-  currentTime,
-  duration,
   origin,
   hasVideo,
   registerYoutubePlayer,
   playPreview,
   togglePlayback,
   stopPreview,
-  rewindVideo,
-  seek,
   onPlayerEnded,
   onNavigate,
 } = useSlideVideo(works, currentIndex)
