@@ -4,11 +4,11 @@
       <div
         class="slideshow-timeline__fill"
         :style="{ width: `${progress * 100}%` }"
-      />
+      ></div>
       <div
         class="slideshow-timeline__thumb"
         :style="{ left: `${progress * 100}%` }"
-      />
+      ></div>
     </div>
   </div>
 </template>
@@ -27,22 +27,31 @@ const progress = computed(() =>
   props.duration > 0 ? Math.min(props.currentTime / props.duration, 1) : 0,
 )
 
-const trackEl = ref<HTMLElement | null>(null)
-
 function seekFromPointer(event: PointerEvent) {
-  const track = (event.currentTarget as HTMLElement)
-    .querySelector('.slideshow-timeline__track') as HTMLElement | null
+  const track = (event.currentTarget as HTMLElement).querySelector(
+    '.slideshow-timeline__track',
+  ) as HTMLElement | null
   if (!track || props.duration <= 0) return
   const rect = track.getBoundingClientRect()
-  const fraction = Math.max(0, Math.min((event.clientX - rect.left) / rect.width, 1))
+  const fraction = Math.max(
+    0,
+    Math.min((event.clientX - rect.left) / rect.width, 1),
+  )
   emit('seek', fraction * props.duration)
 }
 
 function onPointerDown(event: PointerEvent) {
   seekFromPointer(event)
   ;(event.currentTarget as HTMLElement).setPointerCapture(event.pointerId)
-  ;(event.currentTarget as HTMLElement).addEventListener('pointermove', onPointerMove)
-  ;(event.currentTarget as HTMLElement).addEventListener('pointerup', onPointerUp, { once: true })
+  ;(event.currentTarget as HTMLElement).addEventListener(
+    'pointermove',
+    onPointerMove,
+  )
+  ;(event.currentTarget as HTMLElement).addEventListener(
+    'pointerup',
+    onPointerUp,
+    { once: true },
+  )
 }
 
 function onPointerMove(event: PointerEvent) {
@@ -50,7 +59,10 @@ function onPointerMove(event: PointerEvent) {
 }
 
 function onPointerUp(event: PointerEvent) {
-  ;(event.currentTarget as HTMLElement).removeEventListener('pointermove', onPointerMove)
+  ;(event.currentTarget as HTMLElement).removeEventListener(
+    'pointermove',
+    onPointerMove,
+  )
 }
 </script>
 

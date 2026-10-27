@@ -3,7 +3,7 @@
     class="w-full max-w-4xl mx-auto relative flex flex-col md:flex-row items-start gap-8 md:gap-12"
     :class="compact ? 'px-8 md:px-16' : ''"
   >
-    <div class="w-[180px] lg:w-[260px] flex-shrink-0">
+    <div class="w-[180px] lg:w-[260px] flex-shrink-0 md:self-center">
       <div
         class="relative aspect-[2/3] rounded-lg overflow-hidden shadow-2xl work-poster"
       >
@@ -21,18 +21,14 @@
 
     <div class="flex-1 space-y-4 pt-2 flex flex-col min-h-[270px]">
       <h2
-        class="font-bold text-white tracking-tight pr-12 md:pr-0"
-        :class="{
-          'text-2xl md:text-4xl': work.name.length > TITLE_LENGTH_THRESHOLD,
-          'text-3xl md:text-5xl': work.name.length <= TITLE_LENGTH_THRESHOLD,
-        }"
+        class="text-xl md:text-3xl font-bold text-white tracking-tight pr-12 md:pr-0"
       >
         {{ work.name }}
       </h2>
 
       <!-- eslint-disable-next-line vue/no-v-html -- content is static author-controlled data, not user input -->
       <p
-        class="text-base md:text-lg text-white/90 max-w-2xl leading-relaxed"
+        class="text-sm lg:text-lg text-white/90 max-w-2xl leading-relaxed"
         v-html="work.description"
       ></p>
 
@@ -47,7 +43,7 @@
             @click="emit('play-preview', i)"
           >
             <font-awesome-icon :icon="['fas', 'play']" class="text-sm" />
-            <span>{{ label }}</span>
+            <span>Watch {{ label }}</span>
           </button>
         </template>
         <button
@@ -66,7 +62,6 @@
 </template>
 
 <script setup lang="ts">
-import { TITLE_LENGTH_THRESHOLD } from './constants'
 import type { Work } from '~/types/work'
 
 defineProps<{
