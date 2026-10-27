@@ -37,80 +37,68 @@
   <Teleport to="body">
     <div
       v-if="isDesktopSlideshowOpen && isDesktopLayout"
-      class="fixed inset-0 z-40 hidden md:flex md:flex-col bg-black"
+      class="fixed inset-0 z-40 hidden md:block bg-black"
     >
-      <div
-        v-if="isPreviewPlaying"
-        class="shrink-0 flex items-center justify-end px-8 py-4"
+      <SlideshowSlide
+        v-for="(work, index) in worksData"
+        :key="work.id"
+        :work="work"
+        :slide-index="index"
+        :is-active="currentIndex === index"
+        :background-work="backgroundWork"
+        :preview-work="previewWork"
+        :is-navigating-with-arrows="isNavigatingWithArrows"
+        :is-preview-playing="isPreviewPlaying"
+        :preview-index="previewIndex"
+        :show-watch-button="hasVideo(work)"
+        :origin="origin"
+        @play-preview="(videoIndex) => playPreview(videoIndex)"
+        @toggle-playback="togglePlayback"
+        @hover="handleHover"
+        @prev="prevSlide"
+        @next="nextSlide"
+        @nav-hover="handleNavHover"
+        @youtube-ready="(player, i) => registerYoutubePlayer(i, player)"
+        @player-ended="onPlayerEnded"
+      />
+
+      <SlideshowIndicators
+        v-if="!isPreviewPlaying"
+        :works="worksData"
+        :current-index="currentIndex"
+        :preview-index="previewIndex"
+        :hovered-indicator-index="hoveredIndicatorIndex"
+        @indicator-click="onIndicatorClick"
+        @show-preview="showPreview"
+        @set-hovered-indicator="setHoveredIndicator"
+        @indicators-enter="handleIndicatorsEnter"
+        @indicators-leave="handleIndicatorsLeave"
       >
-        <SlideshowPlaybackControls @close="stopPreview" />
-      </div>
+        <template #leading>
+          <SlideshowBackToGrid @click="closeDesktopSlideshow" />
+        </template>
+      </SlideshowIndicators>
 
-      <div class="relative flex-1">
-        <SlideshowSlide
-          v-for="(work, index) in worksData"
-          :key="work.id"
-          :work="work"
-          :slide-index="index"
-          :is-active="currentIndex === index"
-          :background-work="backgroundWork"
-          :preview-work="previewWork"
-          :is-navigating-with-arrows="isNavigatingWithArrows"
-          :is-preview-playing="isPreviewPlaying"
-          :preview-index="previewIndex"
-          :show-watch-button="hasVideo(work)"
-          :origin="origin"
-          @play-preview="(videoIndex) => playPreview(videoIndex)"
-          @toggle-playback="togglePlayback"
-          @hover="handleHover"
-          @prev="prevSlide"
-          @next="nextSlide"
-          @nav-hover="handleNavHover"
-          @youtube-ready="(player, i) => registerYoutubePlayer(i, player)"
-          @player-ended="onPlayerEnded"
-        />
-
-        <SlideshowIndicators
-          v-if="!isPreviewPlaying"
-          :works="worksData"
-          :current-index="currentIndex"
-          :preview-index="previewIndex"
-          :hovered-indicator-index="hoveredIndicatorIndex"
-          @indicator-click="onIndicatorClick"
-          @show-preview="showPreview"
-          @set-hovered-indicator="setHoveredIndicator"
-          @indicators-enter="handleIndicatorsEnter"
-          @indicators-leave="handleIndicatorsLeave"
-        >
-          <template #leading>
-            <SlideshowBackToGrid @click="closeDesktopSlideshow" />
-          </template>
-        </SlideshowIndicators>
-      </div>
+      <SlideshowPlaybackControls v-if="isPreviewPlaying" @close="stopPreview" />
     </div>
   </Teleport>
 
   <!-- Mobile overlay teleported to <body> so position:fixed works correctly
        regardless of any overflow:auto ancestor (iOS Safari containing-block bug) -->
   <Teleport to="body">
-    <div
+    <WorksGalleryMobileVideo
       v-if="isPreviewPlaying && !isDesktopLayout"
-      class="fixed inset-0 z-40 flex flex-col md:hidden bg-black"
-    >
-      <div class="shrink-0 flex items-center justify-end px-4 py-4">
-        <SlideshowPlaybackControls @close="stopPreview" />
-      </div>
-      <div class="relative flex-1">
-        <WorksGalleryMobileVideo
-          :work="worksData[currentIndex]"
-          :slide-index="currentIndex"
-          :origin="origin"
-          @toggle-playback="togglePlayback"
-          @youtube-ready="(player, i) => registerYoutubePlayer(i, player)"
-          @player-ended="onPlayerEnded"
-        />
-      </div>
-    </div>
+      :work="worksData[currentIndex]"
+      :slide-index="currentIndex"
+      :origin="origin"
+      @toggle-playback="togglePlayback"
+      @youtube-ready="(player, i) => registerYoutubePlayer(i, player)"
+      @player-ended="onPlayerEnded"
+    />
+    <SlideshowPlaybackControls
+      v-if="isPreviewPlaying && !isDesktopLayout"
+      @close="stopPreview"
+    />
   </Teleport>
 </template>
 

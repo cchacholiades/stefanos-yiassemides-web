@@ -1,5 +1,7 @@
 <template>
-  <div class="flex items-center gap-4">
+  <div
+    class="absolute max-md:fixed top-8 right-4 md:right-8 flex items-center gap-4 z-[300]"
+  >
     <button
       type="button"
       aria-label="Close Video"
@@ -36,13 +38,6 @@ const emit = defineEmits<{
   color: #fff;
   font-weight: 500;
   transition: background 0.15s ease;
-}
-
-.glass-control--icon {
-  justify-content: center;
-  width: 3rem;
-  height: 3rem;
-  padding: 0;
 }
 
 .glass-control:hover {
