@@ -23,7 +23,7 @@ export interface YoutubeEmbedOptions {
 }
 
 export const DEFAULT_YOUTUBE_EMBED_OPTIONS = {
-  controls: false,
+  controls: true,
   relatedVideos: false,
   annotations: false,
   fullscreen: false,

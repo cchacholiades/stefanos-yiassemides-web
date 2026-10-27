@@ -169,7 +169,6 @@ const emit = defineEmits<{
   inset: 0 !important;
   width: 100% !important;
   height: 100% !important;
-  pointer-events: none;
   z-index: 1;
 }
 
@@ -180,7 +179,6 @@ const emit = defineEmits<{
   transform: translate(-50%, -50%) !important;
   width: 100% !important;
   height: 100% !important;
-  pointer-events: none;
   z-index: 1;
 }
 
