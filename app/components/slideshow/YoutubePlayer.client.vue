@@ -62,6 +62,7 @@ onMounted(async () => {
         }
       },
       onStateChange: (event: YT.OnStateChangeEvent) => {
+        playerInstance?.unloadModule('captions')
         if (event.data === YT.PlayerState.ENDED) {
           emit('ended', props.playerIndex)
         }

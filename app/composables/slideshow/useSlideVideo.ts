@@ -103,6 +103,7 @@ export function useSlideVideo(
         } else {
           yt.playVideo()
         }
+        yt.unloadModule('captions')
         if (playbackRetryTimeout !== null) clearTimeout(playbackRetryTimeout)
         playbackRetryTimeout = setTimeout(() => {
           playbackRetryTimeout = null
