@@ -266,8 +266,6 @@ export function useSlideVideo(
     origin,
     hasVideo,
     registerYoutubePlayer,
-    stopAllVideos,
-    playCurrentVideo,
     rewindVideo,
     seek,
     playPreview,
