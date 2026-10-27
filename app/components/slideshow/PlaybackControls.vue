@@ -1,7 +1,5 @@
 <template>
-  <div
-    class="absolute max-md:fixed top-8 right-4 md:right-8 flex items-center gap-4 z-[300]"
-  >
+  <div class="flex items-center gap-4">
     <button
       type="button"
       aria-label="Close Video"

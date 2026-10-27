@@ -1,7 +1,7 @@
 <template>
   <div
     v-if="work"
-    class="works-gallery-mobile-video absolute inset-0 z-50 hidden max-md:block max-md:fixed overflow-hidden bg-black"
+    class="works-gallery-mobile-video absolute inset-0 overflow-hidden bg-black"
     @click="emit('toggle-playback')"
     @touchmove.prevent
   >
