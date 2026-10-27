@@ -11,6 +11,44 @@ export function useSlideVideo(
   let playbackRetryTimeout: ReturnType<typeof setTimeout> | null = null
   const isPlaybackPaused = ref(false)
   const isHovered = ref(true)
+  const currentTime = ref(0)
+  const duration = ref(0)
+  let pollInterval: ReturnType<typeof setInterval> | null = null
+
+  function startTimePolling() {
+    if (pollInterval) return
+    pollInterval = setInterval(() => {
+      const yt = youtubePlayers.value[currentIndex.value]
+      if (!yt) return
+      try {
+        currentTime.value = yt.getCurrentTime() ?? 0
+        const d = yt.getDuration()
+        if (d > 0) duration.value = d
+      } catch {
+        /* ignore */
+      }
+    }, 250)
+  }
+
+  function stopTimePolling() {
+    if (pollInterval !== null) {
+      clearInterval(pollInterval)
+      pollInterval = null
+    }
+    currentTime.value = 0
+    duration.value = 0
+  }
+
+  function seek(seconds: number) {
+    const yt = youtubePlayers.value[currentIndex.value]
+    if (!yt) return
+    try {
+      yt.seekTo(seconds, true)
+      currentTime.value = seconds
+    } catch {
+      /* ignore */
+    }
+  }
 
   const origin = computed(() =>
     import.meta.client ? window.location.origin : '',
@@ -141,6 +179,7 @@ export function useSlideVideo(
       isPlaybackPaused.value = false
       isHovered.value = false
       playCurrentVideo()
+      startTimePolling()
     }
   }
 
@@ -148,6 +187,7 @@ export function useSlideVideo(
     isPreviewPlaying.value = false
     isPlaybackPaused.value = false
     isHovered.value = true
+    stopTimePolling()
     stopAllVideos()
     if (activeVideoIndex.value > 0) {
       const list = works.value
@@ -195,6 +235,7 @@ export function useSlideVideo(
 
   function onNavigate() {
     stopAllVideos()
+    stopTimePolling()
     isPreviewPlaying.value = false
     isPlaybackPaused.value = false
     activeVideoIndex.value = 0
@@ -207,6 +248,7 @@ export function useSlideVideo(
   })
 
   onBeforeUnmount(() => {
+    stopTimePolling()
     document.removeEventListener('visibilitychange', handleVisibilityChange)
     window.removeEventListener('pagehide', handlePageHide)
     window.removeEventListener('pageshow', handlePageShow)
@@ -218,12 +260,15 @@ export function useSlideVideo(
     activeVideoIndex,
     isPlaybackPaused,
     isHovered,
+    currentTime,
+    duration,
     origin,
     hasVideo,
     registerYoutubePlayer,
     stopAllVideos,
     playCurrentVideo,
     rewindVideo,
+    seek,
     playPreview,
     togglePlayback,
     stopPreview,

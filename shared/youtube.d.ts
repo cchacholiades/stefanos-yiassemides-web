@@ -47,6 +47,8 @@ declare namespace YT {
     loadVideoById: (videoId: string, startSeconds?: number) => void
     cueVideoById: (videoId: string, startSeconds?: number) => void
     getPlayerState: () => number
+    getCurrentTime: () => number
+    getDuration: () => number
     mute: () => void
     unMute: () => void
     unloadModule: (module: string) => void
