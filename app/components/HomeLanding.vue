@@ -1,6 +1,6 @@
 <template>
   <section
-    class="landing relative z-10 h-[100dvh] min-h-[100dvh] shrink-0 overflow-hidden snap-start snap-always"
+    class="landing relative z-10 h-[100dvh] min-h-[100dvh] shrink-0 overflow-hidden"
     :class="{ 'landing--exiting': progress > 0 }"
     aria-label="Introduction"
   >

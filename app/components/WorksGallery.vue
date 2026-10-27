@@ -1,7 +1,7 @@
 <template>
   <div
     v-if="pending"
-    class="absolute inset-0 flex items-center justify-center bg-black"
+    class="min-h-[100dvh] flex items-center justify-center bg-black"
     aria-label="Loading works"
   >
     <span class="text-white/50 text-sm tracking-wide">Loading&hellip;</span>
@@ -9,7 +9,7 @@
 
   <div
     v-else-if="error"
-    class="absolute inset-0 flex items-center justify-center bg-black"
+    class="min-h-[100dvh] flex items-center justify-center bg-black"
     role="alert"
   >
     <span class="text-white/50 text-sm tracking-wide">
@@ -19,59 +19,14 @@
 
   <div
     v-else
-    class="absolute inset-0 bg-black max-md:relative max-md:inset-auto max-md:min-h-[100dvh]"
+    class="relative w-full bg-black"
   >
-    <!-- Desktop: grid first, slideshow after selecting a work -->
-    <div
-      class="relative hidden h-full w-full md:block"
-      @wheel="handleDesktopSlideshowWheel"
-    >
+    <!-- Desktop: grid -->
+    <div class="relative hidden w-full md:block">
       <WorksGalleryGrid
-        v-if="!isDesktopSlideshowOpen"
         :works="worksData"
         @select="openDesktopSlideshow"
       />
-
-      <template v-else>
-        <SlideshowSlide
-          v-for="(work, index) in worksData"
-          :key="work.id"
-          :work="work"
-          :slide-index="index"
-          :is-active="currentIndex === index"
-          :background-work="backgroundWork"
-          :preview-work="previewWork"
-          :is-navigating-with-arrows="isNavigatingWithArrows"
-          :is-preview-playing="isPreviewPlaying"
-          :preview-index="previewIndex"
-          :show-watch-button="hasVideo(work)"
-          :origin="origin"
-          @play-preview="(videoIndex) => playPreview(videoIndex)"
-          @toggle-playback="togglePlayback"
-          @hover="handleHover"
-          @prev="prevSlide"
-          @next="nextSlide"
-          @nav-hover="handleNavHover"
-          @youtube-ready="(player, i) => registerYoutubePlayer(i, player)"
-          @player-ended="onPlayerEnded"
-        />
-
-        <SlideshowIndicators
-          :works="worksData"
-          :current-index="currentIndex"
-          :preview-index="previewIndex"
-          :hovered-indicator-index="hoveredIndicatorIndex"
-          @indicator-click="onIndicatorClick"
-          @show-preview="showPreview"
-          @set-hovered-indicator="setHoveredIndicator"
-          @indicators-enter="handleIndicatorsEnter"
-          @indicators-leave="handleIndicatorsLeave"
-        >
-          <template #leading>
-            <SlideshowBackToGrid @click="closeDesktopSlideshow" />
-          </template>
-        </SlideshowIndicators>
-      </template>
     </div>
 
     <!-- Mobile: vertical compact cards (hidden at md+ where slideshow shows) -->
@@ -82,16 +37,62 @@
       :has-video="hasVideo"
       @play-preview="handleMobilePlayPreview"
     />
-
-    <!-- Desktop playback controls (absolute inside works section) -->
-    <SlideshowPlaybackControls
-      v-if="isPreviewPlaying && isDesktopLayout"
-      :is-paused="isPlaybackPaused"
-      @rewind="rewindVideo"
-      @toggle="togglePlayback"
-      @close="stopPreview"
-    />
   </div>
+
+  <!-- Desktop slideshow overlay: fixed full-screen, teleported to body -->
+  <Teleport to="body">
+    <div
+      v-if="isDesktopSlideshowOpen && isDesktopLayout"
+      class="fixed inset-0 z-40 hidden md:block bg-black"
+    >
+      <SlideshowSlide
+        v-for="(work, index) in worksData"
+        :key="work.id"
+        :work="work"
+        :slide-index="index"
+        :is-active="currentIndex === index"
+        :background-work="backgroundWork"
+        :preview-work="previewWork"
+        :is-navigating-with-arrows="isNavigatingWithArrows"
+        :is-preview-playing="isPreviewPlaying"
+        :preview-index="previewIndex"
+        :show-watch-button="hasVideo(work)"
+        :origin="origin"
+        @play-preview="(videoIndex) => playPreview(videoIndex)"
+        @toggle-playback="togglePlayback"
+        @hover="handleHover"
+        @prev="prevSlide"
+        @next="nextSlide"
+        @nav-hover="handleNavHover"
+        @youtube-ready="(player, i) => registerYoutubePlayer(i, player)"
+        @player-ended="onPlayerEnded"
+      />
+
+      <SlideshowIndicators
+        :works="worksData"
+        :current-index="currentIndex"
+        :preview-index="previewIndex"
+        :hovered-indicator-index="hoveredIndicatorIndex"
+        @indicator-click="onIndicatorClick"
+        @show-preview="showPreview"
+        @set-hovered-indicator="setHoveredIndicator"
+        @indicators-enter="handleIndicatorsEnter"
+        @indicators-leave="handleIndicatorsLeave"
+      >
+        <template #leading>
+          <SlideshowBackToGrid @click="closeDesktopSlideshow" />
+        </template>
+      </SlideshowIndicators>
+
+      <SlideshowPlaybackControls
+        v-if="isPreviewPlaying"
+        :is-paused="isPlaybackPaused"
+        @rewind="rewindVideo"
+        @toggle="togglePlayback"
+        @close="stopPreview"
+      />
+    </div>
+  </Teleport>
 
   <!-- Mobile overlay teleported to <body> so position:fixed works correctly
        regardless of any overflow:auto ancestor (iOS Safari containing-block bug) -->
@@ -256,16 +257,6 @@ watch(
   { immediate: true },
 )
 
-function handleDesktopSlideshowWheel(event: WheelEvent) {
-  if (!isDesktopSlideshowOpen.value) return
-
-  const root = homeScrollRoot.value
-  if (!root || event.deltaY >= 0) return
-
-  event.preventDefault()
-  root.scrollBy({ top: event.deltaY, behavior: 'auto' })
-}
-
 function syncDesktopViewWithHomeScroll() {
   const root = homeScrollRoot.value
   if (!root) return
@@ -344,4 +335,6 @@ function handleMobilePlayPreview(workIndex: number, videoIndex: number) {
   }
   playPreview(videoIndex)
 }
+
+defineExpose({ closeDesktopSlideshow })
 </script>

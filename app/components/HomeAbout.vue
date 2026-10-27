@@ -1,6 +1,6 @@
 <template>
   <section
-    class="about relative bg-black px-6 py-20 pt-28 md:px-12 md:pt-32 lg:px-16 shrink-0 snap-start snap-always flex items-center min-h-[100dvh]"
+    class="about relative bg-black px-6 py-20 pt-28 md:px-12 md:pt-32 lg:px-16 shrink-0 flex items-center min-h-[100dvh]"
     aria-label="About"
   >
     <div class="about__inner mx-auto w-full max-w-3xl">

@@ -7,6 +7,7 @@ useHead({
 
 const scrollRoot = ref<HTMLElement | null>(null)
 const worksSection = ref<HTMLElement | null>(null)
+const worksGallery = ref<{ closeDesktopSlideshow: () => void } | null>(null)
 const isPreviewPlaying = ref(false)
 
 const { exitProgress, worksEnterProgress } = useLandingExitProgress(scrollRoot)
@@ -20,7 +21,8 @@ function scrollToWorks() {
 }
 
 function scrollToLanding() {
-  scrollRoot.value?.scrollTo({ top: 0, behavior: 'smooth' })
+  worksGallery.value?.closeDesktopSlideshow()
+  nextTick(() => scrollRoot.value?.scrollTo({ top: 0, behavior: 'smooth' }))
 }
 
 const canScrollToLanding = computed(() => exitProgress.value > 0.02)
@@ -41,7 +43,8 @@ const worksSectionStyle = computed(() => ({
 <template>
   <div
     ref="scrollRoot"
-    class="home h-[100dvh] overflow-y-auto overflow-x-hidden snap-y snap-mandatory max-md:snap-none scroll-smooth bg-black"
+    class="home h-[100dvh] overflow-x-hidden scroll-smooth bg-black"
+    :class="worksGalleryDesktopView === 'slideshow' ? 'overflow-y-hidden' : 'overflow-y-auto'"
   >
     <Navigation
       :is-preview-playing="isPreviewPlaying"
@@ -59,11 +62,12 @@ const worksSectionStyle = computed(() => ({
     <section
       id="works"
       ref="worksSection"
-      class="home__works relative min-h-[100dvh] h-[100dvh] max-md:h-auto shrink-0 snap-start snap-always"
+      class="home__works relative min-h-[100dvh] shrink-0"
       aria-label="Works gallery"
       :style="worksSectionStyle"
     >
       <WorksGallery
+        ref="worksGallery"
         @preview-playing="isPreviewPlaying = $event"
         @desktop-view-change="worksGalleryDesktopView = $event"
       />

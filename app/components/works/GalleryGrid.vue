@@ -1,5 +1,5 @@
 <template>
-  <div ref="gridEl" class="works-gallery-grid" @wheel="handleGridWheel">
+  <div class="works-gallery-grid">
     <ul class="works-gallery-grid__list" aria-label="Works">
       <li
         v-for="(work, index) in works"
@@ -46,33 +46,16 @@ const emit = defineEmits<{
   select: [index: number]
 }>()
 
-const gridEl = ref<HTMLElement | null>(null)
-const homeScrollRoot = useHomeScrollRoot()
-
-function handleGridWheel(event: WheelEvent) {
-  const grid = gridEl.value
-  const root = homeScrollRoot.value
-  if (!grid || !root || event.deltaY >= 0) return
-
-  const atTop = grid.scrollTop <= 0
-  if (!atTop) return
-
-  event.preventDefault()
-  root.scrollBy({ top: event.deltaY, behavior: 'auto' })
-}
 </script>
 
 <style scoped>
 .works-gallery-grid {
-  height: 100%;
-  overflow-y: auto;
-  overflow-x: hidden;
-  overscroll-behavior-y: auto;
+  width: 100%;
 }
 
 .works-gallery-grid__list {
   margin: 0;
-  padding: 5.5rem 1rem 1.25rem;
+  padding: 1rem 1rem 1.25rem;
   list-style: none;
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
