@@ -44,7 +44,11 @@ const worksSectionStyle = computed(() => ({
   <div
     ref="scrollRoot"
     class="home h-[100dvh] overflow-x-hidden scroll-smooth bg-black"
-    :class="worksGalleryDesktopView === 'slideshow' ? 'overflow-y-hidden' : 'overflow-y-auto'"
+    :class="
+      worksGalleryDesktopView === 'slideshow'
+        ? 'overflow-y-hidden'
+        : 'overflow-y-auto'
+    "
   >
     <Navigation
       :is-preview-playing="isPreviewPlaying"

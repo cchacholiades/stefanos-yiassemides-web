@@ -17,16 +17,10 @@
     </span>
   </div>
 
-  <div
-    v-else
-    class="relative w-full bg-black"
-  >
+  <div v-else class="relative w-full bg-black">
     <!-- Desktop: grid -->
     <div class="relative hidden w-full md:block">
-      <WorksGalleryGrid
-        :works="worksData"
-        @select="openDesktopSlideshow"
-      />
+      <WorksGalleryGrid :works="worksData" @select="openDesktopSlideshow" />
     </div>
 
     <!-- Mobile: vertical compact cards (hidden at md+ where slideshow shows) -->

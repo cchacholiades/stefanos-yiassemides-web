@@ -45,7 +45,6 @@ defineProps<{
 const emit = defineEmits<{
   select: [index: number]
 }>()
-
 </script>
 
 <style scoped>
