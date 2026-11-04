@@ -5,7 +5,7 @@
     <button
       type="button"
       aria-label="Close Video"
-      class="glass-control"
+      class="close-btn"
       title="Close Video"
       @click="emit('close')"
     >
@@ -22,29 +22,24 @@ const emit = defineEmits<{
 </script>
 
 <style scoped>
-.glass-control {
+.close-btn {
   display: inline-flex;
   align-items: center;
   gap: 0.75rem;
   padding: 0.75rem 1rem;
   border: none;
   border-radius: 9999px;
-  background: rgba(255, 255, 255, 0.15);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  box-shadow:
-    0 4px 6px -1px rgba(0, 0, 0, 0.2),
-    inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  background: #0d1011;
   color: #fff;
   font-weight: 500;
   transition: background 0.15s ease;
 }
 
-.glass-control:hover {
-  background: rgba(255, 255, 255, 0.25);
+.close-btn:hover {
+  background: #333333;
 }
 
-.glass-control:active {
-  background: rgba(255, 255, 255, 0.3);
+.close-btn:active {
+  background: #444444;
 }
 </style>
