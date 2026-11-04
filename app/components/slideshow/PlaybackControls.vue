@@ -1,6 +1,6 @@
 <template>
   <div
-    class="absolute max-md:fixed bottom-24 landscape:bottom-8 left-1/2 -translate-x-1/2 flex items-center gap-4 z-[300]"
+    class="absolute max-md:fixed bottom-24 max-md:landscape:bottom-8 left-1/2 -translate-x-1/2 flex items-center gap-4 z-[300]"
   >
     <button
       type="button"
