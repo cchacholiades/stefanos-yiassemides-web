@@ -1,6 +1,6 @@
 <template>
   <div
-    class="absolute max-md:fixed top-8 right-4 md:right-8 flex items-center gap-4 z-[300]"
+    class="absolute max-md:fixed bottom-24 left-1/2 -translate-x-1/2 flex items-center gap-4 z-[300]"
   >
     <button
       type="button"
@@ -29,22 +29,22 @@ const emit = defineEmits<{
   padding: 0.75rem 1rem;
   border: none;
   border-radius: 9999px;
-  background: rgba(0, 0, 0, 0.2);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   box-shadow:
-    0 4px 6px -1px rgba(0, 0, 0, 0.1),
-    0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    0 4px 6px -1px rgba(0, 0, 0, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15);
   color: #fff;
   font-weight: 500;
   transition: background 0.15s ease;
 }
 
 .glass-control:hover {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.25);
 }
 
 .glass-control:active {
-  background: rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.3);
 }
 </style>
