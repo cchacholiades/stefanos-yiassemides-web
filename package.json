@@ -34,7 +34,7 @@
     "eslint": "^10.14.0",
     "gh-pages": "^6.3.0",
     "husky": "^9.1.7",
-    "nuxt": "^4.6.2",
+    "nuxt": "^4.6.3",
     "prettier": "^3.9.10",
     "tailwind-scrollbar-hide": "^4.0.0",
     "tailwindcss": "^4.3.3",
