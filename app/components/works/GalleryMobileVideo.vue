@@ -3,7 +3,6 @@
     v-if="work"
     class="works-gallery-mobile-video absolute inset-0 z-50 hidden max-md:block max-md:fixed overflow-hidden bg-black"
     @click="emit('toggle-playback')"
-    @touchmove.prevent
   >
     <img
       v-if="work"
@@ -52,6 +51,7 @@ const emit = defineEmits<{
 <style scoped>
 .works-gallery-mobile-video {
   cursor: default;
+  touch-action: none;
 }
 
 .works-gallery-mobile-video__bg {
@@ -79,7 +79,6 @@ const emit = defineEmits<{
   width: 100% !important;
   height: auto !important;
   aspect-ratio: 16 / 9 !important;
-  pointer-events: none;
   z-index: 1;
 }
 
@@ -92,7 +91,6 @@ const emit = defineEmits<{
   transform: none !important;
   width: 100% !important;
   height: 100% !important;
-  pointer-events: none;
   z-index: 1;
 }
 </style>
